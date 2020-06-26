@@ -1,0 +1,34 @@
+{
+  "name": "chatblocks",
+  "version": "1.0.0",
+  "description": "Build a Twitch Chatbot Using Blocks!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/instafluff/ChatBlocks.git"
+  },
+  "keywords": [
+    "Instafluff",
+    "Build",
+    "Twitch",
+    "Chatbot",
+    "Blocks",
+    "Blockly",
+    "Graphical",
+    "UI",
+    "Coding",
+    "Scratch"
+  ],
+  "author": "Instafluff",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/instafluff/ChatBlocks/issues"
+  },
+  "homepage": "https://github.com/instafluff/ChatBlocks#readme",
+  "dependencies": {
+    "webwebweb": "^1.4.0"
+  }
+}
