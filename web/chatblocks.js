@@ -2,9 +2,11 @@ var workspace = Blockly.inject( 'blocklyDiv', {
 	toolbox: document.getElementById( 'toolbox' )
 } );
 
+let theCode = "";
+
 function myUpdateFunction( event ) {
 	var code = Blockly.JavaScript.workspaceToCode( workspace );
-	var wrappedCode =
+	theCode =
 `<html>
 	<head>
 		<script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
@@ -24,15 +26,91 @@ function myUpdateFunction( event ) {
 				x( user, message, flags, self, extra );
 			});
 		};
-		ComfyJS.Init( "instafluff" );
+		ComfyJS.Init( "instafluff", "oauth:" );
 		</script>
 	</body>
 </html>`;
 
-	document.getElementById( 'textarea' ).value = wrappedCode;
+	let xml = Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace() );
+	window.localStorage.setItem( 'ChatBlocks', new XMLSerializer().serializeToString( xml ) );
+}
+
+window.onload = function() {
+	let xmlText = window.localStorage.getItem( 'ChatBlocks' );
+	if( xmlText ) {
+		let xml = Blockly.Xml.textToDom( xmlText );
+		let workspace = Blockly.getMainWorkspace();
+		workspace.clear();
+		Blockly.Xml.domToWorkspace( xml, workspace );
+	}
 }
 
 workspace.addChangeListener( myUpdateFunction );
+
+let isCodeRunning = false;
+document.getElementById( "run-code" ).addEventListener( "click", ( ev ) => {
+	if( isCodeRunning ) {
+		// Turn off the code
+		document.getElementById( "workspace" ).classList.remove( "blocks-blocker" );
+		document.getElementById( "run-code" ).classList.add( "btn-success" );
+		document.getElementById( "run-code" ).classList.remove( "btn-danger" );
+		document.getElementById( "run-code" ).innerText = "▷ Run Code";
+		let sandbox = document.getElementById( "run-sandbox" );
+		sandbox.innerHTML = "";
+	}
+	else {
+		// Turn on the code
+		document.getElementById( "workspace" ).classList.add( "blocks-blocker" );
+		document.getElementById( "run-code" ).classList.add( "btn-danger" );
+		document.getElementById( "run-code" ).classList.remove( "btn-success" );
+
+		document.getElementById( "run-code" ).innerText = "■ Stop Code";
+		let sandbox = document.getElementById( "run-sandbox" );
+		sandbox.innerHTML = "";
+		let iframe = document.createElement( "iframe" );
+		sandbox.appendChild( iframe );
+		let idoc = iframe.contentWindow.document;
+		idoc.open();
+		idoc.write( theCode );
+		idoc.close();
+	}
+	isCodeRunning = !isCodeRunning;
+} );
+
+document.getElementById( "save-code" ).addEventListener( "click", ( ev ) => {
+	let xml = Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace() );
+	// TODO: default to username.blocks
+	var xmlText = new XMLSerializer().serializeToString( xml );
+	download( "chatbot.cbs", xmlText );
+} );
+
+document.getElementById( "load-code" ).addEventListener( "click", ( ev ) => {
+	document.getElementById( "blocks-file-input" ).click();
+} );
+
+document.getElementById( "blocks-file-input" ).addEventListener( "change", async function () {
+	const fileList = this.files;
+	if( fileList.length > 0 ) {
+		let xmlText = await fileList[ 0 ].text();
+		let xml = Blockly.Xml.textToDom( xmlText );
+		let workspace = Blockly.getMainWorkspace();
+		workspace.clear();
+		Blockly.Xml.domToWorkspace( xml, workspace );
+	}
+}, false );
+
+function download( filename, text ) {
+	var element = document.createElement('a');
+	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+	element.setAttribute('download', filename);
+
+	element.style.display = 'none';
+	document.body.appendChild(element);
+
+	element.click();
+
+	document.body.removeChild(element);
+}
 
 Blockly.Blocks['twitch_say'] = {
 	init: function() {
@@ -145,7 +223,7 @@ Blockly.Blocks['twitch_message'] = {
     }
 };
 
-Blockly.JavaScript['twitch_message'] = function(block) {
+Blockly.JavaScript[ 'twitch_message' ] = function( block ) {
   var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
   var code = `message`;

@@ -13,15 +13,29 @@
 	<script src="web/blocks_compressed.js"></script>
 	<script src="web/javascript_compressed.js"></script>
 	<script src="web/msg/js/en.js"></script>
+	<style>
+	.blocks-container {
+		position: relative;
+	}
+	.blocks-blocker{
+		position:absolute;
+		left:0;
+		top:0;
+		width:100%;
+		height:100%;
+		display:block;
+		z-index: 1000;
+		background-color: rgba(64, 64, 64, 0.75);
+	}
+	</style>
   </head>
-  <body>
+  <body class="container">
     <h1>ChatBlocks</h1>
-	<div width="100%">
-		<textarea id="textarea" style="width:500px;"></textarea>
-	</div>
-	<div>
+	<div class="pb-2"><button id="run-code" class="btn btn-success float-right" style="width: 10rem;">▷ Run Code</button> <button id="save-code" class="btn btn-primary">Save Blocks</button> <button id="load-code" class="btn btn-warning">Load Blocks</button></div>
+	<input type="file" id="blocks-file-input" accept=".cbs" hidden>
+	<div class="blocks-container">
+		<div id="workspace"></div>
 		<div id="blocklyDiv" style="height: 480px; width: 100%;"></div>
-
 		<xml id="toolbox" style="display: none">
 			<category name="TWITCH" colour="6441a5">
 				<block type="twitch_oncommand"></block>
@@ -350,5 +364,6 @@
 	<script>
 	  console.log( Blockly.Blocks );
 	</script>
+	<div id="run-sandbox" hidden></div>
   </body>
 </html>
