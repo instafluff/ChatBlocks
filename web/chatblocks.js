@@ -126,6 +126,7 @@ function codeUpdateHandler( event ) {
 	</head>
 	<body>
 		<script type="text/javascript">
+		let user = undefined, command = undefined, flags = {}, extra = {};
 		let onCommandHandlers = {};
 		let onChatHandlers = [];
 		${code}
@@ -168,6 +169,9 @@ document.getElementById( "run-code" ).addEventListener( "click", ( ev ) => {
 		document.getElementById( "workspace" ).classList.remove( "blocks-blocker" );
 		document.getElementById( "run-code" ).classList.add( "btn-success" );
 		document.getElementById( "run-code" ).classList.remove( "btn-danger" );
+		document.getElementById( "save-code" ).removeAttribute( "disabled" );
+		document.getElementById( "load-code" ).removeAttribute( "disabled" );
+		document.getElementById( "channel-name" ).removeAttribute( "disabled" );
 		document.getElementById( "run-code" ).innerHTML = `<i class="fa fa-play"></i> Run Code`;
 		let sandbox = document.getElementById( "run-sandbox" );
 		sandbox.innerHTML = "";
@@ -178,6 +182,9 @@ document.getElementById( "run-code" ).addEventListener( "click", ( ev ) => {
 		document.getElementById( "workspace" ).classList.add( "blocks-blocker" );
 		document.getElementById( "run-code" ).classList.add( "btn-danger" );
 		document.getElementById( "run-code" ).classList.remove( "btn-success" );
+		document.getElementById( "save-code" ).setAttribute( "disabled", true );
+		document.getElementById( "load-code" ).setAttribute( "disabled", true );
+		document.getElementById( "channel-name" ).setAttribute( "disabled", true );
 
 		document.getElementById( "run-code" ).innerHTML = `<i class="fa fa-stop"></i> Stop Code`;
 		let sandbox = document.getElementById( "run-sandbox" );
@@ -231,7 +238,7 @@ Blockly.Blocks["twitch_say"] = {
 	init: function() {
 		this.jsonInit({
 		"type": "twitch_say",
-		"message0": "Say %1",
+		"message0": "say %1",
 		"args0": [
 		  {
 			"type": "input_value",
@@ -258,12 +265,50 @@ Blockly.JavaScript["twitch_say"] = function(block) {
 	return code;
 };
 
+Blockly.Blocks["twitch_whisper"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "twitch_whisper",
+		"message0": "whisper @ %1 say %2",
+		"args0": [
+		  {
+			"type": "input_value",
+			"name": "NAME",
+			"check": "String",
+			"align": "RIGHT"
+		  },
+		  {
+			"type": "input_value",
+			"name": "VALUE",
+			"check": "String",
+			"align": "RIGHT"
+		  }
+		],
+		"previousStatement": null,
+		"nextStatement": null,
+		"colour": 260,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setColour(260);
+	  this.setTooltip("");
+	  this.setHelpUrl("Test!");
+	}
+};
+
+Blockly.JavaScript["twitch_whisper"] = function(block) {
+	var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
+	var value_value = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC);
+	var code = `ComfyJS.Whisper( ${value_value}, ${value_name} );`;
+	return code;
+};
+
 
 Blockly.Blocks["twitch_oncommand"] = {
 	init: function() {
 	  this.jsonInit({
 		"type": "twitch_oncommand",
-		"message0": "onCommand %1 %2",
+		"message0": "on command %1 %2",
 		"args0": [
 		  {
 			"type": "input_value",
@@ -297,7 +342,7 @@ Blockly.Blocks["twitch_onchat"] = {
 	init: function() {
 	  this.jsonInit({
 		"type": "twitch_onchat",
-		"message0": "onChat %1",
+		"message0": "on chat %1",
 		"args0": [
 		  {
 			"type": "input_statement",
@@ -325,7 +370,7 @@ Blockly.Blocks["twitch_message"] = {
     init: function() {
   	this.jsonInit({
   	  "type": "",
-  	  "message0": "Message",
+  	  "message0": "chat message",
   	  "args0": [],
   	  "output": null,
   	  "colour": 260,
@@ -350,7 +395,7 @@ Blockly.Blocks["twitch_user"] = {
     init: function() {
   	this.jsonInit({
   	  "type": "",
-  	  "message0": "User",
+  	  "message0": "username",
   	  "args0": [],
   	  "output": null,
   	  "colour": 260,
@@ -367,6 +412,206 @@ Blockly.JavaScript["twitch_user"] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
   var code = `user`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_reward_id"] = {
+    init: function() {
+  	this.jsonInit({
+  	  "type": "",
+  	  "message0": "reward ID",
+  	  "args0": [],
+  	  "output": null,
+  	  "colour": 260,
+  	  "tooltip": "",
+  	  "helpUrl": ""
+  	});
+  	this.setColour(260);
+  	this.setTooltip("");
+  	this.setHelpUrl("Test!");
+    }
+};
+
+Blockly.JavaScript["twitch_reward_id"] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = `( extra.customRewardId )`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_is_broadcaster"] = {
+    init: function() {
+  	this.jsonInit({
+  	  "type": "",
+  	  "message0": "user is the broadcaster",
+  	  "args0": [],
+  	  "output": "Boolean",
+  	  "colour": 260,
+  	  "tooltip": "",
+  	  "helpUrl": ""
+  	});
+  	this.setColour(260);
+  	this.setTooltip("");
+  	this.setHelpUrl("Test!");
+    }
+};
+
+Blockly.JavaScript["twitch_is_broadcaster"] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = `( flags.broadcaster )`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_is_mod"] = {
+    init: function() {
+  	this.jsonInit({
+  	  "type": "",
+  	  "message0": "user is a moderator",
+  	  "args0": [],
+  	  "output": "Boolean",
+  	  "colour": 260,
+  	  "tooltip": "",
+  	  "helpUrl": ""
+  	});
+  	this.setColour(260);
+  	this.setTooltip("");
+  	this.setHelpUrl("Test!");
+    }
+};
+
+Blockly.JavaScript["twitch_is_mod"] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = `( flags.mod )`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_is_vip"] = {
+    init: function() {
+  	this.jsonInit({
+  	  "type": "",
+  	  "message0": "user is a VIP",
+  	  "args0": [],
+  	  "output": "Boolean",
+  	  "colour": 260,
+  	  "tooltip": "",
+  	  "helpUrl": ""
+  	});
+  	this.setColour(260);
+  	this.setTooltip("");
+  	this.setHelpUrl("Test!");
+    }
+};
+
+Blockly.JavaScript["twitch_is_vip"] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = `( flags.vip )`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_is_subscriber"] = {
+    init: function() {
+  	this.jsonInit({
+  	  "type": "",
+  	  "message0": "user is a subscriber",
+  	  "args0": [],
+  	  "output": "Boolean",
+  	  "colour": 260,
+  	  "tooltip": "",
+  	  "helpUrl": ""
+  	});
+  	this.setColour(260);
+  	this.setTooltip("");
+  	this.setHelpUrl("Test!");
+    }
+};
+
+Blockly.JavaScript["twitch_is_subscriber"] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = `( flags.subscriber )`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_is_founder"] = {
+    init: function() {
+  	this.jsonInit({
+  	  "type": "",
+  	  "message0": "user is a founder",
+  	  "args0": [],
+  	  "output": "Boolean",
+  	  "colour": 260,
+  	  "tooltip": "",
+  	  "helpUrl": ""
+  	});
+  	this.setColour(260);
+  	this.setTooltip("");
+  	this.setHelpUrl("Test!");
+    }
+};
+
+Blockly.JavaScript["twitch_is_founder"] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = `( flags.founder )`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_is_highlighted"] = {
+    init: function() {
+  	this.jsonInit({
+  	  "type": "",
+  	  "message0": "message is highlighted",
+  	  "args0": [],
+  	  "output": "Boolean",
+  	  "colour": 260,
+  	  "tooltip": "",
+  	  "helpUrl": ""
+  	});
+  	this.setColour(260);
+  	this.setTooltip("");
+  	this.setHelpUrl("Test!");
+    }
+};
+
+Blockly.JavaScript["twitch_is_highlighted"] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = `( flags.highlighted )`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_is_reward"] = {
+    init: function() {
+  	this.jsonInit({
+  	  "type": "",
+  	  "message0": "message is a channel point reward",
+  	  "args0": [],
+  	  "output": "Boolean",
+  	  "colour": 260,
+  	  "tooltip": "",
+  	  "helpUrl": ""
+  	});
+  	this.setColour(260);
+  	this.setTooltip("");
+  	this.setHelpUrl("Test!");
+    }
+};
+
+Blockly.JavaScript["twitch_is_reward"] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = `( flags.customReward )`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
