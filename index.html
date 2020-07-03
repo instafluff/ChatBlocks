@@ -25,6 +25,28 @@
         color: #ffffff;
         background-color: #333;
     }
+    .btn-purple {
+        background-color: #6441a5;
+        border-color: #6441a5;
+        color: #fff;
+    }
+    .btn-primary {
+        background-color: #4C97FF;
+        border-color: #4C97FF;
+    }
+    .btn-warning {
+        background-color: #ffa600;
+        border-color: #ffa600;
+    }
+    a, a:hover {
+        color: #ffa600;
+    }
+    :root {
+        --blue: #4C97FF;
+        --primary: #4C97FF;
+        --yellow: #ffa600;
+        --warning: #ffa600;
+    }
     .blocklyTreeLabel {
         font-family: "Fredoka One", "sans-serif";
     }
@@ -39,15 +61,26 @@
 		height:100%;
 		display:block;
 		z-index: 1000;
-		background-color: rgba(64, 64, 64, 0.75);
+		background-color: rgba(255, 255, 255, 0.75);
 	}
+    #login-group {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+        z-index: 1002;
+    }
 	</style>
   </head>
   <body class="container">
+    <div id="profile-group" class="py-2 float-right" hidden><span><span id="username"></span> <img id="profile-image" class="rounded" src="" alt="Profile Image" height="38" width="38"></span> <button id="logout" class="btn btn-purple">Log Out</button></div>
     <h1>ChatBlocks by <a href="https://www.instafluff.tv" target="_blank">Instafluff</a></h1>
 	<div class="pb-2"><button id="run-code" class="btn btn-success float-right" style="width: 10rem;">▷ Run Code</button> <button id="save-code" class="btn btn-primary">Save Blocks</button> <button id="load-code" class="btn btn-warning">Load Blocks</button></div>
 	<input type="file" id="blocks-file-input" accept=".cbs" hidden>
 	<div class="blocks-container">
+        <div id="login-group" hidden><button id="login" class="btn btn-purple center">Log In with Twitch</button></div>
 		<div id="workspace"></div>
 		<div id="blocklyDiv" style="height: 480px; width: 100%;"></div>
 		<xml id="toolbox" style="display: none">
@@ -367,6 +400,7 @@
 		    <category name="VARIABLES" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
 		    <category name="FUNCTIONS" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
 		</xml>
+        <a href="https://developers.google.com/blockly" target="_blank"><img class="float-right" src="https://developers.google.com/blockly/images/logos/logo_built_on_knockout.png" height="28px" /></a>
 	</div>
 
     <!-- Optional JavaScript -->
@@ -375,6 +409,40 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	<script src="web/chatblocks.js"></script>
+    <script>
+        const clientId = "xrxinjwucvs83rf1b6lxq758yslj3c";
+        const baseUrl = window.location.origin;
+
+        ComfyTwitch.Check()
+        .then( async result => {
+            if( result ) {
+                // Logged In
+                console.log( result );
+                // Get Info
+                let user = await ComfyTwitch.GetUser( clientId, result.user_id );
+                console.log( user );
+                document.getElementById( "username" ).innerText = user.display_name;
+                document.getElementById( "profile-image" ).src = user.profile_image_url;
+                document.querySelector( "#login-group" ).setAttribute( "hidden", true );
+                document.querySelector( "#profile-group" ).removeAttribute( "hidden" );
+                document.querySelector( "#logout" ).addEventListener( "click", function() {
+                    ComfyTwitch.Logout();
+                    window.location.reload();
+                });
+            }
+            else {
+                // Logged Out
+                document.querySelector( "#profile-group" ).setAttribute( "hidden", true );
+                document.querySelector( "#login-group" ).removeAttribute( "hidden" );
+        		document.getElementById( "workspace" ).classList.add( "blocks-blocker" );
+        		document.getElementById( "run-code" ).classList.add( "btn-secondary" );
+        		document.getElementById( "run-code" ).setAttribute( "disabled", true );
+                document.querySelector( "#login" ).addEventListener( "click", function() {
+                    ComfyTwitch.Login( clientId, baseUrl, [ "user:read:email", "chat:read", "chat:edit", "channel:moderate", "whispers:read", "whispers:edit" ] );
+                });
+            }
+        });
+    </script>
 	<div id="run-sandbox" hidden></div>
   </body>
 </html>

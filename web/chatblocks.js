@@ -1,51 +1,3 @@
-var workspace = Blockly.inject( "blocklyDiv", {
-	toolbox: document.getElementById( "toolbox" )
-} );
-
-let theCode = "";
-
-function myUpdateFunction( event ) {
-	var code = Blockly.JavaScript.workspaceToCode( workspace );
-	theCode =
-`<html>
-	<head>
-		<script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
-	</head>
-	<body>
-		<script type="text/javascript">
-		let onCommandHandlers = {};
-		let onChatHandlers = [];
-		${code}
-		ComfyJS.onCommand = ( user, command, message, flags, extra ) => {
-			if( onCommandHandlers[ command ] ) {
-				onCommandHandlers[ command ]( user, message, flags, extra );
-			}
-		};
-		ComfyJS.onChat = ( user, message, flags, self, extra ) => {
-			onChatHandlers.forEach( x => {
-				x( user, message, flags, self, extra );
-			});
-		};
-		ComfyJS.Init( "instafluff", "oauth:" );
-		</script>
-	</body>
-</html>`;
-
-	let xml = Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace() );
-	window.localStorage.setItem( "ChatBlocks", Blockly.Xml.domToText( xml ) );
-}
-
-window.onload = function() {
-	workspace.addChangeListener( myUpdateFunction );
-	let xmlText = window.localStorage.getItem( "ChatBlocks" );
-	if( xmlText ) {
-		let xml = Blockly.Xml.textToDom( xmlText );
-		let workspace = Blockly.getMainWorkspace();
-		workspace.clear();
-		Blockly.Xml.domToWorkspace( xml, workspace );
-	}
-}
-
 let theme = Blockly.Theme.defineTheme( "ChatBlocks", {
 	// "base": oldTheme,
 	"blockStyles": {
@@ -80,7 +32,7 @@ let theme = Blockly.Theme.defineTheme( "ChatBlocks", {
 			"colourTertiary": "#FF3355"
 		},
 		"text_blocks": {
-			"colourPrimary": "#FFBF00",
+			"colourPrimary": "#ffa600",
 			"colourSecondary": "#E6AC00",
 			"colourTertiary": "#CC9900"
 		},
@@ -121,7 +73,7 @@ let theme = Blockly.Theme.defineTheme( "ChatBlocks", {
 			"colour": "#FF6680"
 		},
 		"text_category": {
-			"colour": "#FFBF00"
+			"colour": "#ffa600"
 		},
 		"variable_category": {
 			"colour": "#FF8C1A"
@@ -149,7 +101,63 @@ let theme = Blockly.Theme.defineTheme( "ChatBlocks", {
 		"size": 14
 	},
 });
-workspace.setTheme( theme );
+
+var workspace = Blockly.inject( "blocklyDiv", {
+	toolbox: document.getElementById( "toolbox" ),
+	toolboxPosition: "end",
+	grid: {
+		spacing: 20,
+		length: 3,
+		colour: '#333',
+		snap: true
+	},
+	theme: theme,
+	oneBasedIndex: false,
+} );
+
+let theCode = "";
+
+function myUpdateFunction( event ) {
+	var code = Blockly.JavaScript.workspaceToCode( workspace );
+	theCode =
+`<html>
+	<head>
+		<script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">
+		let onCommandHandlers = {};
+		let onChatHandlers = [];
+		${code}
+		ComfyJS.onCommand = ( user, command, message, flags, extra ) => {
+			if( onCommandHandlers[ command ] ) {
+				onCommandHandlers[ command ]( user, message, flags, extra );
+			}
+		};
+		ComfyJS.onChat = ( user, message, flags, self, extra ) => {
+			onChatHandlers.forEach( x => {
+				x( user, message, flags, self, extra );
+			});
+		};
+		ComfyJS.Init( "${ComfyTwitch.User}", "oauth:${ComfyTwitch.Token}" );
+		</script>
+	</body>
+</html>`;
+
+	let xml = Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace() );
+	window.localStorage.setItem( "ChatBlocks", Blockly.Xml.domToText( xml ) );
+}
+
+window.onload = function() {
+	workspace.addChangeListener( myUpdateFunction );
+	let xmlText = window.localStorage.getItem( "ChatBlocks" );
+	if( xmlText ) {
+		let xml = Blockly.Xml.textToDom( xmlText );
+		let workspace = Blockly.getMainWorkspace();
+		workspace.clear();
+		Blockly.Xml.domToWorkspace( xml, workspace );
+	}
+}
 
 let isCodeRunning = false;
 document.getElementById( "run-code" ).addEventListener( "click", ( ev ) => {
