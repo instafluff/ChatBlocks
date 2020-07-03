@@ -157,8 +157,8 @@ window.onload = function() {
 	let xml = Blockly.Xml.textToDom( xmlText );
 	let workspace = Blockly.getMainWorkspace();
 	workspace.clear();
-	Blockly.Xml.domToWorkspace( xml, workspace );
 	workspace.addChangeListener( myUpdateFunction );
+	Blockly.Xml.domToWorkspace( xml, workspace );
 }
 
 let isCodeRunning = false;
