@@ -139,7 +139,7 @@ function myUpdateFunction( event ) {
 				x( user, message, flags, self, extra );
 			});
 		};
-		ComfyJS.Init( "${ComfyTwitch.User}", "oauth:${ComfyTwitch.Token}" );
+		ComfyJS.Init( "${window.localStorage.getItem( "channel" ) || ComfyTwitch.User}", "oauth:${ComfyTwitch.Token}" );
 		</script>
 	</body>
 </html>`;
@@ -168,7 +168,7 @@ document.getElementById( "run-code" ).addEventListener( "click", ( ev ) => {
 		document.getElementById( "workspace" ).classList.remove( "blocks-blocker" );
 		document.getElementById( "run-code" ).classList.add( "btn-success" );
 		document.getElementById( "run-code" ).classList.remove( "btn-danger" );
-		document.getElementById( "run-code" ).innerText = "▷ Run Code";
+		document.getElementById( "run-code" ).innerHTML = `<i class="fa fa-play"></i> Run Code`;
 		let sandbox = document.getElementById( "run-sandbox" );
 		sandbox.innerHTML = "";
 	}
@@ -178,7 +178,7 @@ document.getElementById( "run-code" ).addEventListener( "click", ( ev ) => {
 		document.getElementById( "run-code" ).classList.add( "btn-danger" );
 		document.getElementById( "run-code" ).classList.remove( "btn-success" );
 
-		document.getElementById( "run-code" ).innerText = "■ Stop Code";
+		document.getElementById( "run-code" ).innerHTML = `<i class="fa fa-stop"></i> Stop Code`;
 		let sandbox = document.getElementById( "run-sandbox" );
 		sandbox.innerHTML = "";
 		let iframe = document.createElement( "iframe" );
