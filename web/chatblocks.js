@@ -149,14 +149,16 @@ function myUpdateFunction( event ) {
 }
 
 window.onload = function() {
-	workspace.addChangeListener( myUpdateFunction );
 	let xmlText = window.localStorage.getItem( "ChatBlocks" );
-	if( xmlText ) {
-		let xml = Blockly.Xml.textToDom( xmlText );
-		let workspace = Blockly.getMainWorkspace();
-		workspace.clear();
-		Blockly.Xml.domToWorkspace( xml, workspace );
+	if( !xmlText ) {
+		// Set to starter code
+		xmlText = `<xml xmlns="https://developers.google.com/blockly/xml"><block type="twitch_oncommand" id="}{*.Pt_K%W@.z2Oz9Pw[" x="50" y="30"><comment pinned="true" h="76" w="213">This is a chat command for !hello</comment><value name="NAME"><block type="text" id="I+^@dk%fot6s%bd:)PVA"><field name="TEXT">hello</field></block></value><statement name="INPUT"><block type="twitch_say" id=":{zmL!*DFr#)qu_%gMsE"><value name="VALUE"><block type="text_join" id=";=EGIB*_hm2s[bxj12?T"><mutation items="3"></mutation><value name="ADD0"><block type="text" id="dxe~r=H6rrDpmdQrXOy0"><field name="TEXT">Hi </field></block></value><value name="ADD1"><block type="twitch_user" id="#N5|Z.elI91R]}x4x(YX"></block></value><value name="ADD2"><block type="text" id="Yh@F\`.#mC!ee,(nlq#rt"><field name="TEXT">!</field></block></value></block></value></block></statement></block></xml>`;
 	}
+	let xml = Blockly.Xml.textToDom( xmlText );
+	let workspace = Blockly.getMainWorkspace();
+	workspace.clear();
+	Blockly.Xml.domToWorkspace( xml, workspace );
+	workspace.addChangeListener( myUpdateFunction );
 }
 
 let isCodeRunning = false;

@@ -417,10 +417,7 @@
         .then( async result => {
             if( result ) {
                 // Logged In
-                console.log( result );
-                // Get Info
                 let user = await ComfyTwitch.GetUser( clientId, result.user_id );
-                console.log( user );
                 document.getElementById( "username" ).innerText = user.display_name;
                 document.getElementById( "profile-image" ).src = user.profile_image_url;
                 document.querySelector( "#login-group" ).setAttribute( "hidden", true );
