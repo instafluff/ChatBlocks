@@ -411,7 +411,7 @@
 	<script src="web/chatblocks.js"></script>
     <script>
         const clientId = "xrxinjwucvs83rf1b6lxq758yslj3c";
-        const baseUrl = window.location.origin;
+        const baseUrl = window.location.origin + window.location.pathname;
 
         ComfyTwitch.Check()
         .then( async result => {
