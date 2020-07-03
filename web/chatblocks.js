@@ -117,7 +117,7 @@ var workspace = Blockly.inject( "blocklyDiv", {
 
 let theCode = "";
 
-function myUpdateFunction( event ) {
+function codeUpdateHandler( event ) {
 	var code = Blockly.JavaScript.workspaceToCode( workspace );
 	theCode =
 `<html>
@@ -157,7 +157,7 @@ window.onload = function() {
 	let xml = Blockly.Xml.textToDom( xmlText );
 	let workspace = Blockly.getMainWorkspace();
 	workspace.clear();
-	workspace.addChangeListener( myUpdateFunction );
+	workspace.addChangeListener( codeUpdateHandler );
 	Blockly.Xml.domToWorkspace( xml, workspace );
 }
 
@@ -174,6 +174,7 @@ document.getElementById( "run-code" ).addEventListener( "click", ( ev ) => {
 	}
 	else {
 		// Turn on the code
+		codeUpdateHandler();
 		document.getElementById( "workspace" ).classList.add( "blocks-blocker" );
 		document.getElementById( "run-code" ).classList.add( "btn-danger" );
 		document.getElementById( "run-code" ).classList.remove( "btn-success" );
