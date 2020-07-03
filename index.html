@@ -6,14 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Open+Sans&display=swap" rel="stylesheet">
 
     <title>ChatBlocks - Create Twitch Chatbots Using Code Blocks!</title>
 	<script src="web/blockly_compressed.js"></script>
 	<script src="web/blocks_compressed.js"></script>
 	<script src="web/javascript_compressed.js"></script>
 	<script src="web/msg/js/en.js"></script>
-	<style>
+    <script src="https://cdn.jsdelivr.net/npm/comfytwitch@latest/web/comfytwitch.min.js"></script>
+    <style>
+    @font-face {
+        font-family: OpenDyslexic;
+        src: url( web/fonts/OpenDyslexic-Regular.woff );
+    }
+    html, body {
+        font-family: "Fredoka One", "sans-serif";
+        color: #ffffff;
+        background-color: #333;
+    }
+    .blocklyTreeLabel {
+        font-family: "Fredoka One", "sans-serif";
+    }
 	.blocks-container {
 		position: relative;
 	}
@@ -30,7 +44,7 @@
 	</style>
   </head>
   <body class="container">
-    <h1>ChatBlocks</h1>
+    <h1>ChatBlocks by <a href="https://www.instafluff.tv" target="_blank">Instafluff</a></h1>
 	<div class="pb-2"><button id="run-code" class="btn btn-success float-right" style="width: 10rem;">▷ Run Code</button> <button id="save-code" class="btn btn-primary">Save Blocks</button> <button id="load-code" class="btn btn-warning">Load Blocks</button></div>
 	<input type="file" id="blocks-file-input" accept=".cbs" hidden>
 	<div class="blocks-container">
@@ -44,7 +58,7 @@
 				<block type="twitch_user"></block>
 				<block type="twitch_message"></block>
 			</category>
-		    <category name="LOGIC" colour="%{BKY_LOGIC_HUE}">
+		    <category name="LOGIC" categorystyle="logic_category">
 		      <block type="controls_if"></block>
 		      <block type="logic_compare"></block>
 		      <block type="logic_operation"></block>
@@ -53,7 +67,7 @@
 		      <block type="logic_null"></block>
 		      <block type="logic_ternary"></block>
 		    </category>
-		    <category name="LOOPS" colour="%{BKY_LOOPS_HUE}">
+		    <category name="LOOPS" categorystyle="loop_category">
 		      <block type="controls_repeat_ext">
 		        <value name="TIMES">
 		          <shadow type="math_number">
@@ -82,7 +96,7 @@
 		      <block type="controls_forEach"></block>
 		      <block type="controls_flow_statements"></block>
 		    </category>
-		    <category name="MATH" colour="%{BKY_MATH_HUE}">
+		    <category name="MATH" categorystyle="math_category">
 		      <block type="math_number">
 		        <field name="NUM">123</field>
 		      </block>
@@ -183,7 +197,7 @@
 		        </value>
 		      </block>
 		    </category>
-		    <category name="TEXT" colour="%{BKY_TEXTS_HUE}">
+		    <category name="TEXT" categorystyle="text_category">
 		      <block type="text"></block>
 		      <block type="text_join"></block>
 		      <block type="text_append">
@@ -260,7 +274,7 @@
 		        </value>
 		      </block>
 		    </category>
-		    <category name="LISTS" colour="%{BKY_LISTS_HUE}">
+		    <category name="LISTS" categorystyle="list_category">
 		      <block type="lists_create_with">
 		        <mutation items="0"></mutation>
 		      </block>
@@ -311,7 +325,7 @@
 		      </block>
 		      <block type="lists_sort"></block>
 		    </category>
-		    <category name="COLOR" colour="%{BKY_COLOUR_HUE}">
+		    <category name="COLOR" categorystyle="colour_category">
 		      <block type="colour_picker"></block>
 		      <block type="colour_random"></block>
 		      <block type="colour_rgb">
@@ -357,13 +371,10 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	<script src="web/chatblocks.js"></script>
-	<script>
-	  console.log( Blockly.Blocks );
-	</script>
 	<div id="run-sandbox" hidden></div>
   </body>
 </html>
