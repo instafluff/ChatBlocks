@@ -164,6 +164,10 @@ var workspace = Blockly.inject( "blocklyDiv", {
 		colour: '#333',
 		snap: true
 	},
+	zoom: {
+		controls: true,
+		wheel: true,
+	},
 	theme: theme,
 	oneBasedIndex: false,
 } );
