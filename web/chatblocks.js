@@ -172,7 +172,7 @@ document.getElementById( "run-code" ).addEventListener( "click", ( ev ) => {
 		document.getElementById( "save-code" ).removeAttribute( "disabled" );
 		document.getElementById( "load-code" ).removeAttribute( "disabled" );
 		document.getElementById( "channel-name" ).removeAttribute( "disabled" );
-		document.getElementById( "run-code" ).innerHTML = `<i class="fa fa-play"></i> Run Code`;
+		document.getElementById( "run-code" ).innerHTML = `<i class="fa fa-play"></i> Run Blocks`;
 		let sandbox = document.getElementById( "run-sandbox" );
 		sandbox.innerHTML = "";
 	}
@@ -186,7 +186,7 @@ document.getElementById( "run-code" ).addEventListener( "click", ( ev ) => {
 		document.getElementById( "load-code" ).setAttribute( "disabled", true );
 		document.getElementById( "channel-name" ).setAttribute( "disabled", true );
 
-		document.getElementById( "run-code" ).innerHTML = `<i class="fa fa-stop"></i> Stop Code`;
+		document.getElementById( "run-code" ).innerHTML = `<i class="fa fa-stop"></i> Stop Blocks`;
 		let sandbox = document.getElementById( "run-sandbox" );
 		sandbox.innerHTML = "";
 		let iframe = document.createElement( "iframe" );
