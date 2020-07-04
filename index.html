@@ -1,15 +1,38 @@
 <!doctype html>
 <html lang="en">
   <head>
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135113520-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-135113520-1');
+      </script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="ChatBlocks by Instafluff: Build your own fully custom Twitch chat bot using blocks!">
+    <meta name="keywords" content="instafluff, game, development, chat, bot, chatbot, twitch, stream, live, livestream, youtube, code, easy, web, dev, fun">
+    <meta name="author" content="Instafluff">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:description" content="You don't need to know how to code to build a custom Twitch chat bot! I wanted to make it fun and SUPER-easy for anyone in our community to build a chat bot on Twitch regardless of programming knowledge or experience and created ChatBlocks, a web app that lets you use blocks to make sophisticated custom bots to run on any channel super-easily. It auto saves and loads your work and remembers the channel you put it in. You can even download and import blocks as files.">
+    <meta name="twitter:image" content="https://www.instafluff.tv/assets/Banner.png">
+    <meta name="twitter:creator" content="Instafluff">
+    <meta name="twitter:title" content="ChatBlocks by Instafluff - Build your own fully custom Twitch chat bot using blocks!">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="You don't need to know how to code to build a custom Twitch chat bot! I wanted to make it fun and SUPER-easy for anyone in our community to build a chat bot on Twitch regardless of programming knowledge or experience and created ChatBlocks, a web app that lets you use blocks to make sophisticated custom bots to run on any channel super-easily. It auto saves and loads your work and remembers the channel you put it in. You can even download and import blocks as files.">
+    <meta property="og:image" content="https://www.instafluff.tv/assets/Banner.png">
+    <meta property="og:url" content="https://www.instafluff.tv/ChatBlocks">
+    <meta property="og:title" content="ChatBlocks by Instafluff - Build your own fully custom Twitch chat bot using blocks!">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Open+Sans&display=swap" rel="stylesheet">
 
-    <title>ChatBlocks - Create Twitch Chatbots Using Code Blocks!</title>
+    <title>ChatBlocks - Twitch Chat Bots with Blocks!</title>
 	<script src="web/blockly_compressed.js"></script>
 	<script src="web/blocks_compressed.js"></script>
 	<script src="web/javascript_compressed.js"></script>
@@ -88,6 +111,7 @@
   <body class="container">
     <div id="profile-group" class="py-2 float-right" hidden><span><span id="username"></span> <img id="profile-image" class="rounded" src="" alt="Profile Image" height="38" width="38"></span> <button id="logout" class="btn btn-purple">Log Out</button></div>
     <h1>ChatBlocks by <a href="https://www.instafluff.tv" target="_blank">Instafluff</a></h1>
+    <p>Build your own fully custom Twitch chat bot using blocks!</p>
 	<div class="pb-2 row">
 		<div class="col-6">
 			<button id="save-code" class="btn btn-primary"><i class="fa fa-cloud-download"></i> Save Blocks</button> <button id="load-code" class="btn btn-warning"><i class="fa fa-cloud-upload"></i> Load Blocks</button>
