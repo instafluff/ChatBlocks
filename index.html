@@ -32,7 +32,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Open+Sans&display=swap" rel="stylesheet">
 
-    <title>ChatBlocks - Twitch Chat Bots with Blocks!</title>
+	<title>ChatBlocks - Twitch Chat Bots with Blocks!</title>
+	<script src="web/dropzone.js"></script>
 	<script src="web/blockly_compressed.js"></script>
 	<script src="web/blocks_compressed.js"></script>
 	<script src="web/javascript_compressed.js"></script>
@@ -97,6 +98,11 @@
 		z-index: 1000;
 		background-color: rgba(255, 255, 255, 0.75);
 	}
+	.files {
+		visibility: hidden;
+		position: absolute;
+		top: -9999px;
+	}
     #login-group {
         position: absolute;
         top: 50%;
@@ -128,6 +134,7 @@
 			</div>
 		</div>
 	</div>
+	<div class="table table-striped files" id="previews"></div>
 	<input type="file" id="blocks-file-input" accept=".cbs" hidden>
 	<div class="blocks-container">
         <div id="login-group" hidden><button id="login" class="btn btn-purple center">Log In with <i class="fa fa-twitch"></i> Twitch</button></div>
