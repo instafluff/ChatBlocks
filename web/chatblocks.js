@@ -1,3 +1,56 @@
+let previewTemplate = `<div id="template" class="file-row">
+<!-- This is used as the file preview template -->
+<div>
+	<span class="preview"><img data-dz-thumbnail /></span>
+</div>
+<div>
+	<p class="name" data-dz-name></p>
+	<strong class="error text-danger" data-dz-errormessage></strong>
+</div>
+<div>
+	<p class="size" data-dz-size></p>
+	<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+		aria-valuenow="0">
+		<div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+	</div>
+</div>
+<div>
+	<button class="btn btn-primary start">
+		<i class="glyphicon glyphicon-upload"></i>
+		<span>Start</span>
+	</button>
+	<button data-dz-remove class="btn btn-warning cancel">
+		<i class="glyphicon glyphicon-ban-circle"></i>
+		<span>Cancel</span>
+	</button>
+	<button data-dz-remove class="btn btn-danger delete">
+		<i class="glyphicon glyphicon-trash"></i>
+		<span>Delete</span>
+	</button>
+</div>
+</div>`;
+
+
+
+const DropzoneJS = new Dropzone(document.body, {
+	url: "/",
+	parallelUploads: 1,
+	previewTemplate: previewTemplate,
+	autoQueue: true,
+	previewsContainer: "#previews",
+	accept: (file, done) => {
+		const Reader = new FileReader();
+		Reader.addEventListener('loadend', (e) => { xmlStrToWorkspace(e.target.result); })
+		// Reader.onload = (e) => {
+			
+		// };
+		Reader.readAsText(file);
+		// Reader.addEventListener("loadend", function(event) { console.log(event.target.result);});
+	}
+});
+
+
+
 let theme = Blockly.Theme.defineTheme( "ChatBlocks", {
 	// "base": oldTheme,
 	"blockStyles": {
@@ -111,6 +164,10 @@ var workspace = Blockly.inject( "blocklyDiv", {
 		colour: '#333',
 		snap: true
 	},
+	zoom: {
+		controls: true,
+		wheel: true,
+	},
 	theme: theme,
 	oneBasedIndex: false,
 } );
@@ -214,12 +271,16 @@ document.getElementById( "blocks-file-input" ).addEventListener( "change", async
 	const fileList = this.files;
 	if( fileList.length > 0 ) {
 		let xmlText = await fileList[ 0 ].text();
-		let xml = Blockly.Xml.textToDom( xmlText );
-		let workspace = Blockly.getMainWorkspace();
-		workspace.clear();
-		Blockly.Xml.domToWorkspace( xml, workspace );
+		xmlStrToWorkspace(xmlText);
 	}
 }, false );
+
+function xmlStrToWorkspace(xmlText) {
+	let xml = Blockly.Xml.textToDom(xmlText);
+	let workspace = Blockly.getMainWorkspace();
+	workspace.clear();
+	Blockly.Xml.domToWorkspace(xml, workspace);
+}
 
 function download( filename, text ) {
 	var element = document.createElement("a");
