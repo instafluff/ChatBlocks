@@ -41,11 +41,7 @@ const DropzoneJS = new Dropzone(document.body, {
 	accept: (file, done) => {
 		const Reader = new FileReader();
 		Reader.addEventListener('loadend', (e) => { xmlStrToWorkspace(e.target.result); })
-		// Reader.onload = (e) => {
-			
-		// };
 		Reader.readAsText(file);
-		// Reader.addEventListener("loadend", function(event) { console.log(event.target.result);});
 	}
 });
 
