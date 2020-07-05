@@ -1,5 +1,4 @@
 let previewTemplate = `<div id="template" class="file-row">
-<!-- This is used as the file preview template -->
 <div>
 	<span class="preview"><img data-dz-thumbnail /></span>
 </div>
@@ -40,7 +39,9 @@ const DropzoneJS = new Dropzone(document.body, {
 	previewsContainer: "#previews",
 	accept: (file, done) => {
 		const Reader = new FileReader();
-		Reader.addEventListener('loadend', (e) => { xmlStrToWorkspace(e.target.result); })
+		Reader.addEventListener('loadend', (e) => {
+			xmlStrToWorkspace(file.name, e.target.result);
+		})
 		Reader.readAsText(file);
 	}
 });
@@ -267,16 +268,19 @@ document.getElementById( "load-code" ).addEventListener( "click", ( ev ) => {
 document.getElementById( "blocks-file-input" ).addEventListener( "change", async function () {
 	const fileList = this.files;
 	if( fileList.length > 0 ) {
+		let fileName = await fileList[ 0 ].name;
 		let xmlText = await fileList[ 0 ].text();
-		xmlStrToWorkspace(xmlText);
+		xmlStrToWorkspace(fileName, xmlText);
 	}
 }, false );
 
-function xmlStrToWorkspace(xmlText) {
-	let xml = Blockly.Xml.textToDom(xmlText);
-	let workspace = Blockly.getMainWorkspace();
-	workspace.clear();
-	Blockly.Xml.domToWorkspace(xml, workspace);
+function xmlStrToWorkspace( fileName, xmlText ) {
+	if (fileName.split(".")[ 1 ] == "cbs") {
+		let xml = Blockly.Xml.textToDom(xmlText);
+		let workspace = Blockly.getMainWorkspace();
+		workspace.clear();
+		Blockly.Xml.domToWorkspace(xml, workspace);
+	}
 }
 
 function download( filename, text ) {
