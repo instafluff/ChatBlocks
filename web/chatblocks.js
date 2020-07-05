@@ -167,6 +167,7 @@ var workspace = Blockly.inject( "blocklyDiv", {
 	zoom: {
 		controls: true,
 		wheel: true,
+		scaleSpeed: 1.1,
 	},
 	theme: theme,
 	oneBasedIndex: false,
