@@ -33,7 +33,6 @@
     <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Open+Sans&display=swap" rel="stylesheet">
 
 	<title>ChatBlocks - Twitch Chat Bots with Blocks!</title>
-	<script src="web/dropzone.js"></script>
 	<script src="web/blockly_compressed.js"></script>
 	<script src="web/blocks_compressed.js"></script>
 	<script src="web/javascript_compressed.js"></script>
@@ -98,20 +97,15 @@
 		z-index: 1000;
 		background-color: rgba(255, 255, 255, 0.75);
 	}
-	.files {
-		visibility: hidden;
-		position: absolute;
-		top: -9999px;
+	#login-group {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			-moz-transform: translateX(-50%) translateY(-50%);
+			-webkit-transform: translateX(-50%) translateY(-50%);
+			transform: translateX(-50%) translateY(-50%);
+			z-index: 1002;
 	}
-    #login-group {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        -moz-transform: translateX(-50%) translateY(-50%);
-        -webkit-transform: translateX(-50%) translateY(-50%);
-        transform: translateX(-50%) translateY(-50%);
-        z-index: 1002;
-    }
 	#channel-name {
 		padding: .375rem 1.25rem;
 	}
@@ -177,7 +171,6 @@
 			</div>
 		</div>
 	</div>
-	<div class="table table-striped files" id="previews"></div>
 	<input type="file" id="blocks-file-input" accept=".cbs" hidden>
 	<div class="blocks-container">
         <div id="login-group" hidden><button id="login" class="btn btn-purple center">Log In with <i class="fa fa-twitch"></i> Twitch</button></div>
@@ -518,7 +511,8 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-	<script src="web/chatblocks.js"></script>
+		<script src="web/chatblocks.js"></script>
+		<script src="web/DragandDrop.js"></script>
     <script>
         const clientId = "xrxinjwucvs83rf1b6lxq758yslj3c";
         const baseUrl = window.location.origin + window.location.pathname;
@@ -542,19 +536,19 @@
                 // Logged Out
                 document.querySelector( "#profile-group" ).setAttribute( "hidden", true );
                 document.querySelector( "#login-group" ).removeAttribute( "hidden" );
-        		document.getElementById( "workspace" ).classList.add( "blocks-blocker" );
-        		document.getElementById( "run-code" ).classList.add( "btn-secondary" );
-        		document.getElementById( "run-code" ).setAttribute( "disabled", true );
-				document.getElementById( "channel-name" ).value = "";
-                document.querySelector( "#login" ).addEventListener( "click", function() {
+								document.getElementById( "workspace" ).classList.add( "blocks-blocker" );
+								document.getElementById( "run-code" ).classList.add( "btn-secondary" );
+								document.getElementById( "run-code" ).setAttribute( "disabled", true );
+								document.getElementById( "channel-name" ).value = "";
+								document.querySelector( "#login" ).addEventListener( "click", function() {
                     ComfyTwitch.Login( clientId, baseUrl, [ "user:read:email", "chat:read", "chat:edit", "channel:moderate", "whispers:read", "whispers:edit" ] );
                 });
             }
         });
 
-		document.getElementById( "channel-name" ).onchange = function() {
-			window.localStorage.setItem( "channel", document.getElementById( "channel-name" ).value);
-		};
+				document.getElementById( "channel-name" ).onchange = function() {
+					window.localStorage.setItem( "channel", document.getElementById( "channel-name" ).value);
+				};
     </script>
 	<div id="run-sandbox" hidden></div>
   </body>
