@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en">
   <head>
-      <!-- Global site tag (gtag.js) - Google Analytics -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135113520-1"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-135113520-1');
-      </script>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-135113520-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+		gtag('config', 'UA-135113520-1');
+	</script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -39,8 +39,8 @@
 	<script src="web/javascript_compressed.js"></script>
 	<script src="web/msg/js/en.js"></script>
 	<script src="https://use.fontawesome.com/7ccab66fd7.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/comfytwitch@latest/web/comfytwitch.min.js"></script>
-    <style>
+	<script src="https://cdn.jsdelivr.net/npm/comfytwitch@latest/web/comfytwitch.min.js"></script>
+	<style>
     @font-face {
         font-family: OpenDyslexic;
         src: url( web/fonts/OpenDyslexic-Regular.woff );
@@ -50,11 +50,11 @@
         color: #ffffff;
         background-color: #333;
     }
-	.translucent-purple-bg {
-		background-color: rgba( 100, 65, 165, 0.5 );
-		border-color: rgba( 100, 65, 165, 0.5 );
-		color: #ccc;
-	}
+		.translucent-purple-bg {
+			background-color: rgba( 100, 65, 165, 0.5 );
+			border-color: rgba( 100, 65, 165, 0.5 );
+			color: #ccc;
+		}
     .btn-purple-outline {
         background-color: #fff;
         border-color: #fff;
@@ -85,33 +85,33 @@
     .blocklyTreeLabel {
         font-family: "Fredoka One", "sans-serif";
     }
-	.blocks-container {
-		position: relative;
-	}
-	.blocks-blocker{
-		position:absolute;
-		left:0;
-		top:0;
-		width:100%;
-		height:100%;
-		display:block;
-		z-index: 1000;
-		background-color: rgba(255, 255, 255, 0.75);
-	}
-	.files {
-		visibility: hidden;
-		position: absolute;
-		top: -9999px;
-	}
-    #login-group {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        -moz-transform: translateX(-50%) translateY(-50%);
-        -webkit-transform: translateX(-50%) translateY(-50%);
-        transform: translateX(-50%) translateY(-50%);
-        z-index: 1002;
-    }
+		.blocks-container {
+			position: relative;
+		}
+		.blocks-blocker{
+			position:absolute;
+			left:0;
+			top:0;
+			width:100%;
+			height:100%;
+			display:block;
+			z-index: 1000;
+			background-color: rgba(255, 255, 255, 0.75);
+		}
+		.files {
+			visibility: hidden;
+			position: absolute;
+			top: -9999px;
+		}
+		#login-group {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				-moz-transform: translateX(-50%) translateY(-50%);
+				-webkit-transform: translateX(-50%) translateY(-50%);
+				transform: translateX(-50%) translateY(-50%);
+				z-index: 1002;
+		}
 	</style>
   </head>
   <body class="container">
@@ -485,7 +485,7 @@
             if( result ) {
                 // Logged In
                 let user = await ComfyTwitch.GetUser( clientId, result.user_id );
-				document.getElementById( "channel-name" ).value = "\"" + ( window.localStorage.getItem( "channel" ) || result.login ) + "\"";
+								document.getElementById( "channel-name" ).value = "\"" + ( window.localStorage.getItem( "channel" ) || result.login ) + "\"";
                 document.getElementById( "username" ).innerText = user.display_name;
                 document.getElementById( "profile-image" ).src = user.profile_image_url;
                 document.querySelector( "#login-group" ).setAttribute( "hidden", true );
@@ -499,25 +499,25 @@
                 // Logged Out
                 document.querySelector( "#profile-group" ).setAttribute( "hidden", true );
                 document.querySelector( "#login-group" ).removeAttribute( "hidden" );
-        		document.getElementById( "workspace" ).classList.add( "blocks-blocker" );
-        		document.getElementById( "run-code" ).classList.add( "btn-secondary" );
-        		document.getElementById( "run-code" ).setAttribute( "disabled", true );
-				document.getElementById( "channel-name" ).value = "";
+								document.getElementById( "workspace" ).classList.add( "blocks-blocker" );
+								document.getElementById( "run-code" ).classList.add( "btn-secondary" );
+								document.getElementById( "run-code" ).setAttribute( "disabled", true );
+								document.getElementById( "channel-name" ).value = "";
                 document.querySelector( "#login" ).addEventListener( "click", function() {
                     ComfyTwitch.Login( clientId, baseUrl, [ "user:read:email", "chat:read", "chat:edit", "channel:moderate", "whispers:read", "whispers:edit" ] );
                 });
             }
         });
 
-		document.getElementById( "channel-name" ).onfocus = function() {
-			document.getElementById( "channel-name" ).value = document.getElementById( "channel-name" ).value.replace( /\"/g, "" );
-		};
-		document.getElementById( "channel-name" ).onfocusout = function() {
-			document.getElementById( "channel-name" ).value = "\"" + document.getElementById( "channel-name" ).value + "\"";
-		};
-		document.getElementById( "channel-name" ).onchange = function() {
-			window.localStorage.setItem( "channel", document.getElementById( "channel-name" ).value.replace( /\"/g, "" ) );
-		};
+				document.getElementById( "channel-name" ).onfocus = function() {
+					document.getElementById( "channel-name" ).value = document.getElementById( "channel-name" ).value.replace( /\"/g, "" );
+				};
+				document.getElementById( "channel-name" ).onfocusout = function() {
+					document.getElementById( "channel-name" ).value = "\"" + document.getElementById( "channel-name" ).value + "\"";
+				};
+				document.getElementById( "channel-name" ).onchange = function() {
+					window.localStorage.setItem( "channel", document.getElementById( "channel-name" ).value.replace( /\"/g, "" ) );
+				};
     </script>
 	<div id="run-sandbox" hidden></div>
   </body>
