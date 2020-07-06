@@ -522,7 +522,7 @@
             if( result ) {
                 // Logged In
                 let user = await ComfyTwitch.GetUser( clientId, result.user_id );
-                document.getElementById( "channel-name" ).value = "“" + ( window.localStorage.getItem( "channel" ) || result.login ) + "”";
+                document.getElementById( "channel-name" ).value = "“ " + ( window.localStorage.getItem( "channel" ) || result.login ) + " ”";
                 document.getElementById( "username" ).innerText = user.display_name;
                 document.getElementById( "profile-image" ).src = user.profile_image_url;
                 document.querySelector( "#login-group" ).setAttribute( "hidden", true );
@@ -547,13 +547,13 @@
         });
 
         document.getElementById( "channel-name" ).onfocus = function() {
-			document.getElementById( "channel-name" ).value = document.getElementById( "channel-name" ).value.replace( /[“”]/g, "" );
+			document.getElementById( "channel-name" ).value = document.getElementById( "channel-name" ).value.replace( /[“” ]/g, "" );
 		};
 		document.getElementById( "channel-name" ).onfocusout = function() {
-			document.getElementById( "channel-name" ).value = "“" + document.getElementById( "channel-name" ).value + "”";
+			document.getElementById( "channel-name" ).value = "“ " + document.getElementById( "channel-name" ).value + " ”";
 		};
         document.getElementById( "channel-name" ).onchange = function() {
-        	window.localStorage.setItem( "channel", document.getElementById( "channel-name" ).value.replace( /[“”]/g, "" ) );
+        	window.localStorage.setItem( "channel", document.getElementById( "channel-name" ).value.replace( /[“” ]/g, "" ) );
         };
     </script>
 	<div id="run-sandbox" hidden></div>
