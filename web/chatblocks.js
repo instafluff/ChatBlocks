@@ -224,7 +224,7 @@ document.getElementById( "blocks-file-input" ).addEventListener( "change", async
 	}
 }, false );
 
-function xmlStrToWorkspace( fileName, xmlText ) {
+function xmlStrToWorkspace( fileName="chatblocks.cbs", xmlText ) {
 	if (fileName.split(".")[ 1 ] == "cbs") {
 		let xml = Blockly.Xml.textToDom(xmlText);
 		let workspace = Blockly.getMainWorkspace();
