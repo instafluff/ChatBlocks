@@ -84,28 +84,77 @@
     .blocklyTreeLabel {
         font-family: "Fredoka One", "sans-serif";
     }
-		.blocks-container {
-			position: relative;
+
+	.blocks-container {
+		position: relative;
+	}
+	.blocks-blocker{
+		position:absolute;
+		left:0;
+		top:0;
+		width:100%;
+		height:100%;
+		display:block;
+		z-index: 1000;
+		background-color: rgba(255, 255, 255, 0.75);
+	}
+	.files {
+		visibility: hidden;
+		position: absolute;
+		top: -9999px;
+	}
+    #login-group {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+        z-index: 1002;
+    }
+	#channel-name {
+		padding: .375rem 1.25rem;
+	}
+	.channel-name-quotes {
+		position: relative;
+	}
+	.channel-name-quotes:before,
+	.channel-name-quotes:after {
+		content: '';
+		display: none;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: contain;
+		width: 12px;
+		height: 12px;
+		position: absolute;
+		top: 8px;
+		z-index: 10;
+		opacity: 0.75;
+	}
+	.channel-name-quotes:before {
+		background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAKCAQAAAAqJXdxAAAAn0lEQVQI1z3OMa5BURSF4f/cQhAKjUQhuQmFNwGJEUi0RKN5rU7FHKhpjEH3TEMtkdBSCY1EIv8r7nFX9e29V7EBAOvu7RPjwmWGH/VuF8CyN9/OAdvqIXYLvtRaNjx9mMTDyo+NjAN1HNcl9ZQ5oQMM3dgDUqDo1l8DzvwmtZN7mnD+PkmLa+4mhrxVA9fRowBWmVBhFy5gYEjKMfz9AylsaRRgGzvZAAAAAElFTkSuQmCC");
+	}
+	.channel-name-quotes:after {
+		background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAKCAQAAAAqJXdxAAAAqUlEQVQI1z3KvUpCcRiA8ef9E4JNHhI0aFEacm1o0BsI0Slx8wa8gLauoDnoBhq7DcfWhggONDmJJgqCPA7neJ7p934EOOKOnM8Q7PDElo/4x4lFb2DmuUjcUzS3URnGib9qaPNbuXvBO3sGPHJDRG6fGVdMSeWDP2q99FQdFrz26Gu5Tq7dFMzUvbXy8KXeAj57cOklgA+u1B5AoslLtGIHQMaCVnwDnADZIFIrXsoXrgAAAABJRU5ErkJggg==");
+	}
+	@media (min-width: 576px) {
+		.channel-name-quotes:before,
+		.channel-name-quotes:after {
+			display: block;
 		}
-		.blocks-blocker{
-			position:absolute;
-			left:0;
-			top:0;
-			width:100%;
-			height:100%;
-			display:block;
-			z-index: 1000;
-			background-color: rgba(255, 255, 255, 0.75);
+		.channel-name-quotes:before {
+			left: 2.875em;
 		}
-		#login-group {
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				-moz-transform: translateX(-50%) translateY(-50%);
-				-webkit-transform: translateX(-50%) translateY(-50%);
-				transform: translateX(-50%) translateY(-50%);
-				z-index: 1002;
+		.channel-name-quotes:after {
+			right: 0.175em;
 		}
+	}
+	@media (min-width: 768px) {
+		.channel-name-quotes:after {
+			right: 10.275em;
+		}
+	}
 	</style>
   </head>
   <body class="container">
@@ -117,7 +166,7 @@
 			<button id="save-code" class="btn btn-primary"><i class="fa fa-cloud-download"></i> Save Blocks</button> <button id="load-code" class="btn btn-warning"><i class="fa fa-cloud-upload"></i> Load Blocks</button>
 		</div>
 		<div class="col-6">
-			<div class="input-group translucent">
+			<div class="input-group translucent channel-name-quotes">
 			  <div class="input-group-prepend">
 			    <span class="input-group-text btn-purple translucent-purple-bg" id="basic-addon1"><i class="fa fa-twitch"></i></span>
 			  </div>
@@ -479,7 +528,8 @@
             if( result ) {
                 // Logged In
                 let user = await ComfyTwitch.GetUser( clientId, result.user_id );
-								document.getElementById( "channel-name" ).value = "\"" + ( window.localStorage.getItem( "channel" ) || result.login ) + "\"";
+
+                document.getElementById( "channel-name" ).value = window.localStorage.getItem( "channel" ) || result.login;
                 document.getElementById( "username" ).innerText = user.display_name;
                 document.getElementById( "profile-image" ).src = user.profile_image_url;
                 document.querySelector( "#login-group" ).setAttribute( "hidden", true );
@@ -503,15 +553,11 @@
             }
         });
 
-				document.getElementById( "channel-name" ).onfocus = function() {
-					document.getElementById( "channel-name" ).value = document.getElementById( "channel-name" ).value.replace( /\"/g, "" );
-				};
-				document.getElementById( "channel-name" ).onfocusout = function() {
-					document.getElementById( "channel-name" ).value = "\"" + document.getElementById( "channel-name" ).value + "\"";
-				};
-				document.getElementById( "channel-name" ).onchange = function() {
-					window.localStorage.setItem( "channel", document.getElementById( "channel-name" ).value.replace( /\"/g, "" ) );
-				};
+
+		document.getElementById( "channel-name" ).onchange = function() {
+			window.localStorage.setItem( "channel", document.getElementById( "channel-name" ).value);
+		};
+
     </script>
 	<div id="run-sandbox" hidden></div>
   </body>
