@@ -278,8 +278,10 @@ function xmlStrToWorkspace( fileName, xmlText ) {
 	if (fileName.split(".")[ 1 ] == "cbs") {
 		let xml = Blockly.Xml.textToDom(xmlText);
 		let workspace = Blockly.getMainWorkspace();
+		// TODO: Get the appending of blocks working :D
 		workspace.clear();
-		Blockly.Xml.domToWorkspace(xml, workspace);
+		Blockly.Xml.domToWorkspace( xml, workspace );
+		// Blockly.Xml.appendDomToWorkspace( xml, workspace );
 	}
 }
 
