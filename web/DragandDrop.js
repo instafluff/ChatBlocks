@@ -1,6 +1,6 @@
 // TODO: Implement Modal That says: "You can drop your .cbs file here"
-
-let dropArea = document.getElementsByClassName( 'container' )[ 0 ];
+const dropArea = document.getElementsByClassName( 'container' )[ 0 ];
+const dropModal = document.getElementsByClassName( 'dropModal' )[ 0 ];
 
 ;[ 'dragenter', 'dragover', 'dragleave', 'drop' ].forEach(eventName => {
   dropArea.addEventListener(eventName, preventDefaults, false)
@@ -32,10 +32,12 @@ function handleDrop(e) {
 
 function blockEditor(e) {
   // TODO: Enable Modal
+  dropModal.style.display = "block";
   document.getElementById( "workspace" ).classList.add( "blocks-blocker" );  
 }
 function unblockEditor(e) {
   // TODO: Disable Modal
+  dropModal.style.display = "none";
   document.getElementById( "workspace" ).classList.remove( "blocks-blocker" );
 
 }
