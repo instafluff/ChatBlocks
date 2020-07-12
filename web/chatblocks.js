@@ -141,6 +141,7 @@ function codeUpdateHandler( event ) {
 			}
 		};
 		ComfyJS.onChat = ( user, message, flags, self, extra ) => {
+			if( self ) { return; }
 			onChatHandlers.forEach( x => {
 				x( user, message, flags, self, extra );
 			});
