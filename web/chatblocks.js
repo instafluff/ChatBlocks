@@ -138,6 +138,11 @@ function codeUpdateHandler( event ) {
 		let onHostHandlers = [];
 		let onRaidHandlers = [];
 		let onCheerHandlers = [];
+		let onSubHandlers = [];
+		let onResubHandlers = [];
+		let onSubGiftHandlers = [];
+		let onSubGiftBatchHandlers = [];
+		let onGiftSubContinueHandlers = [];
 		${code}
 		ComfyJS.onCommand = ( user, command, message, flags, extra ) => {
 			if( onCommandHandlers[ command ] ) {
@@ -169,6 +174,31 @@ function codeUpdateHandler( event ) {
 		ComfyJS.onCheer = ( user, message, bits, flags, extra ) => {
 			onCheerHandlers.forEach( x => {
 				x( user, message, bits, flags, extra );
+			});
+		};
+		ComfyJS.onSub = ( user, message, subTierInfo, extra ) => {
+			onSubHandlers.forEach( x => {
+				x( user, message, subTierInfo, extra );
+			});
+		};
+		ComfyJS.onResub = ( user, message, streakMonths, cumulativeMonths, subTierInfo, extra ) => {
+			onResubHandlers.forEach( x => {
+				x( user, message, streakMonths, cumulativeMonths, subTierInfo, extra );
+			});
+		};
+		ComfyJS.onSubGift = ( gifterUser, streakMonths, recipientUser, senderCount, subTierInfo, extra ) => {
+			onSubGiftHandlers.forEach( x => {
+				x( gifterUser, streakMonths, recipientUser, senderCount, subTierInfo, extra );
+			});
+		};
+		ComfyJS.onSubMysteryGift = ( gifterUser, numberOfSubs, senderCount, subTierInfo, extra ) => {
+			onSubGiftBatchHandlers.forEach( x => {
+				x( gifterUser, numberOfSubs, senderCount, subTierInfo, extra );
+			});
+		};
+		ComfyJS.onGiftSubContinue = ( user, sender, extra ) => {
+			onGiftSubContinueHandlers.forEach( x => {
+				x( user, sender, extra );
 			});
 		};
 		ComfyJS.Init( "${window.localStorage.getItem( "channel" ) || ComfyTwitch.User}", "oauth:${ComfyTwitch.Token}" );
@@ -292,7 +322,7 @@ Blockly.Blocks["twitch_say"] = {
 		"tooltip": "",
 		"helpUrl": ""
 	  });
-	  this.setColour(260);
+	  this.setColour(290);
 	  this.setTooltip("");
 	  this.setHelpUrl("https://www.instafluff.tv");
 	}
@@ -329,7 +359,7 @@ Blockly.Blocks["twitch_whisper"] = {
 		"tooltip": "",
 		"helpUrl": ""
 	  });
-	  this.setColour(260);
+	  this.setColour(290);
 	  this.setTooltip("");
 	  this.setHelpUrl("https://www.instafluff.tv");
 	}
@@ -516,6 +546,146 @@ Blockly.JavaScript["twitch_oncheer"] = function(block) {
 	return code;
 };
 
+Blockly.Blocks["twitch_onsub"] = {
+	init: function() {
+	  this.jsonInit({
+		"type": "twitch_onsub",
+		"message0": "on new subscription (TEST) %1",
+		"args0": [
+		  {
+			"type": "input_statement",
+			"name": "INPUT"
+		  }
+		],
+		"colour": 260,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setColour(260);
+	  this.setTooltip("username, message");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["twitch_onsub"] = function(block) {
+	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
+	// TODO: Assemble JavaScript into code variable.
+	var code = `onSubHandlers.push( ( user, message, subTierInfo, extra ) => {\n${statements_input}\n} );\n`;
+	return code;
+};
+
+Blockly.Blocks["twitch_onresub"] = {
+	init: function() {
+	  this.jsonInit({
+		"type": "twitch_onresub",
+		"message0": "on subscription renewal (TEST) %1",
+		"args0": [
+		  {
+			"type": "input_statement",
+			"name": "INPUT"
+		  }
+		],
+		"colour": 260,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setColour(260);
+	  this.setTooltip("username, message");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["twitch_onresub"] = function(block) {
+	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
+	// TODO: Assemble JavaScript into code variable.
+	var code = `onResubHandlers.push( ( user, message, streakMonths, cumulativeMonths, subTierInfo, extra ) => {\n${statements_input}\n} );\n`;
+	return code;
+};
+
+Blockly.Blocks["twitch_onsubgift"] = {
+	init: function() {
+	  this.jsonInit({
+		"type": "twitch_onsubgift",
+		"message0": "on gift subscription per user (TEST) %1",
+		"args0": [
+		  {
+			"type": "input_statement",
+			"name": "INPUT"
+		  }
+		],
+		"colour": 260,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setColour(260);
+	  this.setTooltip("username, message");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["twitch_onsubgift"] = function(block) {
+	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
+	// TODO: Assemble JavaScript into code variable.
+	var code = `onSubGiftHandlers.push( ( gifter, streakMonths, user, gifterCount, subTierInfo, extra ) => {\n${statements_input}\n} );\n`;
+	return code;
+};
+
+Blockly.Blocks["twitch_onbatchsubgift"] = {
+	init: function() {
+	  this.jsonInit({
+		"type": "twitch_onbatchsubgift",
+		"message0": "on gift subscription event (TEST) %1",
+		"args0": [
+		  {
+			"type": "input_statement",
+			"name": "INPUT"
+		  }
+		],
+		"colour": 260,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setColour(260);
+	  this.setTooltip("username, message");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["twitch_onbatchsubgift"] = function(block) {
+	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
+	// TODO: Assemble JavaScript into code variable.
+	var code = `onSubGiftBatchHandlers.push( ( gifter, numberOfSubs, gifterCount, subTierInfo, extra ) => {\n${statements_input}\n} );\n`;
+	return code;
+};
+
+Blockly.Blocks["twitch_ongiftsubcontinue"] = {
+	init: function() {
+	  this.jsonInit({
+		"type": "twitch_ongiftsubcontinue",
+		"message0": "on continue gift subscription (TEST) %1",
+		"args0": [
+		  {
+			"type": "input_statement",
+			"name": "INPUT"
+		  }
+		],
+		"colour": 260,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setColour(260);
+	  this.setTooltip("username, message");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["twitch_ongiftsubcontinue"] = function(block) {
+	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
+	// TODO: Assemble JavaScript into code variable.
+	var code = `onGiftSubContinueHandlers.push( ( user, gifter, extra ) => {\n${statements_input}\n} );\n`;
+	return code;
+};
+
 Blockly.Blocks["twitch_message"] = {
     init: function() {
   	this.jsonInit({
@@ -527,7 +697,7 @@ Blockly.Blocks["twitch_message"] = {
   	  "tooltip": "",
   	  "helpUrl": ""
   	});
-  	this.setColour(260);
+  	this.setColour(230);
   	this.setTooltip("");
   	this.setHelpUrl("https://www.instafluff.tv");
     }
@@ -552,7 +722,7 @@ Blockly.Blocks["twitch_user"] = {
   	  "tooltip": "",
   	  "helpUrl": ""
   	});
-  	this.setColour(260);
+  	this.setColour(230);
   	this.setTooltip("");
   	this.setHelpUrl("https://www.instafluff.tv");
     }
@@ -577,7 +747,7 @@ Blockly.Blocks["twitch_reward_id"] = {
   	  "tooltip": "",
   	  "helpUrl": ""
   	});
-  	this.setColour(260);
+  	this.setColour(230);
   	this.setTooltip("");
   	this.setHelpUrl("https://www.instafluff.tv");
     }
@@ -602,7 +772,7 @@ Blockly.Blocks["twitch_viewer_count"] = {
   	  "tooltip": "",
   	  "helpUrl": ""
   	});
-  	this.setColour(260);
+  	this.setColour(230);
   	this.setTooltip("");
   	this.setHelpUrl("https://www.instafluff.tv");
     }
@@ -627,7 +797,7 @@ Blockly.Blocks["twitch_bits_count"] = {
   	  "tooltip": "",
   	  "helpUrl": ""
   	});
-  	this.setColour(260);
+  	this.setColour(230);
   	this.setTooltip("");
   	this.setHelpUrl("https://www.instafluff.tv");
     }
@@ -637,6 +807,131 @@ Blockly.JavaScript["twitch_bits_count"] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
   var code = `( bits )`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_gifter"] = {
+    init: function() {
+  	this.jsonInit({
+  	  "type": "",
+  	  "message0": "subcription gifter username",
+  	  "args0": [],
+  	  "output": null,
+  	  "colour": 260,
+  	  "tooltip": "",
+  	  "helpUrl": ""
+  	});
+  	this.setColour(230);
+  	this.setTooltip("");
+  	this.setHelpUrl("https://www.instafluff.tv");
+    }
+};
+
+Blockly.JavaScript["twitch_gifter"] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = `( gifter )`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_is_sub_prime"] = {
+    init: function() {
+  	this.jsonInit({
+  	  "type": "",
+  	  "message0": "subscription is Prime",
+  	  "args0": [],
+  	  "output": "Boolean",
+  	  "colour": 260,
+  	  "tooltip": "",
+  	  "helpUrl": ""
+  	});
+  	this.setColour(230);
+  	this.setTooltip("");
+  	this.setHelpUrl("https://www.instafluff.tv");
+    }
+};
+
+Blockly.JavaScript["twitch_is_sub_prime"] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = `( subTierInfo && subTierInfo.prime )`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_sub_tier"] = {
+    init: function() {
+  	this.jsonInit({
+  	  "type": "",
+  	  "message0": "subscription tier number",
+  	  "args0": [],
+  	  "output": "Number",
+  	  "colour": 260,
+  	  "tooltip": "",
+  	  "helpUrl": ""
+  	});
+  	this.setColour(230);
+  	this.setTooltip("");
+  	this.setHelpUrl("https://www.instafluff.tv");
+    }
+};
+
+Blockly.JavaScript["twitch_sub_tier"] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = `( subTierInfo.plan === "1000" ? 1 : ( subTierInfo.plan === "2000" ? 2 : 3 ) )`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_sub_months"] = {
+    init: function() {
+  	this.jsonInit({
+  	  "type": "",
+  	  "message0": "total subscription months",
+  	  "args0": [],
+  	  "output": "Number",
+  	  "colour": 260,
+  	  "tooltip": "",
+  	  "helpUrl": ""
+  	});
+  	this.setColour(230);
+  	this.setTooltip("");
+  	this.setHelpUrl("https://www.instafluff.tv");
+    }
+};
+
+Blockly.JavaScript["twitch_sub_months"] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = `( cumulativeMonths )`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_sub_streak"] = {
+    init: function() {
+  	this.jsonInit({
+  	  "type": "",
+  	  "message0": "subscription month streak",
+  	  "args0": [],
+  	  "output": "Number",
+  	  "colour": 260,
+  	  "tooltip": "",
+  	  "helpUrl": ""
+  	});
+  	this.setColour(230);
+  	this.setTooltip("");
+  	this.setHelpUrl("https://www.instafluff.tv");
+    }
+};
+
+Blockly.JavaScript["twitch_sub_streak"] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = `( streakMonths )`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -652,7 +947,7 @@ Blockly.Blocks["twitch_is_broadcaster"] = {
   	  "tooltip": "",
   	  "helpUrl": ""
   	});
-  	this.setColour(260);
+  	this.setColour(230);
   	this.setTooltip("");
   	this.setHelpUrl("https://www.instafluff.tv");
     }
@@ -677,7 +972,7 @@ Blockly.Blocks["twitch_is_mod"] = {
   	  "tooltip": "",
   	  "helpUrl": ""
   	});
-  	this.setColour(260);
+  	this.setColour(230);
   	this.setTooltip("");
   	this.setHelpUrl("https://www.instafluff.tv");
     }
@@ -702,7 +997,7 @@ Blockly.Blocks["twitch_is_vip"] = {
   	  "tooltip": "",
   	  "helpUrl": ""
   	});
-  	this.setColour(260);
+  	this.setColour(230);
   	this.setTooltip("");
   	this.setHelpUrl("https://www.instafluff.tv");
     }
@@ -727,7 +1022,7 @@ Blockly.Blocks["twitch_is_subscriber"] = {
   	  "tooltip": "",
   	  "helpUrl": ""
   	});
-  	this.setColour(260);
+  	this.setColour(230);
   	this.setTooltip("");
   	this.setHelpUrl("https://www.instafluff.tv");
     }
@@ -752,7 +1047,7 @@ Blockly.Blocks["twitch_is_founder"] = {
   	  "tooltip": "",
   	  "helpUrl": ""
   	});
-  	this.setColour(260);
+  	this.setColour(230);
   	this.setTooltip("");
   	this.setHelpUrl("https://www.instafluff.tv");
     }
@@ -777,7 +1072,7 @@ Blockly.Blocks["twitch_is_highlighted"] = {
   	  "tooltip": "",
   	  "helpUrl": ""
   	});
-  	this.setColour(260);
+  	this.setColour(230);
   	this.setTooltip("");
   	this.setHelpUrl("https://www.instafluff.tv");
     }
@@ -802,7 +1097,7 @@ Blockly.Blocks["twitch_is_reward"] = {
   	  "tooltip": "",
   	  "helpUrl": ""
   	});
-  	this.setColour(260);
+  	this.setColour(230);
   	this.setTooltip("");
   	this.setHelpUrl("https://www.instafluff.tv");
     }
