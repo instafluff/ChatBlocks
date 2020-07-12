@@ -202,6 +202,12 @@ function codeUpdateHandler( event ) {
 			});
 		};
 		ComfyJS.Init( "${window.localStorage.getItem( "channel" ) || ComfyTwitch.User}", "oauth:${ComfyTwitch.Token}" );
+
+		function wait( time ) {
+			return new Promise( ( resolve ) => {
+				setTimeout( resolve, time );
+			});
+		}
 		</script>
 	</body>
 </html>`;
@@ -338,7 +344,7 @@ Blockly.Blocks["twitch_whisper"] = {
 	init: function() {
 		this.jsonInit({
 		"type": "twitch_whisper",
-		"message0": "whisper @ %1 say %2",
+		"message0": "whisper to %1 message %2",
 		"args0": [
 		  {
 			"type": "input_value",
@@ -402,7 +408,7 @@ Blockly.JavaScript["twitch_oncommand"] = function(block) {
 	var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onCommandHandlers[ ${value_name} ] = ( user, message, flags, extra ) => {\n${statements_input}\n};\n`;
+	var code = `onCommandHandlers[ ${value_name} ] = async ( user, message, flags, extra ) => {\n${statements_input}\n};\n`;
 	return code;
 };
 
@@ -430,7 +436,7 @@ Blockly.Blocks["twitch_onchat"] = {
 Blockly.JavaScript["twitch_onchat"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onChatHandlers.push( ( user, message, flags, self, extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onChatHandlers.push( async ( user, message, flags, self, extra ) => {\n${statements_input}\n} );\n`;
 	return code;
 };
 
@@ -458,7 +464,7 @@ Blockly.Blocks["twitch_onwhisper"] = {
 Blockly.JavaScript["twitch_onwhisper"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onWhisperHandlers.push( ( user, message, flags, self, extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onWhisperHandlers.push( async ( user, message, flags, self, extra ) => {\n${statements_input}\n} );\n`;
 	return code;
 };
 
@@ -486,7 +492,7 @@ Blockly.Blocks["twitch_onhost"] = {
 Blockly.JavaScript["twitch_onhost"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onHostHandlers.push( ( user, viewers, autohost, extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onHostHandlers.push( async ( user, viewers, autohost, extra ) => {\n${statements_input}\n} );\n`;
 	return code;
 };
 
@@ -514,7 +520,7 @@ Blockly.Blocks["twitch_onraid"] = {
 Blockly.JavaScript["twitch_onraid"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onRaidHandlers.push( ( user, viewers, extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onRaidHandlers.push( async ( user, viewers, extra ) => {\n${statements_input}\n} );\n`;
 	return code;
 };
 
@@ -542,7 +548,7 @@ Blockly.Blocks["twitch_oncheer"] = {
 Blockly.JavaScript["twitch_oncheer"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onCheerHandlers.push( ( user, message, bits, flags, extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onCheerHandlers.push( async ( user, message, bits, flags, extra ) => {\n${statements_input}\n} );\n`;
 	return code;
 };
 
@@ -570,7 +576,7 @@ Blockly.Blocks["twitch_onsub"] = {
 Blockly.JavaScript["twitch_onsub"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onSubHandlers.push( ( user, message, subTierInfo, extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onSubHandlers.push( async ( user, message, subTierInfo, extra ) => {\n${statements_input}\n} );\n`;
 	return code;
 };
 
@@ -598,7 +604,7 @@ Blockly.Blocks["twitch_onresub"] = {
 Blockly.JavaScript["twitch_onresub"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onResubHandlers.push( ( user, message, streakMonths, cumulativeMonths, subTierInfo, extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onResubHandlers.push( async ( user, message, streakMonths, cumulativeMonths, subTierInfo, extra ) => {\n${statements_input}\n} );\n`;
 	return code;
 };
 
@@ -626,7 +632,7 @@ Blockly.Blocks["twitch_onsubgift"] = {
 Blockly.JavaScript["twitch_onsubgift"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onSubGiftHandlers.push( ( gifter, streakMonths, user, gifterCount, subTierInfo, extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onSubGiftHandlers.push( async ( gifter, streakMonths, user, gifterCount, subTierInfo, extra ) => {\n${statements_input}\n} );\n`;
 	return code;
 };
 
@@ -654,7 +660,7 @@ Blockly.Blocks["twitch_onbatchsubgift"] = {
 Blockly.JavaScript["twitch_onbatchsubgift"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onSubGiftBatchHandlers.push( ( gifter, numberOfSubs, gifterCount, subTierInfo, extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onSubGiftBatchHandlers.push( async ( gifter, numberOfSubs, gifterCount, subTierInfo, extra ) => {\n${statements_input}\n} );\n`;
 	return code;
 };
 
@@ -682,7 +688,7 @@ Blockly.Blocks["twitch_ongiftsubcontinue"] = {
 Blockly.JavaScript["twitch_ongiftsubcontinue"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onGiftSubContinueHandlers.push( ( user, gifter, extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onGiftSubContinueHandlers.push( async ( user, gifter, extra ) => {\n${statements_input}\n} );\n`;
 	return code;
 };
 
@@ -1109,4 +1115,147 @@ Blockly.JavaScript["twitch_is_reward"] = function(block) {
   var code = `( flags.customReward )`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["utility_wait"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "utility_wait",
+		"message0": "wait for %1 seconds",
+		"args0": [
+		  {
+			"type": "input_value",
+			"name": "VALUE",
+			"check": "Number",
+			"align": "RIGHT"
+		  }
+		],
+		"previousStatement": null,
+		"nextStatement": null,
+		"colour": 260,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setColour(290);
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["utility_wait"] = function(block) {
+	var value_value = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC);
+	var code = `await wait( ${value_value} * 1000 );`;
+	return code;
+};
+
+Blockly.Blocks["utility_get_http"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "utility_get_http",
+		"message0": "get from web URL %1",
+		"args0": [
+		  {
+			"type": "input_value",
+			"name": "URL",
+			"check": "String",
+			"align": "RIGHT"
+		  }
+		],
+    	"output": "String",
+		// "previousStatement": null,
+		// "nextStatement": null,
+		"colour": 260,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setColour(290);
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["utility_get_http"] = function(block) {
+	var value_url = Blockly.JavaScript.valueToCode(block, "URL", Blockly.JavaScript.ORDER_ATOMIC);
+	var code = `await fetch( ${value_url}, {
+		"headers": {
+			"Accept": "text/plain"
+		}
+	} ).then( r => r.text() )`;
+	return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["utility_post_http"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "utility_post_http",
+		"message0": "send to web URL %1 message %2",
+		"args0": [
+		  {
+			"type": "input_value",
+			"name": "URL",
+			"check": "String",
+			"align": "RIGHT"
+		  },
+		  {
+			"type": "input_value",
+			"name": "VALUE",
+			"check": "String",
+			"align": "RIGHT"
+		  }
+		],
+    	// "output": "String",
+		"previousStatement": null,
+		"nextStatement": null,
+		"colour": 260,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setColour(290);
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["utility_post_http"] = function(block) {
+	var value_url = Blockly.JavaScript.valueToCode(block, "URL", Blockly.JavaScript.ORDER_ATOMIC);
+	var value_value = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC);
+	var code = `( await fetch( ${value_url}, {
+		"method": "POST",
+		"headers": {
+			"Content-Type": "application/json"
+		},
+		"body": ${value_value}
+	}) )`;
+	return code;
+};
+
+Blockly.Blocks["utility_console_log"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "utility_console_log",
+		"message0": "log to debug console %1",
+		"args0": [
+		  {
+			"type": "input_value",
+			"name": "VALUE",
+			"check": "String",
+			"align": "RIGHT"
+		  }
+		],
+		"previousStatement": null,
+		"nextStatement": null,
+		"colour": 260,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setColour(290);
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["utility_console_log"] = function(block) {
+	var value_value = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC);
+	var code = `console.log( ${value_value} );`;
+	return code;
 };

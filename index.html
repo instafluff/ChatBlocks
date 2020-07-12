@@ -515,8 +515,14 @@
 		      </block>
 		    </category>
 		    <sep></sep>
-		    <category name="VARIABLES" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
-		    <category name="FUNCTIONS" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
+		    <category name="VARIABLES" categorystyle="variable_category" custom="VARIABLE"></category>
+		    <category name="FUNCTIONS" categorystyle="procedure_category" custom="PROCEDURE"></category>
+            <category name="EXTRA" categorystyle="variable_dynamic_category">
+                <block type="utility_wait"></block>
+                <block type="utility_get_http"></block>
+                <block type="utility_post_http"></block>
+                <block type="utility_console_log"></block>
+            </category>
 		</xml>
 		<br/>
         <a href="https://developers.google.com/blockly" target="_blank"><img class="float-right" src="https://developers.google.com/blockly/images/logos/logo_built_on_knockout.png" height="28px" /></a>
