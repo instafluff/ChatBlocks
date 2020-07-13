@@ -1136,7 +1136,7 @@ Blockly.Blocks["utility_wait"] = {
 		"tooltip": "",
 		"helpUrl": ""
 	  });
-	  this.setColour(290);
+	  this.setColour(35);
 	  this.setTooltip("");
 	  this.setHelpUrl("https://www.instafluff.tv");
 	}
@@ -1168,7 +1168,7 @@ Blockly.Blocks["utility_get_http"] = {
 		"tooltip": "",
 		"helpUrl": ""
 	  });
-	  this.setColour(290);
+	  this.setColour(35);
 	  this.setTooltip("");
 	  this.setHelpUrl("https://www.instafluff.tv");
 	}
@@ -1210,7 +1210,7 @@ Blockly.Blocks["utility_post_http"] = {
 		"tooltip": "",
 		"helpUrl": ""
 	  });
-	  this.setColour(290);
+	  this.setColour(35);
 	  this.setTooltip("");
 	  this.setHelpUrl("https://www.instafluff.tv");
 	}
@@ -1248,7 +1248,7 @@ Blockly.Blocks["utility_console_log"] = {
 		"tooltip": "",
 		"helpUrl": ""
 	  });
-	  this.setColour(290);
+	  this.setColour(35);
 	  this.setTooltip("");
 	  this.setHelpUrl("https://www.instafluff.tv");
 	}
