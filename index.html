@@ -549,7 +549,11 @@
                 document.getElementById( "username" ).innerText = user.display_name;
                 document.getElementById( "profile-image" ).src = user.profile_image_url;
                 document.querySelector( "#login-group" ).setAttribute( "hidden", true );
-                document.querySelector( "#profile-group" ).removeAttribute( "hidden" );
+								document.querySelector( "#profile-group" ).removeAttribute( "hidden" );
+								document.getElementById( "run-code" ).removeAttribute( "disabled" );
+								document.getElementById( "save-code" ).removeAttribute( "disabled" );
+								document.getElementById( "load-code" ).removeAttribute( "disabled" );
+								document.getElementById( "clear-code" ).removeAttribute( "disabled" );
                 document.querySelector( "#logout" ).addEventListener( "click", function() {
                     ComfyTwitch.Logout();
                     window.location.reload();
@@ -559,11 +563,14 @@
                 // Logged Out
                 document.querySelector( "#profile-group" ).setAttribute( "hidden", true );
                 document.querySelector( "#login-group" ).removeAttribute( "hidden" );
-				document.getElementById( "workspace" ).classList.add( "blocks-blocker" );
-				document.getElementById( "run-code" ).classList.add( "btn-secondary" );
-				document.getElementById( "run-code" ).setAttribute( "disabled", true );
-				document.getElementById( "channel-name" ).value = "";
-				document.querySelector( "#login" ).addEventListener( "click", function() {
+								document.getElementById( "workspace" ).classList.add( "blocks-blocker" );
+								document.getElementById( "run-code" ).classList.add( "btn-secondary" );
+								document.getElementById( "run-code" ).setAttribute( "disabled", true );
+								document.getElementById( "save-code" ).setAttribute( "disabled", true );
+								document.getElementById( "load-code" ).setAttribute( "disabled", true );
+								document.getElementById( "clear-code" ).setAttribute( "disabled", true );
+								document.getElementById( "channel-name" ).value = "";
+								document.querySelector( "#login" ).addEventListener( "click", function() {
                     ComfyTwitch.Login( clientId, baseUrl, [ "user:read:email", "chat:read", "chat:edit", "channel:moderate", "whispers:read", "whispers:edit" ] );
                 });
             }
