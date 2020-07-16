@@ -239,6 +239,7 @@ document.getElementById( "run-code" ).addEventListener( "click", ( ev ) => {
 		document.getElementById( "run-code" ).classList.remove( "btn-danger" );
 		document.getElementById( "save-code" ).removeAttribute( "disabled" );
 		document.getElementById( "load-code" ).removeAttribute( "disabled" );
+		document.getElementById( "clear-code" ).removeAttribute( "disabled" );
 		document.getElementById( "channel-name" ).removeAttribute( "disabled" );
 		document.getElementById( "run-code" ).innerHTML = `<i class="fa fa-play"></i> Run Blocks`;
 		let sandbox = document.getElementById( "run-sandbox" );
@@ -252,6 +253,7 @@ document.getElementById( "run-code" ).addEventListener( "click", ( ev ) => {
 		document.getElementById( "run-code" ).classList.remove( "btn-success" );
 		document.getElementById( "save-code" ).setAttribute( "disabled", true );
 		document.getElementById( "load-code" ).setAttribute( "disabled", true );
+		document.getElementById( "clear-code" ).setAttribute( "disabled", true );
 		document.getElementById( "channel-name" ).setAttribute( "disabled", true );
 
 		document.getElementById( "run-code" ).innerHTML = `<i class="fa fa-stop"></i> Stop Blocks`;
