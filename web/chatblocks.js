@@ -215,6 +215,11 @@ document.getElementById( "load-code" ).addEventListener( "click", ( ev ) => {
 	document.getElementById( "blocks-file-input" ).click();
 } );
 
+document.getElementById( "clear-code" ).addEventListener( "click", ( ev ) => {
+	workspace.clear();
+} );
+
+
 document.getElementById( "blocks-file-input" ).addEventListener( "change", async function () {
 	const fileList = this.files;
 	if( fileList.length > 0 ) {
