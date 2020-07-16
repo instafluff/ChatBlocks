@@ -132,6 +132,9 @@ function codeUpdateHandler( event ) {
 	</head>
 	<body>
 		<script type="text/javascript">
+		math.createUnit('tbsp', {definition: '1 tablespoon', aliases: ["tbspoon"]});
+		math.createUnit('tsp', {definition: '1 teaspoon', aliases: ["tspoon"]});
+		
 		let user = undefined, command = undefined, flags = {}, extra = {};
 		let onCommandHandlers = {};
 		let onChatHandlers = [];
