@@ -1281,7 +1281,7 @@ Blockly.Blocks["math_eval"] = {
 		"tooltip": "",
 		"helpUrl": ""
 	  });
-	  this.setColour(35);
+	  this.setColour(110);
 	  this.setTooltip("");
 	  this.setHelpUrl("https://www.instafluff.tv");
 	}
