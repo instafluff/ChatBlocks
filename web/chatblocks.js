@@ -128,6 +128,7 @@ function codeUpdateHandler( event ) {
 `<html>
 	<head>
 		<script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/mathjs@7.1.0/dist/math.min.js"></script>
 	</head>
 	<body>
 		<script type="text/javascript">
@@ -1258,4 +1259,36 @@ Blockly.JavaScript["utility_console_log"] = function(block) {
 	var value_value = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC);
 	var code = `console.log( ${value_value} );`;
 	return code;
+};
+
+Blockly.Blocks["math_eval"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "math_eval",
+		"message0": "evaluate %1",
+		"args0": [
+		  {
+			"type": "input_value",
+			"name": "EXPRESSION",
+			"check": "String",
+			"align": "RIGHT"
+		  }
+		],
+    	"output": "String",
+		// "previousStatement": null,
+		// "nextStatement": null,
+		"colour": 160,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setColour(35);
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["math_eval"] = function(block) {
+	var value_exp = Blockly.JavaScript.valueToCode(block, "EXPRESSION", Blockly.JavaScript.ORDER_ATOMIC);
+	var code = `math.evaluate( ${value_exp} )`;
+	return [code, Blockly.JavaScript.ORDER_NONE];
 };
