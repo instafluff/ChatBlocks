@@ -1314,7 +1314,7 @@ Blockly.Blocks[ "json_setkey" ] = {
 			{
 				"type": "input_value",
 				"name": "VALUE",
-				"check": "String",
+				"check": ["String", "Number", "Array", "Json"],
 				"align": "RIGHT"
 			},
 		  {
