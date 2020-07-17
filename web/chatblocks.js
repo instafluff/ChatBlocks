@@ -1325,7 +1325,7 @@ Blockly.Blocks[ "json_setkey" ] = {
 	init: function() {
 		this.jsonInit({
 		"type": "json_setkey",
-		"message0": "set value: %1 at key: %2 from json: %3",
+		"message0": "set value: %1 at key: %2 in json: %3",
 		"args0": [
 			{
 				"type": "input_value",
