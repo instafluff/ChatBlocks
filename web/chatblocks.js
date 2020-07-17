@@ -1127,6 +1127,98 @@ Blockly.JavaScript["twitch_is_reward"] = function(block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
+Blockly.Blocks["text_replace"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "text_replace",
+		"message0": "replace %1 with %2 in %3",
+		"args0": [
+		  {
+				"type": "input_value",
+				"name": "REPLACE",
+				"check": "String",
+				"align": "RIGHT"
+			},
+			{
+				"type": "input_value",
+				"name": "WITH",
+				"check": "String",
+				"align": "RIGHT"
+			},
+			{
+				"type": "input_value",
+				"name": "INPUT",
+				"check": "String",
+				"align": "RIGHT"
+			}
+		],
+		"inputsInline": "true",
+		"output": "String",
+		"tooltip": "",
+		"helpUrl": "",
+		"style": "text_blocks"
+	  });
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["text_replace"] = function(block) {
+	var value_replace = Blockly.JavaScript.valueToCode(block, "REPLACE", Blockly.JavaScript.ORDER_ATOMIC) || '';
+	var value_with = Blockly.JavaScript.valueToCode(block, "WITH", Blockly.JavaScript.ORDER_ATOMIC) || '';
+	var value_input = Blockly.JavaScript.valueToCode(block, "INPUT", Blockly.JavaScript.ORDER_ATOMIC) || '';
+	
+	var code = `${value_input}.replace(${value_replace}, ${value_with})`;
+
+	return [code, Blockly.JavaScript.ORDER_NONE];
+}
+
+Blockly.Blocks["text_replaceAll"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "text_replaceAll",
+		"message0": "replaceAll %1 with %2 in %3",
+		"args0": [
+		  {
+				"type": "input_value",
+				"name": "REPLACE",
+				"check": "String",
+				"align": "RIGHT"
+			},
+			{
+				"type": "input_value",
+				"name": "WITH",
+				"check": "String",
+				"align": "RIGHT"
+			},
+			{
+				"type": "input_value",
+				"name": "INPUT",
+				"check": "String",
+				"align": "RIGHT"
+			}
+		],
+		"inputsInline": "true",
+		"output": "String",
+		"tooltip": "",
+		"helpUrl": "",
+		"style": "text_blocks"
+	  });
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["text_replaceAll"] = function(block) {
+	var value_replace = Blockly.JavaScript.valueToCode(block, "REPLACE", Blockly.JavaScript.ORDER_ATOMIC) || '';
+	var value_with = Blockly.JavaScript.valueToCode(block, "WITH", Blockly.JavaScript.ORDER_ATOMIC) || '';
+	var value_input = Blockly.JavaScript.valueToCode(block, "INPUT", Blockly.JavaScript.ORDER_ATOMIC) || '';
+	
+	var code = `${value_input}.replaceAll(${value_replace}, ${value_with})`;
+
+	return [code, Blockly.JavaScript.ORDER_NONE];
+}
+
 Blockly.Blocks["utility_wait"] = {
 	init: function() {
 		this.jsonInit({
