@@ -1286,7 +1286,7 @@ Blockly.Blocks["math_eval"] = {
     	"output": "String",
 		// "previousStatement": null,
 		// "nextStatement": null,
-		"colour": 160,
+		"style": "math_blocks",
 		"tooltip": "",
 		"helpUrl": ""
 	  });
