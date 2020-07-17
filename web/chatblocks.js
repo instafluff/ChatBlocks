@@ -1346,7 +1346,6 @@ Blockly.Blocks[ "json_getkey" ] = {
 		"tooltip": "",
 		"helpUrl": ""
 	  });
-	  this.setColour(35);
 	  this.setTooltip("");
 	  this.setHelpUrl("https://www.instafluff.tv");
 	}
