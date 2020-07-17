@@ -1304,7 +1304,23 @@ Blockly.JavaScript["math_eval"] = function(block) {
 
 // TODO IMPLEMENT THE JSON EXPIRIMENTAL HERE
 
-Blockly.Blocks["json_getkey"] = {
+Blockly.Blocks[ "json_create_empty" ] = {
+	init: function() {
+		this.jsonInit({
+			"type": "json_create_empty",
+			"message0": "create empty json",
+			"output": "Json",
+			"style": "list_blocks"
+		});
+		this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+}
+Blockly.JavaScript[ "json_create_empty" ] = function(block) {
+	return [` { } `, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks[ "json_getkey" ] = {
 	init: function() {
 		this.jsonInit({
 		"type": "json_getkey",
@@ -1319,14 +1335,14 @@ Blockly.Blocks["json_getkey"] = {
 		  {
 			"type": "input_value",
 			"name": "JSON",
-			"check": "String",
+			"check": "Json",
 			"align": "RIGHT"
 		  }
 		],
 		"output": "String",
 		// "previousStatement": null,
 		// "nextStatement": null,
-		"colour": 260,
+		"style": "list_blocks",
 		"tooltip": "",
 		"helpUrl": ""
 	  });
@@ -1336,11 +1352,17 @@ Blockly.Blocks["json_getkey"] = {
 	}
 };
 
-Blockly.JavaScript["json_getkey"] = function(block) {
+Blockly.JavaScript[ "json_getkey" ] = function(block) {
 	var value_key = Blockly.JavaScript.valueToCode(block, "KEY", Blockly.JavaScript.ORDER_ATOMIC);
 	var value_json = Blockly.JavaScript.valueToCode(block, "JSON", Blockly.JavaScript.ORDER_ATOMIC);
 
-	var code = `JSON.parse( ${value_json} )[ ${value_key} ]`;
+	var code = `( JSON.parse( ${value_json} )[ ${value_key} ] )`;
 
 	return [code, Blockly.JavaScript.ORDER_NONE];
 };
+
+// Blockly.Blocks[ "json_create_from" ] = {
+// }
+
+// Blockly.JavaScript[ "json_create_from" ] = function(block) 
+// };
