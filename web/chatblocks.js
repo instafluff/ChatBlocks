@@ -1346,6 +1346,7 @@ Blockly.Blocks[ "json_setkey" ] = {
 				"align": "RIGHT"
 		  }
 		],
+		"inputsInline": true,
 		"previousStatement": null,
 		"nextStatement": null,
 		"style": "list_blocks",
@@ -1386,6 +1387,7 @@ Blockly.Blocks[ "json_getkey" ] = {
 		  }
 		],
 		"output": "String",
+		"inputsInline": true,
 		// "previousStatement": null,
 		// "nextStatement": null,
 		"style": "list_blocks",
