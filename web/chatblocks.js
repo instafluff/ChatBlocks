@@ -1304,23 +1304,7 @@ Blockly.JavaScript["math_eval"] = function(block) {
 
 // TODO IMPLEMENT THE JSON EXPIRIMENTAL HERE
 
-Blockly.Blocks[ "json_create_empty" ] = {
-	init: function() {
-		this.jsonInit({
-			"type": "json_create_empty",
-			"message0": "create empty json",
-			"output": "Json",
-			"style": "list_blocks"
-		});
-		this.setTooltip("");
-	  this.setHelpUrl("https://www.instafluff.tv");
-	}
-}
-Blockly.JavaScript[ "json_create_empty" ] = function(block) {
-	return [` { } `, Blockly.JavaScript.ORDER_NONE];
-};
 
-// FIXME JSON_SETKEY BROKEN
 Blockly.Blocks[ "json_setkey" ] = {
 	init: function() {
 		this.jsonInit({
@@ -1398,7 +1382,6 @@ Blockly.Blocks[ "json_getkey" ] = {
 	  this.setHelpUrl("https://www.instafluff.tv");
 	}
 };
-
 
 Blockly.JavaScript[ "json_getkey" ] = function(block) {
 	var value_key = Blockly.JavaScript.valueToCode(block, "KEY", Blockly.JavaScript.ORDER_ATOMIC);
