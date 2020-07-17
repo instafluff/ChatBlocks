@@ -1392,8 +1392,134 @@ Blockly.JavaScript[ "json_getkey" ] = function(block) {
 	return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
-// Blockly.Blocks[ "json_create_from" ] = {
-// }
+Blockly.Blocks[ "json_create_with" ] = {
+	init: function() {
+    this.setHelpUrl("https://www.instafluff.tv");
+    this.setStyle('list_blocks');
+    this.itemCount_ = 1;
+    this.updateShape_();
+    this.setOutput(true, 'Json');
+    this.setMutator(new Blockly.Mutator(['json_create_with_item']));
+    this.setTooltip("");
+	},
 
-// Blockly.JavaScript[ "json_create_from" ] = function(block) 
-// };
+	mutationToDom: function() {
+    var container = Blockly.utils.xml.createElement('mutation');
+    container.setAttribute('items', this.itemCount_);
+    return container;
+	},
+	
+	domToMutation: function(xmlElement) {
+    this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
+    this.updateShape_();
+	},
+	
+	decompose: function(workspace) {
+    var containerBlock = workspace.newBlock('json_create_with_container');
+    containerBlock.initSvg();
+    var connection = containerBlock.getInput('STACK').connection;
+    for (var i = 0; i < this.itemCount_; i++) {
+      var itemBlock = workspace.newBlock('json_create_with_item');
+      itemBlock.initSvg();
+      connection.connect(itemBlock.previousConnection);
+      connection = itemBlock.nextConnection;
+    }
+    return containerBlock;
+	},
+	
+	compose: function(containerBlock) {
+    var itemBlock = containerBlock.getInputTargetBlock('STACK');
+    // Count number of inputs.
+    var connections = [];
+    while (itemBlock) {
+      connections.push(itemBlock.valueConnection_);
+      itemBlock = itemBlock.nextConnection &&
+          itemBlock.nextConnection.targetBlock();
+    }
+    // Disconnect any children that don't belong.
+    for (var i = 0; i < this.itemCount_; i++) {
+      var connection = this.getInput('KEY' + i).connection.targetConnection;
+      if (connection && connections.indexOf(connection) == -1) {
+        connection.disconnect();
+      }
+    }
+    this.itemCount_ = connections.length;
+    this.updateShape_();
+    // Reconnect any child blocks.
+    for (var i = 0; i < this.itemCount_; i++) {
+			Blockly.Mutator.reconnect(connections[i], this, 'KEY' + i);
+    }
+	},
+	
+	saveConnections: function(containerBlock) {
+    var itemBlock = containerBlock.getInputTargetBlock('STACK');
+    var i = 0;
+    while (itemBlock) {
+			var input = this.getInput('KEY' + i);
+      itemBlock.valueConnection_ = input && input.connection.targetConnection;
+      i++;
+      itemBlock = itemBlock.nextConnection &&
+          itemBlock.nextConnection.targetBlock();
+    }
+  },
+
+	updateShape_: function() {
+    if (this.itemCount_ && this.getInput('EMPTY')) {
+      this.removeInput('EMPTY');
+    } else if (!this.itemCount_ && !this.getInput('EMPTY')) {
+      this.appendDummyInput('EMPTY')
+          .appendField("create empty json");
+    }
+    // Add new inputs.
+    for (var i = 0; i < this.itemCount_; i++) {
+      if (!this.getInput('KEY' + i)) {
+				let input = this.appendValueInput('KEY' + i).setAlign(Blockly.ALIGN_RIGHT);
+				let input2 = this.appendValueInput('VALUE' + i).setAlign(Blockly.ALIGN_RIGHT);
+				if (i == 0) { input.appendField("create json with"); }
+				input.appendField('key')
+				input2.appendField('value')
+      }
+    }
+    // Remove deleted inputs.
+    while (this.getInput('KEY' + i)) {
+			this.removeInput('KEY' + i);
+			this.removeInput('VALUE' + i);
+      i++;
+    }
+  }
+}
+
+Blockly.JavaScript[ "json_create_with" ] = function(block) {
+	let jsonObject = "{\n"
+  for (var i = 0; i < block.itemCount_; i++) {
+		let key = Blockly.JavaScript.valueToCode(block, 'KEY' + i, Blockly.JavaScript.ORDER_COMMA);
+		let value = Blockly.JavaScript.valueToCode(block, 'VALUE' + i, Blockly.JavaScript.ORDER_COMMA);
+		jsonObject += `${key}: ${value}, \n`
+	}
+	jsonObject += "}"
+  var code = `( ${jsonObject} )`;
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['json_create_with_item'] = {
+  init: function() {
+    this.setStyle('list_blocks');
+		this.appendDummyInput()
+        .appendField("item");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip("");
+    this.contextMenu = false;
+  }
+};
+
+Blockly.Blocks['json_create_with_container'] = {
+  init: function() {
+    this.setStyle('list_blocks');
+    this.appendDummyInput()
+        .appendField("json");
+    this.appendStatementInput('STACK');
+    this.setTooltip("");
+    this.contextMenu = false;
+  }
+};
