@@ -566,7 +566,7 @@ Blockly.Blocks["twitch_onsub"] = {
 	init: function() {
 	  this.jsonInit({
 		"type": "twitch_onsub",
-		"message0": "on new subscription (TEST) %1",
+		"message0": "on new subscription %1",
 		"args0": [
 		  {
 			"type": "input_statement",
@@ -594,7 +594,7 @@ Blockly.Blocks["twitch_onresub"] = {
 	init: function() {
 	  this.jsonInit({
 		"type": "twitch_onresub",
-		"message0": "on subscription renewal (TEST) %1",
+		"message0": "on subscription renewal %1",
 		"args0": [
 		  {
 			"type": "input_statement",
@@ -622,7 +622,7 @@ Blockly.Blocks["twitch_onsubgift"] = {
 	init: function() {
 	  this.jsonInit({
 		"type": "twitch_onsubgift",
-		"message0": "on gift subscription per user (TEST) %1",
+		"message0": "on gift subscription per user %1",
 		"args0": [
 		  {
 			"type": "input_statement",
@@ -650,7 +650,7 @@ Blockly.Blocks["twitch_onbatchsubgift"] = {
 	init: function() {
 	  this.jsonInit({
 		"type": "twitch_onbatchsubgift",
-		"message0": "on gift subscription event (TEST) %1",
+		"message0": "on gift subscription event %1",
 		"args0": [
 		  {
 			"type": "input_statement",
@@ -678,7 +678,7 @@ Blockly.Blocks["twitch_ongiftsubcontinue"] = {
 	init: function() {
 	  this.jsonInit({
 		"type": "twitch_ongiftsubcontinue",
-		"message0": "on continue gift subscription (TEST) %1",
+		"message0": "on continue gift subscription %1",
 		"args0": [
 		  {
 			"type": "input_statement",
