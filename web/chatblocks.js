@@ -1362,9 +1362,8 @@ Blockly.JavaScript[ "json_setkey" ] = function(block) {
 	var value_key = Blockly.JavaScript.valueToCode(block, "KEY", Blockly.JavaScript.ORDER_ATOMIC);
 	var value_json = Blockly.JavaScript.valueToCode(block, "JSON", Blockly.JavaScript.ORDER_ATOMIC);
 
-	var code = `${value_json}[ ${value_key} ] = ${value_value} )`;
-
-	return [code, Blockly.JavaScript.ORDER_NONE];
+	var code = `${value_json}[ ${value_key} ] = ${value_value};`;
+	return code;
 };
 
 Blockly.Blocks[ "json_getkey" ] = {
