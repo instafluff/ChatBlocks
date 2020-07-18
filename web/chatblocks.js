@@ -1340,7 +1340,7 @@ Blockly.Blocks["utility_console_log"] = {
 		  {
 			"type": "input_value",
 			"name": "VALUE",
-			"check": "String",
+			"check": [ "String", "Array", "Number", "Json" ],
 			"align": "RIGHT"
 		  }
 		],
@@ -1396,6 +1396,34 @@ Blockly.JavaScript["math_eval"] = function(block) {
 
 // TODO IMPLEMENT THE JSON EXPIRIMENTAL HERE
 
+Blockly.Blocks[ "json_parse" ] = {
+	init: function() {
+		this.jsonInit({
+		"type": "json_parse",
+		"message0": "parse %1",
+		"args0": [
+		  {
+			"type": "input_value",
+			"name": "PARSE",
+			"check": "String",
+			"align": "RIGHT"
+		  }
+		],
+    "output": "Json",
+		"style": "list_blocks",
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+}
+
+Blockly.JavaScript[ "json_parse" ] = function(block) {
+	var value_parse = Blockly.JavaScript.valueToCode(block, "PARSE", Blockly.JavaScript.ORDER_ATOMIC);
+	var code = `JSON.parse( ${value_parse} )`;
+	return [code, Blockly.JavaScript.ORDER_NONE];
+};
 
 Blockly.Blocks[ "json_setkey" ] = {
 	init: function() {
