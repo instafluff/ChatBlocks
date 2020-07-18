@@ -1479,7 +1479,7 @@ Blockly.JavaScript[ "json_getkey" ] = function(block) {
 	var value_key = Blockly.JavaScript.valueToCode(block, "KEY", Blockly.JavaScript.ORDER_ATOMIC);
 	var value_json = Blockly.JavaScript.valueToCode(block, "JSON", Blockly.JavaScript.ORDER_ATOMIC);
 
-	var code = `( JSON.parse( ${value_json} )[ ${value_key} ] )`;
+	var code = `${value_json}[ ${value_key} ]`;
 
 	return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -1589,7 +1589,7 @@ Blockly.JavaScript[ "json_create_with" ] = function(block) {
 		jsonObject += `${key}: ${value}, \n`
 	}
 	jsonObject += "}"
-  var code = `( ${jsonObject} )`;
+  var code = `${jsonObject}`;
   return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
