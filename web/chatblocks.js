@@ -1219,6 +1219,44 @@ Blockly.JavaScript["text_replaceAll"] = function(block) {
 	return [code, Blockly.JavaScript.ORDER_NONE];
 }
 
+Blockly.Blocks[ "text_contains" ] = {
+	init: function() {
+		this.jsonInit({
+			"type": "text_contains",
+			"message0": "text %1 contains %2",
+			"args0": [
+				{
+					"type": "input_value",
+					"name": "SOURCE",
+					"check": "String",
+					"align": "RIGHT"
+				},
+				{
+					"type": "input_value",
+					"name": "CONTAINS",
+					"check": "String",
+					"align": "RIGHT"
+				}
+			],
+			"output": "Boolean",
+			"style": "text_blocks",
+			"inputsInline": true,
+			"tooltip": "",
+			"helpUrl": ""
+		});
+		this.setTooltip("");
+		this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+
+Blockly.JavaScript[ "text_contains" ] = function(block) {
+	var value_src = Blockly.JavaScript.valueToCode(block, "SOURCE", Blockly.JavaScript.ORDER_ATOMIC);
+	var value_contains = Blockly.JavaScript.valueToCode(block, "CONTAINS", Blockly.JavaScript.ORDER_ATOMIC);
+	var code = `${value_src}.includes( ${value_contains} )`;
+	return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
 Blockly.Blocks["utility_wait"] = {
 	init: function() {
 		this.jsonInit({
