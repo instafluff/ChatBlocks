@@ -1340,7 +1340,7 @@ Blockly.Blocks["utility_console_log"] = {
 		  {
 			"type": "input_value",
 			"name": "VALUE",
-			"check": [ "String", "Array", "Number", "Json" ],
+			"check": [ "String", "Array", "Number", "Json", "Boolean" ],
 			"align": "RIGHT"
 		  }
 		],
