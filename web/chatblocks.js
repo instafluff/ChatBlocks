@@ -1287,9 +1287,10 @@ Blockly.Blocks[ "text_countAmount" ] = {
 	}
 };
 
-
 Blockly.JavaScript[ "text_countAmount" ] = function(block) {
-	var code = ``;
+	var value_occuranceof = Blockly.JavaScript.valueToCode(block, "OCCURANCEOF", Blockly.JavaScript.ORDER_ATOMIC);
+	var value_src = Blockly.JavaScript.valueToCode(block, "SOURCE", Blockly.JavaScript.ORDER_ATOMIC);
+	var code = `( ${value_src}.match(new RegExp(${value_occuranceof}, "g")) || [] ).length`;
 	return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
