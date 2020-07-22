@@ -1257,6 +1257,42 @@ Blockly.JavaScript[ "text_contains" ] = function(block) {
 	return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
+Blockly.Blocks[ "text_countAmount" ] = {
+	init: function() {
+		this.jsonInit({
+			"type": "text_countAmount",
+			"message0": "count occurrences of %1 in %2",
+			"args0": [
+				{
+					"type": "input_value",
+					"name": "OCCURANCEOF",
+					"check": "String",
+					"align": "RIGHT"
+				},
+				{
+					"type": "input_value",
+					"name": "SOURCE",
+					"check": "String",
+					"align": "RIGHT"
+				}
+			],
+			"output": "Number",
+			"style": "text_blocks",
+			"inputsInline": true,
+			"tooltip": "",
+			"helpUrl": ""
+		});
+		this.setTooltip("");
+		this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+
+Blockly.JavaScript[ "text_countAmount" ] = function(block) {
+	var code = ``;
+	return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
 Blockly.Blocks["utility_wait"] = {
 	init: function() {
 		this.jsonInit({
