@@ -1329,6 +1329,43 @@ Blockly.JavaScript["utility_wait"] = function(block) {
 	return code;
 };
 
+
+Blockly.Blocks["utility_ontimer"] = {
+	init: function() {
+	  this.jsonInit({
+		"type": "utility_ontimer",
+		"message0": "at every %1 seconds %2",
+		"args0": [
+		  {
+			"type": "input_value",
+			"name": "VALUE",
+			"check": "Number",
+			"value": 60
+		  },
+		  {
+			"type": "input_statement",
+			"name": "INPUT"
+		  }
+		],
+		"colour": 260,
+		"inputsInline": "true",
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setColour(35);
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["utility_ontimer"] = function(block) {
+	var value_name = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC);
+	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
+	// TODO: Assemble JavaScript into code variable.
+	var code = `setInterval( async () => {\n${statements_input}\n}, ${value_name} * 1000 );\n`;
+	return code;
+};
+
 Blockly.Blocks["utility_get_http"] = {
 	init: function() {
 		this.jsonInit({
