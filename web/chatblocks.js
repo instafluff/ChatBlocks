@@ -300,11 +300,10 @@ document.getElementById( "blocks-file-input" ).addEventListener( "change", async
 
 function xmlStrToWorkspace( fileName="chatblocks.cbs", xmlText ) {
 	if (fileName.split(".")[ 1 ] == "cbs") {
-		// TODO: Make blocks append, not overwrite
-		let xml = Blockly.Xml.textToDom(xmlText);
+		// Make blocks append, not overwrite
 		let workspace = Blockly.getMainWorkspace();
-		workspace.clear();
-		Blockly.Xml.domToWorkspace(xml, workspace);
+		let loadingXml = Blockly.Xml.textToDom( xmlText );
+		Blockly.Xml.appendDomToWorkspace( loadingXml, workspace );
 	}
 }
 
