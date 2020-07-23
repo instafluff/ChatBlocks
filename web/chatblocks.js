@@ -132,80 +132,85 @@ function codeUpdateHandler( event ) {
 	</head>
 	<body>
 		<script type="text/javascript">
-		math.createUnit('tbsp', {definition: '1 tablespoon', aliases: ["tbspoon"]});
-		math.createUnit('tsp', {definition: '1 teaspoon', aliases: ["tspoon"]});
-		
-		let user = undefined, command = undefined, flags = {}, extra = {};
-		let onCommandHandlers = {};
-		let onChatHandlers = [];
-		let onWhisperHandlers = [];
-		let onHostHandlers = [];
-		let onRaidHandlers = [];
-		let onCheerHandlers = [];
-		let onSubHandlers = [];
-		let onResubHandlers = [];
-		let onSubGiftHandlers = [];
-		let onSubGiftBatchHandlers = [];
-		let onGiftSubContinueHandlers = [];
-		${code}
-		ComfyJS.onCommand = ( user, command, message, flags, extra ) => {
-			if( onCommandHandlers[ command ] ) {
-				onCommandHandlers[ command ]( user, message, flags, extra );
-			}
-		};
-		ComfyJS.onChat = ( user, message, flags, self, extra ) => {
-			if( self ) { return; }
-			onChatHandlers.forEach( x => {
-				x( user, message, flags, self, extra );
-			});
-		};
-		ComfyJS.onWhisper = ( user, message, flags, self, extra ) => {
-			if( self ) { return; }
-			onWhisperHandlers.forEach( x => {
-				x( user, message, flags, self, extra );
-			});
-		};
-		ComfyJS.onHosted = ( user, viewers, autohost, extra ) => {
-			onHostHandlers.forEach( x => {
-				x( user, viewers, autohost, extra );
-			});
-		};
-		ComfyJS.onRaid = ( user, viewers, extra ) => {
-			onRaidHandlers.forEach( x => {
-				x( user, viewers, extra );
-			});
-		};
-		ComfyJS.onCheer = ( user, message, bits, flags, extra ) => {
-			onCheerHandlers.forEach( x => {
-				x( user, message, bits, flags, extra );
-			});
-		};
-		ComfyJS.onSub = ( user, message, subTierInfo, extra ) => {
-			onSubHandlers.forEach( x => {
-				x( user, message, subTierInfo, extra );
-			});
-		};
-		ComfyJS.onResub = ( user, message, streakMonths, cumulativeMonths, subTierInfo, extra ) => {
-			onResubHandlers.forEach( x => {
-				x( user, message, streakMonths, cumulativeMonths, subTierInfo, extra );
-			});
-		};
-		ComfyJS.onSubGift = ( gifterUser, streakMonths, recipientUser, senderCount, subTierInfo, extra ) => {
-			onSubGiftHandlers.forEach( x => {
-				x( gifterUser, streakMonths, recipientUser, senderCount, subTierInfo, extra );
-			});
-		};
-		ComfyJS.onSubMysteryGift = ( gifterUser, numberOfSubs, senderCount, subTierInfo, extra ) => {
-			onSubGiftBatchHandlers.forEach( x => {
-				x( gifterUser, numberOfSubs, senderCount, subTierInfo, extra );
-			});
-		};
-		ComfyJS.onGiftSubContinue = ( user, sender, extra ) => {
-			onGiftSubContinueHandlers.forEach( x => {
-				x( user, sender, extra );
-			});
-		};
-		ComfyJS.Init( "${window.localStorage.getItem( "channel" ) || ComfyTwitch.User}", "oauth:${ComfyTwitch.Token}" );
+		try {
+			math.createUnit('tbsp', {definition: '1 tablespoon', aliases: ["tbspoon"]});
+			math.createUnit('tsp', {definition: '1 teaspoon', aliases: ["tspoon"]});
+
+			let user = undefined, command = undefined, flags = {}, extra = {};
+			let onCommandHandlers = {};
+			let onChatHandlers = [];
+			let onWhisperHandlers = [];
+			let onHostHandlers = [];
+			let onRaidHandlers = [];
+			let onCheerHandlers = [];
+			let onSubHandlers = [];
+			let onResubHandlers = [];
+			let onSubGiftHandlers = [];
+			let onSubGiftBatchHandlers = [];
+			let onGiftSubContinueHandlers = [];
+			${code}
+			ComfyJS.onCommand = ( user, command, message, flags, extra ) => {
+				if( onCommandHandlers[ command ] ) {
+					onCommandHandlers[ command ]( user, message, flags, extra );
+				}
+			};
+			ComfyJS.onChat = ( user, message, flags, self, extra ) => {
+				if( self ) { return; }
+				onChatHandlers.forEach( x => {
+					x( user, message, flags, self, extra );
+				});
+			};
+			ComfyJS.onWhisper = ( user, message, flags, self, extra ) => {
+				if( self ) { return; }
+				onWhisperHandlers.forEach( x => {
+					x( user, message, flags, self, extra );
+				});
+			};
+			ComfyJS.onHosted = ( user, viewers, autohost, extra ) => {
+				onHostHandlers.forEach( x => {
+					x( user, viewers, autohost, extra );
+				});
+			};
+			ComfyJS.onRaid = ( user, viewers, extra ) => {
+				onRaidHandlers.forEach( x => {
+					x( user, viewers, extra );
+				});
+			};
+			ComfyJS.onCheer = ( user, message, bits, flags, extra ) => {
+				onCheerHandlers.forEach( x => {
+					x( user, message, bits, flags, extra );
+				});
+			};
+			ComfyJS.onSub = ( user, message, subTierInfo, extra ) => {
+				onSubHandlers.forEach( x => {
+					x( user, message, subTierInfo, extra );
+				});
+			};
+			ComfyJS.onResub = ( user, message, streakMonths, cumulativeMonths, subTierInfo, extra ) => {
+				onResubHandlers.forEach( x => {
+					x( user, message, streakMonths, cumulativeMonths, subTierInfo, extra );
+				});
+			};
+			ComfyJS.onSubGift = ( gifterUser, streakMonths, recipientUser, senderCount, subTierInfo, extra ) => {
+				onSubGiftHandlers.forEach( x => {
+					x( gifterUser, streakMonths, recipientUser, senderCount, subTierInfo, extra );
+				});
+			};
+			ComfyJS.onSubMysteryGift = ( gifterUser, numberOfSubs, senderCount, subTierInfo, extra ) => {
+				onSubGiftBatchHandlers.forEach( x => {
+					x( gifterUser, numberOfSubs, senderCount, subTierInfo, extra );
+				});
+			};
+			ComfyJS.onGiftSubContinue = ( user, sender, extra ) => {
+				onGiftSubContinueHandlers.forEach( x => {
+					x( user, sender, extra );
+				});
+			};
+			ComfyJS.Init( "${window.localStorage.getItem( "channel" ) || ComfyTwitch.User}", "oauth:${ComfyTwitch.Token}" );
+		}
+		catch( error ) {
+			window.alert( "ERROR: " + error.message );
+		}
 
 		function wait( time ) {
 			return new Promise( ( resolve ) => {
@@ -1166,7 +1171,7 @@ Blockly.JavaScript["text_replace"] = function(block) {
 	var value_replace = Blockly.JavaScript.valueToCode(block, "REPLACE", Blockly.JavaScript.ORDER_ATOMIC) || '';
 	var value_with = Blockly.JavaScript.valueToCode(block, "WITH", Blockly.JavaScript.ORDER_ATOMIC) || '';
 	var value_input = Blockly.JavaScript.valueToCode(block, "INPUT", Blockly.JavaScript.ORDER_ATOMIC) || '';
-	
+
 	var code = `${value_input}.replace(${value_replace}, ${value_with})`;
 
 	return [code, Blockly.JavaScript.ORDER_NONE];
@@ -1212,7 +1217,7 @@ Blockly.JavaScript["text_replaceAll"] = function(block) {
 	var value_replace = Blockly.JavaScript.valueToCode(block, "REPLACE", Blockly.JavaScript.ORDER_ATOMIC) || '';
 	var value_with = Blockly.JavaScript.valueToCode(block, "WITH", Blockly.JavaScript.ORDER_ATOMIC) || '';
 	var value_input = Blockly.JavaScript.valueToCode(block, "INPUT", Blockly.JavaScript.ORDER_ATOMIC) || '';
-	
+
 	var code = `${value_input}.replaceAll(${value_replace}, ${value_with})`;
 
 	return [code, Blockly.JavaScript.ORDER_NONE];
@@ -1602,12 +1607,12 @@ Blockly.Blocks[ "json_create_with" ] = {
     container.setAttribute('items', this.itemCount_);
     return container;
 	},
-	
+
 	domToMutation: function(xmlElement) {
     this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
     this.updateShape_();
 	},
-	
+
 	decompose: function(workspace) {
     var containerBlock = workspace.newBlock('json_create_with_container');
     containerBlock.initSvg();
@@ -1620,7 +1625,7 @@ Blockly.Blocks[ "json_create_with" ] = {
     }
     return containerBlock;
 	},
-	
+
 	compose: function(containerBlock) {
     var itemBlock = containerBlock.getInputTargetBlock('STACK');
     // Count number of inputs.
@@ -1644,7 +1649,7 @@ Blockly.Blocks[ "json_create_with" ] = {
 			Blockly.Mutator.reconnect(connections[i], this, 'KEY' + i);
     }
 	},
-	
+
 	saveConnections: function(containerBlock) {
     var itemBlock = containerBlock.getInputTargetBlock('STACK');
     var i = 0;
