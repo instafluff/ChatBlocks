@@ -134,7 +134,7 @@ function codeUpdateHandler( event ) {
 		<script type="text/javascript">
 		math.createUnit('tbsp', {definition: '1 tablespoon', aliases: ["tbspoon"]});
 		math.createUnit('tsp', {definition: '1 teaspoon', aliases: ["tspoon"]});
-		
+
 		let user = undefined, command = undefined, flags = {}, extra = {};
 		let onCommandHandlers = {};
 		let onChatHandlers = [];
@@ -215,6 +215,8 @@ function codeUpdateHandler( event ) {
 		</script>
 	</body>
 </html>`;
+
+	theCode = theCode.replace( /function/g, "async function" );
 
 	let xml = Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace() );
 	window.localStorage.setItem( "ChatBlocks", Blockly.Xml.domToText( xml ) );
@@ -1167,7 +1169,7 @@ Blockly.JavaScript["text_replace"] = function(block) {
 	var value_replace = Blockly.JavaScript.valueToCode(block, "REPLACE", Blockly.JavaScript.ORDER_ATOMIC) || '';
 	var value_with = Blockly.JavaScript.valueToCode(block, "WITH", Blockly.JavaScript.ORDER_ATOMIC) || '';
 	var value_input = Blockly.JavaScript.valueToCode(block, "INPUT", Blockly.JavaScript.ORDER_ATOMIC) || '';
-	
+
 	var code = `${value_input}.replace(${value_replace}, ${value_with})`;
 
 	return [code, Blockly.JavaScript.ORDER_NONE];
@@ -1213,7 +1215,7 @@ Blockly.JavaScript["text_replaceAll"] = function(block) {
 	var value_replace = Blockly.JavaScript.valueToCode(block, "REPLACE", Blockly.JavaScript.ORDER_ATOMIC) || '';
 	var value_with = Blockly.JavaScript.valueToCode(block, "WITH", Blockly.JavaScript.ORDER_ATOMIC) || '';
 	var value_input = Blockly.JavaScript.valueToCode(block, "INPUT", Blockly.JavaScript.ORDER_ATOMIC) || '';
-	
+
 	var code = `${value_input}.replaceAll(${value_replace}, ${value_with})`;
 
 	return [code, Blockly.JavaScript.ORDER_NONE];
@@ -1603,12 +1605,12 @@ Blockly.Blocks[ "json_create_with" ] = {
     container.setAttribute('items', this.itemCount_);
     return container;
 	},
-	
+
 	domToMutation: function(xmlElement) {
     this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
     this.updateShape_();
 	},
-	
+
 	decompose: function(workspace) {
     var containerBlock = workspace.newBlock('json_create_with_container');
     containerBlock.initSvg();
@@ -1621,7 +1623,7 @@ Blockly.Blocks[ "json_create_with" ] = {
     }
     return containerBlock;
 	},
-	
+
 	compose: function(containerBlock) {
     var itemBlock = containerBlock.getInputTargetBlock('STACK');
     // Count number of inputs.
@@ -1645,7 +1647,7 @@ Blockly.Blocks[ "json_create_with" ] = {
 			Blockly.Mutator.reconnect(connections[i], this, 'KEY' + i);
     }
 	},
-	
+
 	saveConnections: function(containerBlock) {
     var itemBlock = containerBlock.getInputTargetBlock('STACK');
     var i = 0;
