@@ -179,16 +179,16 @@
 		<xml id="toolbox" style="display: none">
 			<category name="TWITCH" colour="6441a5">
 				<block type="twitch_oncommand"></block>
-			    <block type="twitch_onchat"></block>
-                <block type="twitch_onwhisper"></block>
-                <block type="twitch_onhost"></block>
-                <block type="twitch_onraid"></block>
-                <block type="twitch_oncheer"></block>
-                <block type="twitch_onsub"></block>
-                <block type="twitch_onresub"></block>
-                <block type="twitch_onsubgift"></block>
-                <block type="twitch_onbatchsubgift"></block>
-                <block type="twitch_ongiftsubcontinue"></block>
+		    <block type="twitch_onchat"></block>
+        <block type="twitch_onwhisper"></block>
+        <block type="twitch_onhost"></block>
+        <block type="twitch_onraid"></block>
+        <block type="twitch_oncheer"></block>
+        <block type="twitch_onsub"></block>
+        <block type="twitch_onresub"></block>
+        <block type="twitch_onsubgift"></block>
+        <block type="twitch_onbatchsubgift"></block>
+        <block type="twitch_ongiftsubcontinue"></block>
 				<block type="twitch_user"></block>
 				<block type="twitch_message"></block>
 				<block type="twitch_reward_id"></block>
@@ -531,13 +531,19 @@
 		    <sep></sep>
 		    <category name="VARIABLES" categorystyle="variable_category" custom="VARIABLE"></category>
 		    <category name="FUNCTIONS" categorystyle="procedure_category" custom="PROCEDURE"></category>
-            <category name="EXTRA" categorystyle="variable_dynamic_category">
-                <block type="utility_wait"></block>
-				<block type="utility_ontimer"></block>
-                <block type="utility_get_http"></block>
-                <block type="utility_post_http"></block>
-                <block type="utility_console_log"></block>
-            </category>
+        <category name="EXTRA" categorystyle="variable_dynamic_category">
+          <block type="utility_wait"></block>
+	        <block type="utility_ontimer">
+            <value name="SECONDS">
+		          <shadow type="math_number">
+		            <field name="NUM">10</field>
+		          </shadow>
+		        </value>
+          </block>
+          <block type="utility_get_http"></block>
+          <block type="utility_post_http"></block>
+          <block type="utility_console_log"></block>
+        </category>
 		</xml>
 		<br/>
         <a href="https://developers.google.com/blockly" target="_blank"><img class="float-right" src="https://developers.google.com/blockly/images/logos/logo_built_on_knockout.png" height="28px" /></a>
