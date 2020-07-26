@@ -756,6 +756,31 @@ Blockly.JavaScript["twitch_user"] = function(block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
+Blockly.Blocks["twitch_user_id"] = {
+    init: function() {
+  	this.jsonInit({
+  	  "type": "",
+  	  "message0": "user ID",
+  	  "args0": [],
+  	  "output": "Number",
+  	  "colour": 260,
+  	  "tooltip": "",
+  	  "helpUrl": ""
+  	});
+  	this.setColour(230);
+  	this.setTooltip("");
+  	this.setHelpUrl("https://www.instafluff.tv");
+    }
+};
+
+Blockly.JavaScript["twitch_user_id"] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = `(extra.userId)`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
 Blockly.Blocks["twitch_reward_id"] = {
     init: function() {
   	this.jsonInit({
