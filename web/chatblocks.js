@@ -823,6 +823,47 @@ Blockly.JavaScript["twitch_user_teams"] = function(block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
+Blockly.Blocks["twitch_user_stream"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "twitch_user_stream",
+		"message0": "get stream of userid %1",
+		"args0": [
+			{
+				"type": "input_value",
+				"name": "USER-ID",
+				"check": "String",
+				"align": "RIGHT"
+			}
+		],
+		"output": "Json",
+		"inputsInline": true,
+		// "previousStatement": null,
+		// "nextStatement": null,
+		"colour": 260,
+		"tooltip": "",
+		"helpUrl": ""
+		});
+		this.setTooltip("");
+		this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["twitch_user_stream"] = function(block) {
+  var value_id = Blockly.JavaScript.valueToCode(block, "USER-ID", Blockly.JavaScript.ORDER_ATOMIC);
+
+  var code = `( await fetch( \`https://api.twitch.tv/kraken/streams/\$\{${value_id}\}\`, {
+		method: "GET",
+		headers: {
+			'Accept': 'application/vnd.twitchtv.v5+json',
+			'Client-ID': "${clientId}"
+		}
+	})
+	.then(resp => resp.json()) )`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
 Blockly.Blocks["twitch_reward_id"] = {
     init: function() {
   	this.jsonInit({
