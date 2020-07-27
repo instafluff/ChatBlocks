@@ -1,3 +1,4 @@
+const clientId = "xrxinjwucvs83rf1b6lxq758yslj3c";
 let theme = Blockly.Theme.defineTheme( "ChatBlocks", {
 	// "base": oldTheme,
 	"blockStyles": {
@@ -762,7 +763,7 @@ Blockly.Blocks["twitch_user_id"] = {
   	  "type": "",
   	  "message0": "user ID",
   	  "args0": [],
-  	  "output": "Number",
+  	  "output": "String",
   	  "colour": 260,
   	  "tooltip": "",
   	  "helpUrl": ""
@@ -777,6 +778,47 @@ Blockly.JavaScript["twitch_user_id"] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
   var code = `(extra.userId)`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_user_teams"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "twitch_user_teams",
+		"message0": "get teams of userid %1",
+		"args0": [
+			{
+				"type": "input_value",
+				"name": "USER-ID",
+				"check": "String",
+				"align": "RIGHT"
+			}
+		],
+		"output": "Array",
+		"inputsInline": true,
+		// "previousStatement": null,
+		// "nextStatement": null,
+		"style": "list_blocks",
+		"tooltip": "",
+		"helpUrl": ""
+		});
+		this.setTooltip("");
+		this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["twitch_user_teams"] = function(block) {
+  var value_id = Blockly.JavaScript.valueToCode(block, "USER-ID", Blockly.JavaScript.ORDER_ATOMIC);
+
+  var code = `(( await fetch( \`https://api.twitch.tv/kraken/channels/\$\{${value_id}\}/teams\`, {
+		method: "GET",
+		headers: {
+			'Accept': 'application/vnd.twitchtv.v5+json',
+			'Client-ID': "${clientId}"
+		}
+	})
+	.then(resp => resp.json()) ).teams.map(x => x.name))`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -1386,7 +1428,7 @@ Blockly.JavaScript["utility_ontimer"] = function(block) {
 	if ( block.getField('SECONDS') ) {
 		let seconds = String(Number(block.getFieldValue('SECONDS')));
 	} else {
-		var seconds = Blockly.JavaScript.valueToCode(block, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT) || '10';
+		var seconds = Blockly.JavaScript.valueToCode(block, 'SECONDS', Blockly.JavaScript.ORDER_ASSIGNMENT) || '10';
 	}
 	let source = Blockly.JavaScript.statementToCode(block, 'DO');
 	let code = '';
@@ -1394,7 +1436,7 @@ Blockly.JavaScript["utility_ontimer"] = function(block) {
 	code += 'setInterval( async ( ) => {\n';
 	code += `${source}\n`;
 	code += `}, ${seconds} * 1000);\n`;
-	
+
 	return code;
 };
 
