@@ -799,7 +799,7 @@ Blockly.Blocks["twitch_user_teams"] = {
 		"inputsInline": true,
 		// "previousStatement": null,
 		// "nextStatement": null,
-		"style": "list_blocks",
+		"colour": 260,
 		"tooltip": "",
 		"helpUrl": ""
 		});
