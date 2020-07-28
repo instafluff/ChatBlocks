@@ -845,6 +845,7 @@ Blockly.Blocks["twitch_user_stream"] = {
 		"tooltip": "",
 		"helpUrl": ""
 		});
+		this.setColour(230);
 		this.setTooltip("");
 		this.setHelpUrl("https://www.instafluff.tv");
 	}
