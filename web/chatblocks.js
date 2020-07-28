@@ -854,7 +854,7 @@ Blockly.Blocks["twitch_user_stream"] = {
 Blockly.JavaScript["twitch_user_stream"] = function(block) {
   var value_id = Blockly.JavaScript.valueToCode(block, "USER-ID", Blockly.JavaScript.ORDER_ATOMIC);
 
-  var code = `( await fetch( \`https://api.twitch.tv/kraken/streams/\$\{${value_id}\}\`, {
+  var code = `( await fetch( \`https://api.twitch.tv/kraken/channels/\$\{${value_id}\}\`, {
 		method: "GET",
 		headers: {
 			'Accept': 'application/vnd.twitchtv.v5+json',
