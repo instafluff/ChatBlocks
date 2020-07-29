@@ -1404,15 +1404,15 @@ Blockly.Blocks["utility_ontimer"] = {
 		"type": "utility_ontimer",
 		"message0": "at every %1 seconds",
 		"args0": [{
-      "type": "input_value",
-      "name": "SECONDS",
-      "check": "Number"
-    }],
+			"type": "input_value",
+			"name": "SECONDS",
+			"check": "Number"
+		}],
 		"message1": "%1",
-    "args1": [{
-      "type": "input_statement",
-      "name": "DO"
-    }],
+		"args1": [{
+			"type": "input_statement",
+			"name": "DO"
+		}],
 		"colour": 260,
 		"inputsInline": "true",
 		"tooltip": "",
