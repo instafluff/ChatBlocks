@@ -1658,6 +1658,34 @@ Blockly.JavaScript[ "json_parse" ] = function(block) {
 	return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
+Blockly.Blocks[ "json_stringify" ] = {
+	init: function() {
+		this.jsonInit({
+		"type": "json_stringify",
+		"message0": "stringify %1",
+		"args0": [
+		  {
+			"type": "input_value",
+			"name": "PARSE",
+			"check": "Json",
+			"align": "RIGHT"
+		  }
+		],
+    "output": "String",
+		"style": "list_blocks",
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+}
+
+Blockly.JavaScript[ "json_stringify" ] = function(block) {
+	var value_parse = Blockly.JavaScript.valueToCode(block, "PARSE", Blockly.JavaScript.ORDER_ATOMIC);
+	var code = `JSON.stringify( ${value_parse} )`;
+	return [code, Blockly.JavaScript.ORDER_NONE];
+};
 Blockly.Blocks[ "json_setkey" ] = {
 	init: function() {
 		this.jsonInit({
