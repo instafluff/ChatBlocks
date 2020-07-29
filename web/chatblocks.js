@@ -1616,6 +1616,35 @@ Blockly.JavaScript[ "json_parse" ] = function(block) {
 	return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
+Blockly.Blocks[ "json_stringify" ] = {
+	init: function() {
+		this.jsonInit({
+		"type": "json_stringify",
+		"message0": "stringify %1",
+		"args0": [
+		  {
+			"type": "input_value",
+			"name": "STRINGIFY",
+			"check": "Json",
+			"align": "RIGHT"
+		  }
+		],
+    "output": "Stringify",
+		"style": "list_blocks",
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+}
+
+Blockly.JavaScript[ "json_stringify" ] = function(block) {
+	var value_stringify = Blockly.JavaScript.valueToCode(block, "STRINGIFY", Blockly.JavaScript.ORDER_ATOMIC);
+	var code = `JSON.stringify( ${value_stringify} )`;
+	return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
 Blockly.Blocks[ "json_setkey" ] = {
 	init: function() {
 		this.jsonInit({
