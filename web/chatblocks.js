@@ -1629,7 +1629,7 @@ Blockly.Blocks[ "json_stringify" ] = {
 			"align": "RIGHT"
 		  }
 		],
-    "output": "Stringify",
+    	"output": "String",
 		"style": "list_blocks",
 		"tooltip": "",
 		"helpUrl": ""
