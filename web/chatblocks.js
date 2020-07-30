@@ -134,7 +134,7 @@ function codeUpdateHandler( event ) {
 	<body>
 		<script type="text/javascript">
 		try {
-			String.prototype.replaceAll=(arg1, arg2)=>{
+			String.prototype.replaceAll=String.prototype.replaceAll?String.prototype.replaceAll:(arg1, arg2)=>{
 				return this.split(arg1).join(arg2)
 			}
 			math.createUnit('tbsp', {definition: '1 tablespoon', aliases: ["tbspoon"]});
