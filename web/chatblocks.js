@@ -134,6 +134,10 @@ function codeUpdateHandler( event ) {
 	<body>
 		<script type="text/javascript">
 		try {
+			//Will only work if the first arg is not a regex
+			String.prototype.replaceAll=(arg1, arg2)=>{
+				return this.split(arg1).join(arg2)
+			}
 			math.createUnit('tbsp', {definition: '1 tablespoon', aliases: ["tbspoon"]});
 			math.createUnit('tsp', {definition: '1 teaspoon', aliases: ["tspoon"]});
 
