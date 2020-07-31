@@ -128,7 +128,7 @@ function codeUpdateHandler( event ) {
 	theCode =
 `<html>
 	<head>
-		<script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/comfy.js@1.1.2/dist/comfy.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/mathjs@7.1.0/dist/math.min.js"></script>
 	</head>
 	<body>
