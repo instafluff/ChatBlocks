@@ -137,7 +137,7 @@ function codeUpdateHandler( event ) {
 			math.createUnit('tbsp', {definition: '1 tablespoon', aliases: ["tbspoon"]});
 			math.createUnit('tsp', {definition: '1 teaspoon', aliases: ["tspoon"]});
 
-			let user = undefined, command = undefined, flags = {}, extra = {};
+			let cb_user = undefined, cb_command = undefined, cb_reward = undefined, cb_cost = undefined, cb_flags = {}, cb_extra = {};
 			let onCommandHandlers = {};
 			let onChatHandlers = [];
 			let onWhisperHandlers = [];
@@ -149,62 +149,68 @@ function codeUpdateHandler( event ) {
 			let onSubGiftHandlers = [];
 			let onSubGiftBatchHandlers = [];
 			let onGiftSubContinueHandlers = [];
+			let onRewardHandlers = [];
 			${code}
-			ComfyJS.onCommand = ( user, command, message, flags, extra ) => {
-				if( onCommandHandlers[ command ] ) {
-					onCommandHandlers[ command ]( user, message, flags, extra );
+			ComfyJS.onCommand = ( cb_user, cb_command, cb_message, cb_flags, cb_extra ) => {
+				if( onCommandHandlers[ cb_command ] ) {
+					onCommandHandlers[ cb_command ]( cb_user, cb_message, cb_flags, cb_extra );
 				}
 			};
-			ComfyJS.onChat = ( user, message, flags, self, extra ) => {
-				if( self ) { return; }
+			ComfyJS.onChat = ( cb_user, cb_message, cb_flags, cb_self, cb_extra ) => {
+				if( cb_self ) { return; }
 				onChatHandlers.forEach( x => {
-					x( user, message, flags, self, extra );
+					x( cb_user, cb_message, cb_flags, cb_self, cb_extra );
 				});
 			};
-			ComfyJS.onWhisper = ( user, message, flags, self, extra ) => {
-				if( self ) { return; }
+			ComfyJS.onWhisper = ( cb_user, cb_message, cb_flags, cb_self, cb_extra ) => {
+				if( cb_self ) { return; }
 				onWhisperHandlers.forEach( x => {
-					x( user, message, flags, self, extra );
+					x( cb_user, cb_message, cb_flags, cb_self, cb_extra );
 				});
 			};
-			ComfyJS.onHosted = ( user, viewers, autohost, extra ) => {
+			ComfyJS.onHosted = ( cb_user, cb_viewers, cb_autohost, cb_extra ) => {
 				onHostHandlers.forEach( x => {
-					x( user, viewers, autohost, extra );
+					x( cb_user, cb_viewers, cb_autohost, cb_extra );
 				});
 			};
-			ComfyJS.onRaid = ( user, viewers, extra ) => {
+			ComfyJS.onRaid = ( cb_user, cb_viewers, cb_extra ) => {
 				onRaidHandlers.forEach( x => {
-					x( user, viewers, extra );
+					x( cb_user, cb_viewers, cb_extra );
 				});
 			};
-			ComfyJS.onCheer = ( user, message, bits, flags, extra ) => {
+			ComfyJS.onCheer = ( cb_user, cb_message, cb_bits, cb_flags, cb_extra ) => {
 				onCheerHandlers.forEach( x => {
-					x( user, message, bits, flags, extra );
+					x( cb_user, cb_message, cb_bits, cb_flags, cb_extra );
 				});
 			};
-			ComfyJS.onSub = ( user, message, subTierInfo, extra ) => {
+			ComfyJS.onSub = ( cb_user, cb_message, cb_subTierInfo, cb_extra ) => {
 				onSubHandlers.forEach( x => {
-					x( user, message, subTierInfo, extra );
+					x( cb_user, cb_message, cb_subTierInfo, cb_extra );
 				});
 			};
-			ComfyJS.onResub = ( user, message, streakMonths, cumulativeMonths, subTierInfo, extra ) => {
+			ComfyJS.onResub = ( cb_user, cb_message, cb_streakMonths, cb_cumulativeMonths, cb_subTierInfo, cb_extra ) => {
 				onResubHandlers.forEach( x => {
-					x( user, message, streakMonths, cumulativeMonths, subTierInfo, extra );
+					x( cb_user, cb_message, cb_streakMonths, cb_cumulativeMonths, cb_subTierInfo, cb_extra );
 				});
 			};
-			ComfyJS.onSubGift = ( gifterUser, streakMonths, recipientUser, senderCount, subTierInfo, extra ) => {
+			ComfyJS.onSubGift = ( cb_gifterUser, cb_streakMonths, cb_recipientUser, cb_senderCount, cb_subTierInfo, cb_extra ) => {
 				onSubGiftHandlers.forEach( x => {
-					x( gifterUser, streakMonths, recipientUser, senderCount, subTierInfo, extra );
+					x( cb_gifterUser, cb_streakMonths, cb_recipientUser, cb_senderCount, cb_subTierInfo, cb_extra );
 				});
 			};
-			ComfyJS.onSubMysteryGift = ( gifterUser, numberOfSubs, senderCount, subTierInfo, extra ) => {
+			ComfyJS.onSubMysteryGift = ( cb_gifterUser, cb_numberOfSubs, cb_senderCount, cb_subTierInfo, cb_extra ) => {
 				onSubGiftBatchHandlers.forEach( x => {
-					x( gifterUser, numberOfSubs, senderCount, subTierInfo, extra );
+					x( cb_gifterUser, cb_numberOfSubs, cb_senderCount, cb_subTierInfo, cb_extra );
 				});
 			};
-			ComfyJS.onGiftSubContinue = ( user, sender, extra ) => {
+			ComfyJS.onGiftSubContinue = ( cb_user, cb_sender, cb_extra ) => {
 				onGiftSubContinueHandlers.forEach( x => {
-					x( user, sender, extra );
+					x( cb_user, cb_sender, cb_extra );
+				});
+			};
+			ComfyJS.onReward = ( cb_user, cb_reward, cb_cost, cb_extra ) => {
+				onRewardHandlers.forEach( x => {
+					x( cb_user, cb_reward, cb_cost, cb_extra );
 				});
 			};
 			ComfyJS.Init( "${window.localStorage.getItem( "channel" ) || ComfyTwitch.User}", "oauth:${ComfyTwitch.Token}" );
@@ -423,7 +429,7 @@ Blockly.JavaScript["twitch_oncommand"] = function(block) {
 	var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onCommandHandlers[ ${value_name} ] = async ( user, message, flags, extra ) => {\n${statements_input}\n};\n`;
+	var code = `onCommandHandlers[ ${value_name} ] = async ( cb_user, cb_message, cb_flags, cb_extra ) => {\n${statements_input}\n};\n`;
 	return code;
 };
 
@@ -451,7 +457,7 @@ Blockly.Blocks["twitch_onchat"] = {
 Blockly.JavaScript["twitch_onchat"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onChatHandlers.push( async ( user, message, flags, self, extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onChatHandlers.push( async ( cb_user, cb_message, cb_flags, cb_self, cb_extra ) => {\n${statements_input}\n} );\n`;
 	return code;
 };
 
@@ -479,7 +485,7 @@ Blockly.Blocks["twitch_onwhisper"] = {
 Blockly.JavaScript["twitch_onwhisper"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onWhisperHandlers.push( async ( user, message, flags, self, extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onWhisperHandlers.push( async ( cb_user, cb_message, cb_flags, cb_self, cb_extra ) => {\n${statements_input}\n} );\n`;
 	return code;
 };
 
@@ -507,7 +513,7 @@ Blockly.Blocks["twitch_onhost"] = {
 Blockly.JavaScript["twitch_onhost"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onHostHandlers.push( async ( user, viewers, autohost, extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onHostHandlers.push( async ( cb_user, cb_viewers, cb_autohost, cb_extra ) => {\n${statements_input}\n} );\n`;
 	return code;
 };
 
@@ -535,7 +541,35 @@ Blockly.Blocks["twitch_onraid"] = {
 Blockly.JavaScript["twitch_onraid"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onRaidHandlers.push( async ( user, viewers, extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onRaidHandlers.push( async ( cb_user, cb_viewers, cb_extra ) => {\n${statements_input}\n} );\n`;
+	return code;
+};
+
+Blockly.Blocks["twitch_onreward"] = {
+	init: function() {
+	  this.jsonInit({
+		"type": "twitch_onreward",
+		"message0": "on channel point reward %1",
+		"args0": [
+		  {
+			"type": "input_statement",
+			"name": "INPUT"
+		  }
+		],
+		"colour": 260,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setColour(260);
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["twitch_onreward"] = function(block) {
+	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
+	// TODO: Assemble JavaScript into code variable.
+	var code = `onRewardHandlers.push( async ( cb_user, cb_reward, cb_cost, cb_extra ) => {\n${statements_input}\n} );\n`;
 	return code;
 };
 
@@ -563,7 +597,7 @@ Blockly.Blocks["twitch_oncheer"] = {
 Blockly.JavaScript["twitch_oncheer"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onCheerHandlers.push( async ( user, message, bits, flags, extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onCheerHandlers.push( async ( cb_user, cb_message, cb_bits, cb_flags, cb_extra ) => {\n${statements_input}\n} );\n`;
 	return code;
 };
 
@@ -591,7 +625,7 @@ Blockly.Blocks["twitch_onsub"] = {
 Blockly.JavaScript["twitch_onsub"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onSubHandlers.push( async ( user, message, subTierInfo, extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onSubHandlers.push( async ( cb_user, cb_message, cb_subTierInfo, cb_extra ) => {\n${statements_input}\n} );\n`;
 	return code;
 };
 
@@ -619,7 +653,7 @@ Blockly.Blocks["twitch_onresub"] = {
 Blockly.JavaScript["twitch_onresub"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onResubHandlers.push( async ( user, message, streakMonths, cumulativeMonths, subTierInfo, extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onResubHandlers.push( async ( cb_user, cb_message, cb_streakMonths, cb_cumulativeMonths, cb_subTierInfo, cb_extra ) => {\n${statements_input}\n} );\n`;
 	return code;
 };
 
@@ -647,7 +681,7 @@ Blockly.Blocks["twitch_onsubgift"] = {
 Blockly.JavaScript["twitch_onsubgift"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onSubGiftHandlers.push( async ( gifter, streakMonths, user, gifterCount, subTierInfo, extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onSubGiftHandlers.push( async ( cb_gifter, cb_streakMonths, cb_user, cb_gifterCount, cb_subTierInfo, cb_extra ) => {\n${statements_input}\n} );\n`;
 	return code;
 };
 
@@ -675,7 +709,7 @@ Blockly.Blocks["twitch_onbatchsubgift"] = {
 Blockly.JavaScript["twitch_onbatchsubgift"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onSubGiftBatchHandlers.push( async ( gifter, numberOfSubs, gifterCount, subTierInfo, extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onSubGiftBatchHandlers.push( async ( cb_gifter, cb_numberOfSubs, cb_gifterCount, cb_subTierInfo, cb_extra ) => {\n${statements_input}\n} );\n`;
 	return code;
 };
 
@@ -703,7 +737,7 @@ Blockly.Blocks["twitch_ongiftsubcontinue"] = {
 Blockly.JavaScript["twitch_ongiftsubcontinue"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onGiftSubContinueHandlers.push( async ( user, gifter, extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onGiftSubContinueHandlers.push( async ( cb_user, cb_gifter, cb_extra ) => {\n${statements_input}\n} );\n`;
 	return code;
 };
 
@@ -727,7 +761,7 @@ Blockly.Blocks["twitch_message"] = {
 Blockly.JavaScript[ "twitch_message" ] = function( block ) {
   var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = `message`;
+  var code = `cb_message`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -752,7 +786,7 @@ Blockly.Blocks["twitch_user"] = {
 Blockly.JavaScript["twitch_user"] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = `user`;
+  var code = `cb_user`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -777,7 +811,7 @@ Blockly.Blocks["twitch_user_id"] = {
 Blockly.JavaScript["twitch_user_id"] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = `(extra.userId)`;
+  var code = `(cb_extra.userId)`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -824,11 +858,36 @@ Blockly.JavaScript["twitch_user_teams"] = function(block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
+Blockly.Blocks["twitch_reward_name"] = {
+    init: function() {
+  	this.jsonInit({
+  	  "type": "",
+  	  "message0": "channel point reward name",
+  	  "args0": [],
+  	  "output": null,
+  	  "colour": 260,
+  	  "tooltip": "",
+  	  "helpUrl": ""
+  	});
+  	this.setColour(230);
+  	this.setTooltip("");
+  	this.setHelpUrl("https://www.instafluff.tv");
+    }
+};
+
+Blockly.JavaScript["twitch_reward_name"] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = `( cb_reward )`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
 Blockly.Blocks["twitch_reward_id"] = {
     init: function() {
   	this.jsonInit({
   	  "type": "",
-  	  "message0": "reward ID",
+  	  "message0": "channel point reward ID",
   	  "args0": [],
   	  "output": null,
   	  "colour": 260,
@@ -844,7 +903,32 @@ Blockly.Blocks["twitch_reward_id"] = {
 Blockly.JavaScript["twitch_reward_id"] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = `( extra.customRewardId )`;
+  var code = `( cb_extra.customRewardId )`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_reward_cost"] = {
+    init: function() {
+  	this.jsonInit({
+  	  "type": "",
+  	  "message0": "channel point reward cost",
+  	  "args0": [],
+  	  "output": "Number",
+  	  "colour": 260,
+  	  "tooltip": "",
+  	  "helpUrl": ""
+  	});
+  	this.setColour(230);
+  	this.setTooltip("");
+  	this.setHelpUrl("https://www.instafluff.tv");
+    }
+};
+
+Blockly.JavaScript["twitch_reward_cost"] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = `( cb_cost )`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -869,7 +953,7 @@ Blockly.Blocks["twitch_viewer_count"] = {
 Blockly.JavaScript["twitch_viewer_count"] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = `( viewers )`;
+  var code = `( cb_viewers )`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -894,7 +978,7 @@ Blockly.Blocks["twitch_bits_count"] = {
 Blockly.JavaScript["twitch_bits_count"] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = `( bits )`;
+  var code = `( cb_bits )`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -919,7 +1003,7 @@ Blockly.Blocks["twitch_gifter"] = {
 Blockly.JavaScript["twitch_gifter"] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = `( gifter )`;
+  var code = `( cb_gifter )`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -944,7 +1028,7 @@ Blockly.Blocks["twitch_is_sub_prime"] = {
 Blockly.JavaScript["twitch_is_sub_prime"] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = `( subTierInfo && subTierInfo.prime )`;
+  var code = `( cb_subTierInfo && cb_subTierInfo.prime )`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -969,7 +1053,7 @@ Blockly.Blocks["twitch_sub_tier"] = {
 Blockly.JavaScript["twitch_sub_tier"] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = `( subTierInfo.plan === "1000" ? 1 : ( subTierInfo.plan === "2000" ? 2 : 3 ) )`;
+  var code = `( cb_subTierInfo.plan === "1000" ? 1 : ( cb_subTierInfo.plan === "2000" ? 2 : 3 ) )`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -994,7 +1078,7 @@ Blockly.Blocks["twitch_sub_months"] = {
 Blockly.JavaScript["twitch_sub_months"] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = `( cumulativeMonths )`;
+  var code = `( cb_cumulativeMonths )`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -1019,7 +1103,7 @@ Blockly.Blocks["twitch_sub_streak"] = {
 Blockly.JavaScript["twitch_sub_streak"] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = `( streakMonths )`;
+  var code = `( cb_streakMonths )`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -1044,7 +1128,7 @@ Blockly.Blocks["twitch_is_broadcaster"] = {
 Blockly.JavaScript["twitch_is_broadcaster"] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = `( flags.broadcaster )`;
+  var code = `( cb_flags.broadcaster )`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -1069,7 +1153,7 @@ Blockly.Blocks["twitch_is_mod"] = {
 Blockly.JavaScript["twitch_is_mod"] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = `( flags.mod )`;
+  var code = `( cb_flags.mod )`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -1094,7 +1178,7 @@ Blockly.Blocks["twitch_is_vip"] = {
 Blockly.JavaScript["twitch_is_vip"] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = `( flags.vip )`;
+  var code = `( cb_flags.vip )`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -1119,7 +1203,7 @@ Blockly.Blocks["twitch_is_subscriber"] = {
 Blockly.JavaScript["twitch_is_subscriber"] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = `( flags.subscriber )`;
+  var code = `( cb_flags.subscriber )`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -1144,7 +1228,7 @@ Blockly.Blocks["twitch_is_founder"] = {
 Blockly.JavaScript["twitch_is_founder"] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = `( flags.founder )`;
+  var code = `( cb_flags.founder )`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -1169,7 +1253,7 @@ Blockly.Blocks["twitch_is_highlighted"] = {
 Blockly.JavaScript["twitch_is_highlighted"] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = `( flags.highlighted )`;
+  var code = `( cb_flags.highlighted )`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -1194,7 +1278,7 @@ Blockly.Blocks["twitch_is_reward"] = {
 Blockly.JavaScript["twitch_is_reward"] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = `( flags.customReward )`;
+  var code = `( cb_flags.customReward )`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -1321,7 +1405,6 @@ Blockly.Blocks[ "text_contains" ] = {
 	}
 };
 
-
 Blockly.JavaScript[ "text_contains" ] = function(block) {
 	var value_src = Blockly.JavaScript.valueToCode(block, "SOURCE", Blockly.JavaScript.ORDER_ATOMIC);
 	var value_contains = Blockly.JavaScript.valueToCode(block, "CONTAINS", Blockly.JavaScript.ORDER_ATOMIC);
@@ -1396,7 +1479,6 @@ Blockly.JavaScript["utility_wait"] = function(block) {
 	var code = `await wait( ${value_value} * 1000 );`;
 	return code;
 };
-
 
 Blockly.Blocks["utility_ontimer"] = {
 	init: function() {

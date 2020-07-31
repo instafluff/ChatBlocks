@@ -179,21 +179,24 @@
 		<xml id="toolbox" style="display: none">
 			<category name="TWITCH" colour="6441a5">
 				<block type="twitch_oncommand"></block>
-		    <block type="twitch_onchat"></block>
-        <block type="twitch_onwhisper"></block>
-        <block type="twitch_onhost"></block>
-        <block type="twitch_onraid"></block>
-        <block type="twitch_oncheer"></block>
-        <block type="twitch_onsub"></block>
-        <block type="twitch_onresub"></block>
-        <block type="twitch_onsubgift"></block>
-        <block type="twitch_onbatchsubgift"></block>
-        <block type="twitch_ongiftsubcontinue"></block>
+    		    <block type="twitch_onchat"></block>
+                <block type="twitch_onwhisper"></block>
+                <block type="twitch_onhost"></block>
+                <block type="twitch_onraid"></block>
+                <block type="twitch_onreward"></block>
+                <block type="twitch_oncheer"></block>
+                <block type="twitch_onsub"></block>
+                <block type="twitch_onresub"></block>
+                <block type="twitch_onsubgift"></block>
+                <block type="twitch_onbatchsubgift"></block>
+                <block type="twitch_ongiftsubcontinue"></block>
 				<block type="twitch_user"></block>
-        <block type="twitch_user_id"></block>
-        <block type="twitch_user_teams"></block>
+                <block type="twitch_user_id"></block>
+                <block type="twitch_user_teams"></block>
 				<block type="twitch_message"></block>
+                <block type="twitch_reward_name"></block>
 				<block type="twitch_reward_id"></block>
+                <block type="twitch_reward_cost"></block>
 				<block type="twitch_viewer_count"></block>
 				<block type="twitch_bits_count"></block>
 				<block type="twitch_is_sub_prime"></block>
@@ -568,21 +571,29 @@
     <script>
         // const clientId = "xrxinjwucvs83rf1b6lxq758yslj3c";
         const baseUrl = window.location.origin + window.location.pathname;
+        const cb_scopes = [ "user:read:email", "chat:read", "chat:edit", "channel:moderate", "whispers:read", "whispers:edit", "channel:read:redemptions" ];
 
         ComfyTwitch.Check()
         .then( async result => {
+            console.log( result );
             if( result ) {
+                if( ( result.scopes.length === cb_scopes.length ) && ( result.scopes.every( val => !cb_scopes.includes( val ) ) ) ) {
+                    // Logout and refresh to get new scopes
+                    ComfyTwitch.Logout();
+                    window.location.reload();
+                    return;
+                }
                 // Logged In
                 let user = await ComfyTwitch.GetUser( clientId, result.user_id );
                 document.getElementById( "channel-name" ).value = "“ " + ( window.localStorage.getItem( "channel" ) || result.login ) + " ”";
                 document.getElementById( "username" ).innerText = user.display_name;
                 document.getElementById( "profile-image" ).src = user.profile_image_url;
                 document.querySelector( "#login-group" ).setAttribute( "hidden", true );
-								document.querySelector( "#profile-group" ).removeAttribute( "hidden" );
-								document.getElementById( "run-code" ).removeAttribute( "disabled" );
-								document.getElementById( "save-code" ).removeAttribute( "disabled" );
-								document.getElementById( "load-code" ).removeAttribute( "disabled" );
-								document.getElementById( "clear-code" ).removeAttribute( "disabled" );
+				document.querySelector( "#profile-group" ).removeAttribute( "hidden" );
+				document.getElementById( "run-code" ).removeAttribute( "disabled" );
+				document.getElementById( "save-code" ).removeAttribute( "disabled" );
+				document.getElementById( "load-code" ).removeAttribute( "disabled" );
+				document.getElementById( "clear-code" ).removeAttribute( "disabled" );
                 document.querySelector( "#logout" ).addEventListener( "click", function() {
                     ComfyTwitch.Logout();
                     window.location.reload();
@@ -590,17 +601,18 @@
             }
             else {
                 // Logged Out
+                // ComfyTwitch.Logout();
                 document.querySelector( "#profile-group" ).setAttribute( "hidden", true );
                 document.querySelector( "#login-group" ).removeAttribute( "hidden" );
-								document.getElementById( "workspace" ).classList.add( "blocks-blocker" );
-								document.getElementById( "run-code" ).classList.add( "btn-secondary" );
-								document.getElementById( "run-code" ).setAttribute( "disabled", true );
-								document.getElementById( "save-code" ).setAttribute( "disabled", true );
-								document.getElementById( "load-code" ).setAttribute( "disabled", true );
-								document.getElementById( "clear-code" ).setAttribute( "disabled", true );
-								document.getElementById( "channel-name" ).value = "";
-								document.querySelector( "#login" ).addEventListener( "click", function() {
-                    ComfyTwitch.Login( clientId, baseUrl, [ "user:read:email", "chat:read", "chat:edit", "channel:moderate", "whispers:read", "whispers:edit" ] );
+				document.getElementById( "workspace" ).classList.add( "blocks-blocker" );
+				document.getElementById( "run-code" ).classList.add( "btn-secondary" );
+				document.getElementById( "run-code" ).setAttribute( "disabled", true );
+				document.getElementById( "save-code" ).setAttribute( "disabled", true );
+				document.getElementById( "load-code" ).setAttribute( "disabled", true );
+				document.getElementById( "clear-code" ).setAttribute( "disabled", true );
+				document.getElementById( "channel-name" ).value = "";
+				document.querySelector( "#login" ).addEventListener( "click", function() {
+                    ComfyTwitch.Login( clientId, baseUrl, cb_scopes );
                 });
             }
         });
