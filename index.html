@@ -577,7 +577,7 @@
         .then( async result => {
             console.log( result );
             if( result ) {
-                if( ( result.scopes.length === cb_scopes.length ) && ( result.scopes.every( val => !cb_scopes.includes( val ) ) ) ) {
+                if( ( result.scopes.length !== cb_scopes.length ) || ( result.scopes.some( val => !cb_scopes.includes( val ) ) ) ) {
                     // Logout and refresh to get new scopes
                     ComfyTwitch.Logout();
                     window.location.reload();
