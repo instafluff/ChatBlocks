@@ -208,9 +208,9 @@ function codeUpdateHandler( event ) {
 					x( cb_user, cb_sender, cb_extra );
 				});
 			};
-			ComfyJS.onReward = ( cb_user, cb_reward, cb_cost, cb_extra ) => {
+			ComfyJS.onReward = ( cb_user, cb_reward, cb_cost, cb_message, cb_extra ) => {
 				onRewardHandlers.forEach( x => {
-					x( cb_user, cb_reward, cb_cost, cb_extra );
+					x( cb_user, cb_reward, cb_cost, cb_message, cb_extra );
 				});
 			};
 			ComfyJS.Init( "${window.localStorage.getItem( "channel" ) || ComfyTwitch.User}", "oauth:${ComfyTwitch.Token}" );
@@ -569,7 +569,7 @@ Blockly.Blocks["twitch_onreward"] = {
 Blockly.JavaScript["twitch_onreward"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onRewardHandlers.push( async ( cb_user, cb_reward, cb_cost, cb_extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onRewardHandlers.push( async ( cb_user, cb_reward, cb_cost, cb_message, cb_extra ) => {\n${statements_input}\n} );\n`;
 	return code;
 };
 
