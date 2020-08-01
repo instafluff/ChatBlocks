@@ -1199,6 +1199,25 @@ Blockly.JavaScript["twitch_is_reward"] = function(block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
+Blockly.Blocks[ "time_current" ] = {
+	init: function() {
+		this.jsonInit({
+			"type": "time_current",
+			"message0": "get current timestamp",
+			"args0": [],
+			"output": null,
+			"colour": 35,
+			"tooltip": "",
+			"helpUrl": "http://www.instafluff.tv"
+		})
+	}
+};
+
+Blockly.JavaScript[ "time_current" ] = function(block) {
+	var code = `moment( new Date())`;
+	return [code, Blockly.JavaScript.ORDER_NONE];
+}
+
 Blockly.Blocks["text_replace"] = {
 	init: function() {
 		this.jsonInit({
