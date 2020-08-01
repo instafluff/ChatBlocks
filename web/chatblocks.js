@@ -1219,6 +1219,49 @@ Blockly.JavaScript[ "time_current" ] = function(block) {
 	return [code, Blockly.JavaScript.ORDER_NONE];
 }
 
+Blockly.Blocks[ "time_nowto" ] = {
+	init: function() {
+		this.jsonInit({
+			"type": "time_nowto",
+			"message0": "get time from now to MM: %1 DD: %2 YYYY: %3",
+			"args0": [
+				{
+					"type": "input_value",
+					"name": "MM",
+					"check": "Number",
+					"align": "RIGHT"
+				},
+				{
+					"type": "input_value",
+					"name": "DD",
+					"check": "Number",
+					"align": "RIGHT"
+				},
+				{
+					"type": "input_value",
+					"name": "YYYY",
+					"check": "Number",
+					"align": "RIGHT"
+				}
+			],
+			"output": null,
+			"colour": 35,
+			"tooltip": "",
+			// "inputsInline": "true",
+			"helpUrl": "http://www.instafluff.tv"
+		})
+	}
+};
+
+Blockly.JavaScript[ "time_nowto" ] = function(block) {
+	let value_month = (parseInt(Blockly.JavaScript.valueToCode(block, "MM", Blockly.JavaScript.ORDER_ATOMIC) ) - 1) || new Date().getMonth();
+	let value_day = Blockly.JavaScript.valueToCode(block, "DD", Blockly.JavaScript.ORDER_ATOMIC) || new Date().getDate();
+	let value_year = Blockly.JavaScript.valueToCode(block, "YYYY", Blockly.JavaScript.ORDER_ATOMIC) || new Date().getFullYear();
+
+	var code = `moment( new Date()).to( [${value_year}, ${value_month}, ${value_day}], true )`;
+	return [code, Blockly.JavaScript.ORDER_NONE];
+}
+
 Blockly.Blocks["text_replace"] = {
 	init: function() {
 		this.jsonInit({
