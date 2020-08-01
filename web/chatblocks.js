@@ -130,6 +130,7 @@ function codeUpdateHandler( event ) {
 	<head>
 		<script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/mathjs@7.1.0/dist/math.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
 	</head>
 	<body>
 		<script type="text/javascript">
