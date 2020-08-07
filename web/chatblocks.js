@@ -1562,6 +1562,38 @@ Blockly.JavaScript["utility_get_http"] = function(block) {
 	return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
+Blockly.Blocks["utility_get_json_http"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "utility_get_json_http",
+		"message0": "get JSON from web URL %1",
+		"args0": [
+		  {
+			"type": "input_value",
+			"name": "URL",
+			"check": "String",
+			"align": "RIGHT"
+		  }
+		],
+    "output": "Json",
+		// "previousStatement": null,
+		// "nextStatement": null,
+		"colour": 260,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setColour(35);
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["utility_get_json_http"] = function(block) {
+	var value_url = Blockly.JavaScript.valueToCode(block, "URL", Blockly.JavaScript.ORDER_ATOMIC);
+	var code = `await fetch( ${value_url} ).then( r => r.json() )`;
+	return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
 Blockly.Blocks["utility_post_http"] = {
 	init: function() {
 		this.jsonInit({
