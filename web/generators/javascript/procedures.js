@@ -55,7 +55,7 @@ Blockly.JavaScript['procedures_defreturn'] = function(block) {
         Blockly.VARIABLE_CATEGORY_NAME);
   }
   var code = 'async function ' + funcName + '(' + args.join(', ') + ') {\n' +
-      xfix1 + loopTrap + branch + xfix2 + returnValue + '}';
+      xfix1 + loopTrap + branch + xfix2 + returnValue + '\n}';
   code = Blockly.JavaScript.scrub_(block, code);
   // Add % so as not to collide with helper functions in definitions list.
   Blockly.JavaScript.definitions_['%' + funcName] = code;
