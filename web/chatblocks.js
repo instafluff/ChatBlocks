@@ -154,7 +154,10 @@ function codeUpdateHandler( event ) {
 			let onSubGiftBatchHandlers = [];
 			let onGiftSubContinueHandlers = [];
 			let onRewardHandlers = [];
+			let onConnectedHandlers = [];
+
 			${code}
+
 			ComfyJS.onCommand = ( cb_user, cb_command, cb_message, cb_flags, cb_extra ) => {
 				if( onCommandHandlers[ cb_command ] ) {
 					onCommandHandlers[ cb_command ]( cb_user, cb_message, cb_flags, cb_extra );
@@ -217,6 +220,12 @@ function codeUpdateHandler( event ) {
 					x( cb_user, cb_reward, cb_cost, cb_message, cb_extra );
 				});
 			};
+			ComfyJS.onConnected = ( address, port, isFirstConnect ) => {
+				onConnectedHandlers.forEach( x => {
+					x( address, port, isFirstConnect );
+				});
+			};
+
 			ComfyJS.Init( "${window.localStorage.getItem( "channel" ) || ComfyTwitch.User}", "oauth:${ComfyTwitch.Token}" );
 		}
 		catch( error ) {
@@ -783,6 +792,34 @@ Blockly.JavaScript["twitch_ongiftsubcontinue"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
 	var code = `onGiftSubContinueHandlers.push( async ( cb_user, cb_gifter, cb_extra ) => {\n${statements_input}\n} );\n`;
+	return code;
+};
+
+Blockly.Blocks["twitch_onconnected"] = {
+	init: function() {
+	  this.jsonInit({
+		"type": "twitch_onconnected",
+		"message0": "on start %1",
+		"args0": [
+		  {
+			"type": "input_statement",
+			"name": "INPUT"
+		  }
+		],
+		"colour": 260,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setColour(260);
+	  this.setTooltip("username, message");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["twitch_onconnected"] = function(block) {
+	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
+	// TODO: Assemble JavaScript into code variable.
+	var code = `onConnectedHandlers.push( async ( address, port, isFirstConnect ) => {\n${statements_input}\n} );\n`;
 	return code;
 };
 
