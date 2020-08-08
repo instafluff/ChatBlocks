@@ -1,3 +1,5 @@
+'use strict';
+
 const clientId = "xrxinjwucvs83rf1b6lxq758yslj3c";
 let theme = Blockly.Theme.defineTheme( "ChatBlocks", {
 	// "base": oldTheme,
@@ -345,7 +347,7 @@ Blockly.Blocks["twitch_say"] = {
 	  });
 	  this.setColour(290);
 	  this.setTooltip("");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/twitch.html#say");
 	}
 };
 
@@ -382,7 +384,7 @@ Blockly.Blocks["twitch_whisper"] = {
 	  });
 	  this.setColour(290);
 	  this.setTooltip("");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/twitch.html#whisper");
 	}
 };
 
@@ -415,7 +417,7 @@ Blockly.Blocks["twitch_oncommand"] = {
 	  });
 	  this.setColour(260);
 	  this.setTooltip("");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/twitch.html#oncommand");
 	}
 };
 
@@ -444,7 +446,7 @@ Blockly.Blocks["twitch_onchat"] = {
 	  });
 	  this.setColour(260);
 	  this.setTooltip("");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/twitch.html#onchat");
 	}
 };
 
@@ -472,7 +474,7 @@ Blockly.Blocks["twitch_onwhisper"] = {
 	  });
 	  this.setColour(260);
 	  this.setTooltip("");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/twitch.html#onwhisper");
 	}
 };
 
@@ -500,7 +502,7 @@ Blockly.Blocks["twitch_onhost"] = {
 	  });
 	  this.setColour(260);
 	  this.setTooltip("");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/twitch.html#onhost");
 	}
 };
 
@@ -528,7 +530,7 @@ Blockly.Blocks["twitch_onraid"] = {
 	  });
 	  this.setColour(260);
 	  this.setTooltip("");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/twitch.html#onraid");
 	}
 };
 
@@ -556,7 +558,7 @@ Blockly.Blocks["twitch_oncheer"] = {
 	  });
 	  this.setColour(260);
 	  this.setTooltip("username, message, bits");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/twitch.html#oncheer");
 	}
 };
 
@@ -584,7 +586,7 @@ Blockly.Blocks["twitch_onsub"] = {
 	  });
 	  this.setColour(260);
 	  this.setTooltip("username, message");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/twitch.html#onsub");
 	}
 };
 
@@ -612,7 +614,7 @@ Blockly.Blocks["twitch_onresub"] = {
 	  });
 	  this.setColour(260);
 	  this.setTooltip("username, message");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/twitch.html#onresub");
 	}
 };
 
@@ -640,7 +642,7 @@ Blockly.Blocks["twitch_onsubgift"] = {
 	  });
 	  this.setColour(260);
 	  this.setTooltip("username, message");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/twitch.html#onsubgift");
 	}
 };
 
@@ -668,7 +670,7 @@ Blockly.Blocks["twitch_onbatchsubgift"] = {
 	  });
 	  this.setColour(260);
 	  this.setTooltip("username, message");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/twitch.html#onbatchsubgift");
 	}
 };
 
@@ -696,7 +698,7 @@ Blockly.Blocks["twitch_ongiftsubcontinue"] = {
 	  });
 	  this.setColour(260);
 	  this.setTooltip("username, message");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/twitch.html#ongiftsubcontinue");
 	}
 };
 
@@ -720,7 +722,7 @@ Blockly.Blocks["twitch_message"] = {
   	});
   	this.setColour(230);
   	this.setTooltip("");
-  	this.setHelpUrl("https://www.instafluff.tv");
+  	this.setHelpUrl("./Help/twitch.html#message");
     }
 };
 
@@ -745,7 +747,7 @@ Blockly.Blocks["twitch_user"] = {
   	});
   	this.setColour(230);
   	this.setTooltip("");
-  	this.setHelpUrl("https://www.instafluff.tv");
+  	this.setHelpUrl("./Help/twitch.html#user");
     }
 };
 
@@ -770,7 +772,7 @@ Blockly.Blocks["twitch_user_id"] = {
   	});
   	this.setColour(230);
   	this.setTooltip("");
-  	this.setHelpUrl("https://www.instafluff.tv");
+  	this.setHelpUrl("./Help/twitch.html#user_id");
     }
 };
 
@@ -805,7 +807,7 @@ Blockly.Blocks["twitch_user_teams"] = {
 		});
 		this.setColour(230);
 		this.setTooltip("");
-		this.setHelpUrl("https://www.instafluff.tv");
+		this.setHelpUrl("./Help/twitch.html#user_teams");
 	}
 };
 
@@ -837,7 +839,7 @@ Blockly.Blocks["twitch_reward_id"] = {
   	});
   	this.setColour(230);
   	this.setTooltip("");
-  	this.setHelpUrl("https://www.instafluff.tv");
+  	this.setHelpUrl("./Help/twitch.html#reward_id");
     }
 };
 
@@ -862,7 +864,7 @@ Blockly.Blocks["twitch_viewer_count"] = {
   	});
   	this.setColour(230);
   	this.setTooltip("");
-  	this.setHelpUrl("https://www.instafluff.tv");
+  	this.setHelpUrl("./Help/twitch.html#viewer_count");
     }
 };
 
@@ -887,7 +889,7 @@ Blockly.Blocks["twitch_bits_count"] = {
   	});
   	this.setColour(230);
   	this.setTooltip("");
-  	this.setHelpUrl("https://www.instafluff.tv");
+  	this.setHelpUrl("./Help/twitch.html#bits_count");
     }
 };
 
@@ -912,7 +914,7 @@ Blockly.Blocks["twitch_gifter"] = {
   	});
   	this.setColour(230);
   	this.setTooltip("");
-  	this.setHelpUrl("https://www.instafluff.tv");
+  	this.setHelpUrl("./Help/twitch.html#gifter");
     }
 };
 
@@ -937,7 +939,7 @@ Blockly.Blocks["twitch_is_sub_prime"] = {
   	});
   	this.setColour(230);
   	this.setTooltip("");
-  	this.setHelpUrl("https://www.instafluff.tv");
+  	this.setHelpUrl("./Help/twitch.html#is_sub_prime");
     }
 };
 
@@ -962,7 +964,7 @@ Blockly.Blocks["twitch_sub_tier"] = {
   	});
   	this.setColour(230);
   	this.setTooltip("");
-  	this.setHelpUrl("https://www.instafluff.tv");
+  	this.setHelpUrl("./Help/twitch.html#sub_tier");
     }
 };
 
@@ -987,7 +989,7 @@ Blockly.Blocks["twitch_sub_months"] = {
   	});
   	this.setColour(230);
   	this.setTooltip("");
-  	this.setHelpUrl("https://www.instafluff.tv");
+  	this.setHelpUrl("./Help/twitch.html#sub_months");
     }
 };
 
@@ -1012,7 +1014,7 @@ Blockly.Blocks["twitch_sub_streak"] = {
   	});
   	this.setColour(230);
   	this.setTooltip("");
-  	this.setHelpUrl("https://www.instafluff.tv");
+  	this.setHelpUrl("./Help/twitch.html#sub_stream");
     }
 };
 
@@ -1037,7 +1039,7 @@ Blockly.Blocks["twitch_is_broadcaster"] = {
   	});
   	this.setColour(230);
   	this.setTooltip("");
-  	this.setHelpUrl("https://www.instafluff.tv");
+  	this.setHelpUrl("./Help/twitch.html#is_broadcaster");
     }
 };
 
@@ -1062,7 +1064,7 @@ Blockly.Blocks["twitch_is_mod"] = {
   	});
   	this.setColour(230);
   	this.setTooltip("");
-  	this.setHelpUrl("https://www.instafluff.tv");
+  	this.setHelpUrl("./Help/twitch.html#is_mod");
     }
 };
 
@@ -1087,7 +1089,7 @@ Blockly.Blocks["twitch_is_vip"] = {
   	});
   	this.setColour(230);
   	this.setTooltip("");
-  	this.setHelpUrl("https://www.instafluff.tv");
+  	this.setHelpUrl("./Help/twitch.html#is_vip");
     }
 };
 
@@ -1112,7 +1114,7 @@ Blockly.Blocks["twitch_is_subscriber"] = {
   	});
   	this.setColour(230);
   	this.setTooltip("");
-  	this.setHelpUrl("https://www.instafluff.tv");
+  	this.setHelpUrl("./Help/twitch.html#is_subscriber");
     }
 };
 
@@ -1137,7 +1139,7 @@ Blockly.Blocks["twitch_is_founder"] = {
   	});
   	this.setColour(230);
   	this.setTooltip("");
-  	this.setHelpUrl("https://www.instafluff.tv");
+  	this.setHelpUrl("./Help/twitch.html#is_founder");
     }
 };
 
@@ -1162,7 +1164,7 @@ Blockly.Blocks["twitch_is_highlighted"] = {
   	});
   	this.setColour(230);
   	this.setTooltip("");
-  	this.setHelpUrl("https://www.instafluff.tv");
+  	this.setHelpUrl("./Help/twitch.html#is_highlighted");
     }
 };
 
@@ -1187,7 +1189,7 @@ Blockly.Blocks["twitch_is_reward"] = {
   	});
   	this.setColour(230);
   	this.setTooltip("");
-  	this.setHelpUrl("https://www.instafluff.tv");
+  	this.setHelpUrl("./Help/twitch.html#is_reward");
     }
 };
 
@@ -1231,7 +1233,7 @@ Blockly.Blocks["text_replace"] = {
 		"style": "text_blocks"
 	  });
 	  this.setTooltip("");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/text/replace.html");
 	}
 };
 
@@ -1277,7 +1279,7 @@ Blockly.Blocks["text_replaceAll"] = {
 		"style": "text_blocks"
 	  });
 	  this.setTooltip("");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/text.html#replaceAll");
 	}
 };
 
@@ -1317,7 +1319,7 @@ Blockly.Blocks[ "text_contains" ] = {
 			"helpUrl": ""
 		});
 		this.setTooltip("");
-		this.setHelpUrl("https://www.instafluff.tv");
+		this.setHelpUrl("./Help/text.html#contains");
 	}
 };
 
@@ -1355,7 +1357,7 @@ Blockly.Blocks[ "text_countAmount" ] = {
 			"helpUrl": ""
 		});
 		this.setTooltip("");
-		this.setHelpUrl("https://www.instafluff.tv");
+		this.setHelpUrl("./Help/text.html#countAmount");
 	}
 };
 
@@ -1387,7 +1389,7 @@ Blockly.Blocks["utility_wait"] = {
 	  });
 	  this.setColour(35);
 	  this.setTooltip("");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/utility.html#wait");
 	}
 };
 
@@ -1420,7 +1422,7 @@ Blockly.Blocks["utility_ontimer"] = {
 	  });
 	  this.setColour(35);
 	  this.setTooltip("");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/utility.html#ontimer");
 	}
 };
 
@@ -1463,7 +1465,7 @@ Blockly.Blocks["utility_get_http"] = {
 	  });
 	  this.setColour(35);
 	  this.setTooltip("");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/utility.html#get_http");
 	}
 };
 
@@ -1505,7 +1507,7 @@ Blockly.Blocks["utility_post_http"] = {
 	  });
 	  this.setColour(35);
 	  this.setTooltip("");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/utility.html#post_http");
 	}
 };
 
@@ -1543,7 +1545,7 @@ Blockly.Blocks["utility_console_log"] = {
 	  });
 	  this.setColour(35);
 	  this.setTooltip("");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/utility.html#console_log");
 	}
 };
 
@@ -1574,7 +1576,7 @@ Blockly.Blocks["math_eval"] = {
 		"helpUrl": ""
 	  });
 	  this.setTooltip("");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/math.html#eval");
 	}
 };
 
@@ -1606,7 +1608,7 @@ Blockly.Blocks[ "json_parse" ] = {
 		"helpUrl": ""
 	  });
 	  this.setTooltip("");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/json.html#parse");
 	}
 }
 
@@ -1635,7 +1637,7 @@ Blockly.Blocks[ "json_stringify" ] = {
 		"helpUrl": ""
 	  });
 	  this.setTooltip("");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/json.html#stringify");
 	}
 }
 
@@ -1678,7 +1680,7 @@ Blockly.Blocks[ "json_setkey" ] = {
 		"helpUrl": ""
 	  });
 	  this.setTooltip("");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/json.html#setkey");
 	}
 };
 
@@ -1719,7 +1721,7 @@ Blockly.Blocks[ "json_getkey" ] = {
 		"helpUrl": ""
 	  });
 	  this.setTooltip("");
-	  this.setHelpUrl("https://www.instafluff.tv");
+	  this.setHelpUrl("./Help/json.html#getkey");
 	}
 };
 
@@ -1734,7 +1736,7 @@ Blockly.JavaScript[ "json_getkey" ] = function(block) {
 
 Blockly.Blocks[ "json_create_with" ] = {
 	init: function() {
-    this.setHelpUrl("https://www.instafluff.tv");
+    this.setHelpUrl("./Help/json.html#create_with");
     this.setStyle('list_blocks');
     this.itemCount_ = 1;
     this.updateShape_();

@@ -1,0 +1,71 @@
+@font-face {
+  font-family: OpenDyslexic;
+  src: url(web/fonts/OpenDyslexic-Regular.woff);
+}
+
+html,
+body {
+  font-family: "Fredoka One", "sans-serif";
+  color: #ffffff;
+  background-color: #333;
+}
+
+.translucent-purple-bg {
+  background-color: rgba(100, 65, 165, 0.5);
+  border-color: rgba(100, 65, 165, 0.5);
+  color: #ccc;
+}
+
+.btn-purple-outline {
+  background-color: #fff;
+  border-color: #fff;
+  color: #6441a5;
+}
+
+.btn-purple {
+  background-color: #6441a5;
+  border-color: #6441a5;
+  color: #fff;
+}
+
+.btn-primary {
+  background-color: #4c97ff;
+  border-color: #4c97ff;
+}
+
+.btn-warning {
+  background-color: #ffa600;
+  border-color: #ffa600;
+}
+
+a,
+a:hover {
+  color: #ffa600;
+}
+
+:root {
+  --blue: #4c97ff;
+  --primary: #4c97ff;
+  --yellow: #ffa600;
+  --warning: #ffa600;
+}
+
+h2 {
+  text-decoration: underline;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  text-decoration: underline dashed;
+
+  margin-bottom: .3rem;
+}
+
+div.operation {
+  padding-top: .85rem;
+  margin-top: .6rem;
+  padding-left: .85rem;
+  padding-bottom: 0.5rem;
+  border-top: solid 0.1rem purple;
+  border-left: solid 0.1rem purple;
+}
