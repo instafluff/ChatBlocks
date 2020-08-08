@@ -58,13 +58,13 @@ h2 {
 h3 {
   text-decoration: underline dashed;
 
-  margin-bottom: .3rem;
+  margin-bottom: 0.3rem;
 }
 
 div.operation {
-  padding-top: .85rem;
-  margin-top: .6rem;
-  padding-left: .85rem;
+  padding-top: 0.85rem;
+  margin-top: 0.6rem;
+  padding-left: 0.85rem;
   padding-bottom: 0.5rem;
   border-top: solid 0.1rem purple;
   border-left: solid 0.1rem purple;
