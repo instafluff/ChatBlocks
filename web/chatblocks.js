@@ -365,6 +365,47 @@ Blockly.JavaScript["twitch_say"] = function(block) {
 	return code;
 };
 
+Blockly.Blocks["twitch_reply"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "twitch_reply",
+		"message0": "reply to %1 message %2",
+		"args0": [
+		  {
+				"type": "input_value",
+				"name": "USERNAME",
+				"check": "String",
+				"align": "RIGHT"
+			},
+			{
+				"type": "input_value",
+				"name": "MESSAGE",
+				"check": "String",
+				"align": "RIGHT"
+		  }
+		],
+		"previousStatement": null,
+		"nextStatement": null,
+		"colour": 260,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setColour(290);
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["twitch_reply"] = function(block) {
+	var value_user = Blockly.JavaScript.valueToCode(block, "USERNAME", Blockly.JavaScript.ORDER_ATOMIC);
+	var value_msg = Blockly.JavaScript.valueToCode(block, "MESSAGE", Blockly.JavaScript.ORDER_ATOMIC);
+
+	var message = `@\$\{ ${value_user} \} , \$\{ ${value_msg} \}`;
+
+	var code = `ComfyJS.Say( \`${message}\` );`;
+	return code;
+};
+
 Blockly.Blocks["twitch_whisper"] = {
 	init: function() {
 		this.jsonInit({
