@@ -1389,7 +1389,7 @@ Blockly.Blocks["utility_wait"] = {
 	  });
 	  this.setColour(35);
 	  this.setTooltip("");
-	  this.setHelpUrl("./Help/help.html#wait");
+	  this.setHelpUrl("./Help/extra.html#wait");
 	}
 };
 
@@ -1422,7 +1422,7 @@ Blockly.Blocks["utility_ontimer"] = {
 	  });
 	  this.setColour(35);
 	  this.setTooltip("");
-	  this.setHelpUrl("./Help/help.html#ontimer");
+	  this.setHelpUrl("./Help/extra.html#ontimer");
 	}
 };
 
@@ -1465,7 +1465,7 @@ Blockly.Blocks["utility_get_http"] = {
 	  });
 	  this.setColour(35);
 	  this.setTooltip("");
-	  this.setHelpUrl("./Help/help.html#get_http");
+	  this.setHelpUrl("./Help/extra.html#get_http");
 	}
 };
 
@@ -1507,7 +1507,7 @@ Blockly.Blocks["utility_post_http"] = {
 	  });
 	  this.setColour(35);
 	  this.setTooltip("");
-	  this.setHelpUrl("./Help/help.html#post_http");
+	  this.setHelpUrl("./Help/extra.html#post_http");
 	}
 };
 
@@ -1545,7 +1545,7 @@ Blockly.Blocks["utility_console_log"] = {
 	  });
 	  this.setColour(35);
 	  this.setTooltip("");
-	  this.setHelpUrl("./Help/help.html#console_log");
+	  this.setHelpUrl("./Help/extra.html#console_log");
 	}
 };
 
