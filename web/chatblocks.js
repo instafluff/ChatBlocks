@@ -130,6 +130,7 @@ function codeUpdateHandler( event ) {
 	<head>
 		<script src="https://cdn.jsdelivr.net/npm/comfy.js@1.1.2/dist/comfy.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/mathjs@7.1.0/dist/math.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
 	</head>
 	<body>
 		<script type="text/javascript">
@@ -361,6 +362,47 @@ Blockly.Blocks["twitch_say"] = {
 Blockly.JavaScript["twitch_say"] = function(block) {
 	var value_value = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC);
 	var code = `ComfyJS.Say( ${value_value} );`;
+	return code;
+};
+
+Blockly.Blocks["twitch_reply"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "twitch_reply",
+		"message0": "reply to %1 message %2",
+		"args0": [
+		  {
+				"type": "input_value",
+				"name": "USERNAME",
+				"check": "String",
+				"align": "RIGHT"
+			},
+			{
+				"type": "input_value",
+				"name": "MESSAGE",
+				"check": "String",
+				"align": "RIGHT"
+		  }
+		],
+		"previousStatement": null,
+		"nextStatement": null,
+		"colour": 260,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setColour(290);
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["twitch_reply"] = function(block) {
+	var value_user = Blockly.JavaScript.valueToCode(block, "USERNAME", Blockly.JavaScript.ORDER_ATOMIC);
+	var value_msg = Blockly.JavaScript.valueToCode(block, "MESSAGE", Blockly.JavaScript.ORDER_ATOMIC);
+
+	var message = `@\$\{ ${value_user} \} , \$\{ ${value_msg} \}`;
+
+	var code = `ComfyJS.Say( \`${message}\` );`;
 	return code;
 };
 
@@ -1285,6 +1327,68 @@ Blockly.JavaScript["twitch_is_reward"] = function(block) {
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
+
+Blockly.Blocks[ "time_current" ] = {
+	init: function() {
+		this.jsonInit({
+			"type": "time_current",
+			"message0": "get current timestamp",
+			"args0": [],
+			"output": null,
+			"colour": 35,
+			"tooltip": "",
+			"helpUrl": "http://www.instafluff.tv"
+		})
+	}
+};
+
+Blockly.JavaScript[ "time_current" ] = function(block) {
+	var code = `moment( new Date())`;
+	return [code, Blockly.JavaScript.ORDER_NONE];
+}
+
+Blockly.Blocks[ "time_nowto" ] = {
+	init: function() {
+		this.jsonInit({
+			"type": "time_nowto",
+			"message0": "get time from now to MM: %1 DD: %2 YYYY: %3",
+			"args0": [
+				{
+					"type": "input_value",
+					"name": "MM",
+					"check": "Number",
+					"align": "RIGHT"
+				},
+				{
+					"type": "input_value",
+					"name": "DD",
+					"check": "Number",
+					"align": "RIGHT"
+				},
+				{
+					"type": "input_value",
+					"name": "YYYY",
+					"check": "Number",
+					"align": "RIGHT"
+				}
+			],
+			"output": null,
+			"colour": 35,
+			"tooltip": "",
+			// "inputsInline": "true",
+			"helpUrl": "http://www.instafluff.tv"
+		})
+	}
+};
+
+Blockly.JavaScript[ "time_nowto" ] = function(block) {
+	let value_month = (parseInt(Blockly.JavaScript.valueToCode(block, "MM", Blockly.JavaScript.ORDER_ATOMIC) ) - 1) || new Date().getMonth();
+	let value_day = Blockly.JavaScript.valueToCode(block, "DD", Blockly.JavaScript.ORDER_ATOMIC) || new Date().getDate();
+	let value_year = Blockly.JavaScript.valueToCode(block, "YYYY", Blockly.JavaScript.ORDER_ATOMIC) || new Date().getFullYear();
+
+	var code = `moment( new Date()).to( [${value_year}, ${value_month}, ${value_day}], true )`;
+	return [code, Blockly.JavaScript.ORDER_NONE];
+}
 
 Blockly.Blocks["text_replace"] = {
 	init: function() {
