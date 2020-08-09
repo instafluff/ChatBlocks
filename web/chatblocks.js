@@ -1994,7 +1994,7 @@ Blockly.Blocks[ "json_getkey" ] = {
 			"align": "RIGHT"
 		  }
 		],
-		"output": "String",
+		"output": null,
 		"inputsInline": true,
 		// "previousStatement": null,
 		// "nextStatement": null,
@@ -2012,6 +2012,40 @@ Blockly.JavaScript[ "json_getkey" ] = function(block) {
 	var value_json = Blockly.JavaScript.valueToCode(block, "JSON", Blockly.JavaScript.ORDER_ATOMIC);
 
 	var code = `${value_json}[ ${value_key} ]`;
+
+	return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks[ "json_getallkeys" ] = {
+	init: function() {
+		this.jsonInit({
+		"type": "json_getallkeys",
+		"message0": "get keys from json: %1",
+		"args0": [
+		  {
+			"type": "input_value",
+			"name": "JSON",
+			"check": "Json",
+			"align": "RIGHT"
+		  }
+		],
+		"output": "Array",
+		// "inputsInline": true,
+		// "previousStatement": null,
+		// "nextStatement": null,
+		"style": "list_blocks",
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript[ "json_getallkeys" ] = function(block) {
+	var value_json = Blockly.JavaScript.valueToCode(block, "JSON", Blockly.JavaScript.ORDER_ATOMIC);
+
+	var code = `Object.keys( ${value_json} )`;
 
 	return [code, Blockly.JavaScript.ORDER_NONE];
 };
