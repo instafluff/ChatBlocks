@@ -402,7 +402,7 @@ Blockly.Blocks["twitch_reply"] = {
 Blockly.JavaScript["twitch_reply"] = function(block) {
 	var value_msg = Blockly.JavaScript.valueToCode(block, "MESSAGE", Blockly.JavaScript.ORDER_ATOMIC);
 
-	var code = `ComfyJS.Say( "@" + cb_extra.username + " " + ${value_msg} );`;
+	var code = `if( ${value_msg} ) { ComfyJS.Say( "@" + cb_extra.username + " " + ${value_msg} ); }`;
 	return code;
 };
 
@@ -474,7 +474,7 @@ Blockly.JavaScript["twitch_oncommand"] = function(block) {
 	var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onCommandHandlers[ ${value_name} ] = async ( cb_user, cb_message, cb_flags, cb_extra ) => {\n${statements_input}\n};\n`;
+	var code = `onCommandHandlers[ ${value_name} ] = async ( cb_user, cb_message, cb_flags, cb_extra ) => {\ntry {\n${statements_input}\n} catch( cb_err ) {}\n};\n`;
 	return code;
 };
 
@@ -502,7 +502,7 @@ Blockly.Blocks["twitch_onchat"] = {
 Blockly.JavaScript["twitch_onchat"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onChatHandlers.push( async ( cb_user, cb_message, cb_flags, cb_self, cb_extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onChatHandlers.push( async ( cb_user, cb_message, cb_flags, cb_self, cb_extra ) => {\ntry {\n${statements_input}\n} catch( cb_err ) {}\n} );\n`;
 	return code;
 };
 
@@ -530,7 +530,7 @@ Blockly.Blocks["twitch_onwhisper"] = {
 Blockly.JavaScript["twitch_onwhisper"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onWhisperHandlers.push( async ( cb_user, cb_message, cb_flags, cb_self, cb_extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onWhisperHandlers.push( async ( cb_user, cb_message, cb_flags, cb_self, cb_extra ) => {\ntry {\n${statements_input}\n} catch( cb_err ) {}\n} );\n`;
 	return code;
 };
 
@@ -558,7 +558,7 @@ Blockly.Blocks["twitch_onhost"] = {
 Blockly.JavaScript["twitch_onhost"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onHostHandlers.push( async ( cb_user, cb_viewers, cb_autohost, cb_extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onHostHandlers.push( async ( cb_user, cb_viewers, cb_autohost, cb_extra ) => {\ntry {\n${statements_input}\n} catch( cb_err ) {}\n} );\n`;
 	return code;
 };
 
@@ -586,7 +586,7 @@ Blockly.Blocks["twitch_onraid"] = {
 Blockly.JavaScript["twitch_onraid"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onRaidHandlers.push( async ( cb_user, cb_viewers, cb_extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onRaidHandlers.push( async ( cb_user, cb_viewers, cb_extra ) => {\ntry {\n${statements_input}\n} catch( cb_err ) {}\n} );\n`;
 	return code;
 };
 
@@ -614,7 +614,7 @@ Blockly.Blocks["twitch_onreward"] = {
 Blockly.JavaScript["twitch_onreward"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onRewardHandlers.push( async ( cb_user, cb_reward, cb_cost, cb_message, cb_extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onRewardHandlers.push( async ( cb_user, cb_reward, cb_cost, cb_message, cb_extra ) => {\ntry {\n${statements_input}\n} catch( cb_err ) {}\n} );\n`;
 	return code;
 };
 
@@ -642,7 +642,7 @@ Blockly.Blocks["twitch_oncheer"] = {
 Blockly.JavaScript["twitch_oncheer"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onCheerHandlers.push( async ( cb_user, cb_message, cb_bits, cb_flags, cb_extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onCheerHandlers.push( async ( cb_user, cb_message, cb_bits, cb_flags, cb_extra ) => {\ntry {\n${statements_input}\n} catch( cb_err ) {}\n} );\n`;
 	return code;
 };
 
@@ -670,7 +670,7 @@ Blockly.Blocks["twitch_onsub"] = {
 Blockly.JavaScript["twitch_onsub"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onSubHandlers.push( async ( cb_user, cb_message, cb_subTierInfo, cb_extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onSubHandlers.push( async ( cb_user, cb_message, cb_subTierInfo, cb_extra ) => {\ntry {\n${statements_input}\n} catch( cb_err ) {}\n} );\n`;
 	return code;
 };
 
@@ -698,7 +698,7 @@ Blockly.Blocks["twitch_onresub"] = {
 Blockly.JavaScript["twitch_onresub"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onResubHandlers.push( async ( cb_user, cb_message, cb_streakMonths, cb_cumulativeMonths, cb_subTierInfo, cb_extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onResubHandlers.push( async ( cb_user, cb_message, cb_streakMonths, cb_cumulativeMonths, cb_subTierInfo, cb_extra ) => {\ntry {\n${statements_input}\n} catch( cb_err ) {}\n} );\n`;
 	return code;
 };
 
@@ -726,7 +726,7 @@ Blockly.Blocks["twitch_onsubgift"] = {
 Blockly.JavaScript["twitch_onsubgift"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onSubGiftHandlers.push( async ( cb_gifter, cb_streakMonths, cb_user, cb_gifterCount, cb_subTierInfo, cb_extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onSubGiftHandlers.push( async ( cb_gifter, cb_streakMonths, cb_user, cb_gifterCount, cb_subTierInfo, cb_extra ) => {\ntry {\n${statements_input}\n} catch( cb_err ) {}\n} );\n`;
 	return code;
 };
 
@@ -754,7 +754,7 @@ Blockly.Blocks["twitch_onbatchsubgift"] = {
 Blockly.JavaScript["twitch_onbatchsubgift"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onSubGiftBatchHandlers.push( async ( cb_gifter, cb_numberOfSubs, cb_gifterCount, cb_subTierInfo, cb_extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onSubGiftBatchHandlers.push( async ( cb_gifter, cb_numberOfSubs, cb_gifterCount, cb_subTierInfo, cb_extra ) => {\ntry {\n${statements_input}\n} catch( cb_err ) {}\n} );\n`;
 	return code;
 };
 
@@ -782,7 +782,7 @@ Blockly.Blocks["twitch_ongiftsubcontinue"] = {
 Blockly.JavaScript["twitch_ongiftsubcontinue"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onGiftSubContinueHandlers.push( async ( cb_user, cb_gifter, cb_extra ) => {\n${statements_input}\n} );\n`;
+	var code = `onGiftSubContinueHandlers.push( async ( cb_user, cb_gifter, cb_extra ) => {\ntry {\n${statements_input}\n} catch( cb_err ) {}\n} );\n`;
 	return code;
 };
 
@@ -810,7 +810,7 @@ Blockly.Blocks["twitch_onconnected"] = {
 Blockly.JavaScript["twitch_onconnected"] = function(block) {
 	var statements_input = Blockly.JavaScript.statementToCode(block, "INPUT");
 	// TODO: Assemble JavaScript into code variable.
-	var code = `onConnectedHandlers.push( async ( address, port, isFirstConnect ) => {\n${statements_input}\n} );\n`;
+	var code = `onConnectedHandlers.push( async ( address, port, isFirstConnect ) => {\ntry {\n${statements_input}\n} catch( cb_err ) {}\n} );\n`;
 	return code;
 };
 
@@ -1829,7 +1829,7 @@ Blockly.Blocks["math_eval"] = {
 
 Blockly.JavaScript["math_eval"] = function(block) {
 	var value_exp = Blockly.JavaScript.valueToCode(block, "EXPRESSION", Blockly.JavaScript.ORDER_ATOMIC);
-	var code = `math.evaluate( ${value_exp} )`;
+	var code = `( ${value_exp}.startsWith( "\\"" ) ? "" : math.evaluate( ${value_exp} ) )`;
 	return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
