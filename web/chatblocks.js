@@ -378,14 +378,8 @@ Blockly.Blocks["twitch_reply"] = {
 	init: function() {
 		this.jsonInit({
 		"type": "twitch_reply",
-		"message0": "reply to %1 message %2",
+		"message0": "reply %1",
 		"args0": [
-		  {
-				"type": "input_value",
-				"name": "USERNAME",
-				"check": "String",
-				"align": "RIGHT"
-			},
 			{
 				"type": "input_value",
 				"name": "MESSAGE",
@@ -406,12 +400,9 @@ Blockly.Blocks["twitch_reply"] = {
 };
 
 Blockly.JavaScript["twitch_reply"] = function(block) {
-	var value_user = Blockly.JavaScript.valueToCode(block, "USERNAME", Blockly.JavaScript.ORDER_ATOMIC);
 	var value_msg = Blockly.JavaScript.valueToCode(block, "MESSAGE", Blockly.JavaScript.ORDER_ATOMIC);
 
-	var message = `@\$\{ ${value_user} \} , \$\{ ${value_msg} \}`;
-
-	var code = `ComfyJS.Say( \`${message}\` );`;
+	var code = `ComfyJS.Say( "@" + cb_extra.username + " " + ${value_msg} );`;
 	return code;
 };
 
