@@ -1771,6 +1771,72 @@ Blockly.JavaScript["utility_console_log"] = function(block) {
 	return code;
 };
 
+Blockly.Blocks["utility_save_data"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "utility_save_data",
+		"message0": "save to browser storage as %1 the text %2",
+		"args0": [
+		  {
+			  "type": "input_value",
+			  "name": "KEY",
+			  "check": "String",
+			  "align": "RIGHT"
+		  },
+		  {
+			"type": "input_value",
+			"name": "VALUE",
+			"check": "String",
+			"align": "RIGHT"
+		  }
+		],
+		"previousStatement": null,
+		"nextStatement": null,
+		"colour": 35,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["utility_save_data"] = function(block) {
+	var key_value = Blockly.JavaScript.valueToCode(block, "KEY", Blockly.JavaScript.ORDER_ATOMIC);
+	var value_value = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC);
+	var code = `window.localStorage.setItem( "cb_" + ${key_value}, ${value_value} )`;
+	return code;
+};
+
+Blockly.Blocks["utility_load_data"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "utility_load_data",
+		"message0": "load text from browser storage %1",
+		"args0": [
+		  {
+			"type": "input_value",
+			"name": "KEY",
+			"check": "String",
+			"align": "RIGHT"
+		  }
+		],
+    	"output": "String",
+		"colour": 35,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["utility_load_data"] = function(block) {
+	var key_value = Blockly.JavaScript.valueToCode(block, "KEY", Blockly.JavaScript.ORDER_ATOMIC);
+	var code = `window.localStorage.getItem( "cb_" + ${key_value} ) || ""`;
+	return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
 Blockly.Blocks["math_eval"] = {
 	init: function() {
 		this.jsonInit({
