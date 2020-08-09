@@ -2020,7 +2020,7 @@ Blockly.Blocks[ "json_getallkeys" ] = {
 	init: function() {
 		this.jsonInit({
 		"type": "json_getallkeys",
-		"message0": "get keys from json: %1",
+		"message0": "get list of keys from json: %1",
 		"args0": [
 		  {
 			"type": "input_value",
