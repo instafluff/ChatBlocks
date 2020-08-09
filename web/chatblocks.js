@@ -1422,7 +1422,7 @@ Blockly.Blocks["text_replace"] = {
 	init: function() {
 		this.jsonInit({
 		"type": "text_replace",
-		"message0": "replace %1 with %2 in %3",
+		"message0": "replace first %1 with %2 in text %3",
 		"args0": [
 		  {
 				"type": "input_value",
@@ -1468,7 +1468,7 @@ Blockly.Blocks["text_replaceAll"] = {
 	init: function() {
 		this.jsonInit({
 		"type": "text_replaceAll",
-		"message0": "replaceAll %1 with %2 in %3",
+		"message0": "replace every %1 with %2 in text %3",
 		"args0": [
 		  {
 				"type": "input_value",
@@ -1514,7 +1514,7 @@ Blockly.Blocks[ "text_contains" ] = {
 	init: function() {
 		this.jsonInit({
 			"type": "text_contains",
-			"message0": "text %1 contains %2",
+			"message0": "check if text %1 contains %2",
 			"args0": [
 				{
 					"type": "input_value",
@@ -1551,7 +1551,7 @@ Blockly.Blocks[ "text_countAmount" ] = {
 	init: function() {
 		this.jsonInit({
 			"type": "text_countAmount",
-			"message0": "count occurrences of %1 in %2",
+			"message0": "count occurrences of %1 in text %2",
 			"args0": [
 				{
 					"type": "input_value",
