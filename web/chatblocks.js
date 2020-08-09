@@ -81,6 +81,9 @@ let theme = Blockly.Theme.defineTheme( "ChatBlocks", {
 		},
 		"variable_dynamic_category": {
 			"colour": "#FF8C1A"
+		},
+		"time_category": {
+			"colour": "#1AF9FF"
 		}
 	},
 	"componentStyles": {
@@ -1363,7 +1366,7 @@ Blockly.Blocks[ "time_current" ] = {
 			"message0": "get current timestamp",
 			"args0": [],
 			"output": null,
-			"colour": 35,
+			"colour": 182,
 			"tooltip": "",
 			"helpUrl": "http://www.instafluff.tv"
 		})
@@ -1401,7 +1404,7 @@ Blockly.Blocks[ "time_nowto" ] = {
 				}
 			],
 			"output": null,
-			"colour": 35,
+			"colour": 182,
 			"tooltip": "",
 			// "inputsInline": "true",
 			"helpUrl": "http://www.instafluff.tv"
@@ -1599,11 +1602,10 @@ Blockly.Blocks["utility_wait"] = {
 		],
 		"previousStatement": null,
 		"nextStatement": null,
-		"colour": 260,
+		"colour": 182,
 		"tooltip": "",
 		"helpUrl": ""
 	  });
-	  this.setColour(35);
 	  this.setTooltip("");
 	  this.setHelpUrl("https://www.instafluff.tv");
 	}
@@ -1630,12 +1632,11 @@ Blockly.Blocks["utility_ontimer"] = {
 			"type": "input_statement",
 			"name": "DO"
 		}],
-		"colour": 260,
+		"colour": 182,
 		"inputsInline": "true",
 		"tooltip": "",
 		"helpUrl": ""
 	  });
-	  this.setColour(35);
 	  this.setTooltip("");
 	  this.setHelpUrl("https://www.instafluff.tv");
 	}
@@ -1691,38 +1692,6 @@ Blockly.JavaScript["utility_get_http"] = function(block) {
 			"Accept": "text/plain"
 		}
 	} ).then( r => r.text() )`;
-	return [code, Blockly.JavaScript.ORDER_NONE];
-};
-
-Blockly.Blocks["utility_get_json_http"] = {
-	init: function() {
-		this.jsonInit({
-		"type": "utility_get_json_http",
-		"message0": "get JSON from web URL %1",
-		"args0": [
-		  {
-			"type": "input_value",
-			"name": "URL",
-			"check": "String",
-			"align": "RIGHT"
-		  }
-		],
-    "output": "Json",
-		// "previousStatement": null,
-		// "nextStatement": null,
-		"colour": 260,
-		"tooltip": "",
-		"helpUrl": ""
-	  });
-	  this.setColour(35);
-	  this.setTooltip("");
-	  this.setHelpUrl("https://www.instafluff.tv");
-	}
-};
-
-Blockly.JavaScript["utility_get_json_http"] = function(block) {
-	var value_url = Blockly.JavaScript.valueToCode(block, "URL", Blockly.JavaScript.ORDER_ATOMIC);
-	var code = `await fetch( ${value_url} ).then( r => r.json() )`;
 	return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
