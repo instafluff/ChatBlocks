@@ -144,6 +144,7 @@ function codeUpdateHandler( event ) {
 			math.createUnit('tbsp', {definition: '1 tablespoon', aliases: ["tbspoon"]});
 			math.createUnit('tsp', {definition: '1 teaspoon', aliases: ["tspoon"]});
 
+			let cb_channel_id = undefined, cb_channel_username = undefined, cb_channel_display_name = undefined, cb_channel_description = undefined, cb_channel_profile_image = undefined;
 			let cb_user = undefined, cb_command = undefined, cb_reward = undefined, cb_cost = undefined, cb_flags = {}, cb_extra = {};
 			let onCommandHandlers = {};
 			let onChatHandlers = [];
@@ -230,6 +231,20 @@ function codeUpdateHandler( event ) {
 			};
 
 			ComfyJS.Init( "${window.localStorage.getItem( "channel" ) || ComfyTwitch.User}", "oauth:${ComfyTwitch.Token}" );
+			fetch( "https://api.twitch.tv/helix/users?login=${window.localStorage.getItem( "channel" ) || ComfyTwitch.User}", {
+				headers: {
+					"Client-ID": "${clientId}",
+					"Authorization": "Bearer ${ComfyTwitch.Token}"
+				}
+			} )
+			.then( r => r.json() )
+			.then( r => {
+				cb_channel_id = r.data[ 0 ].id;
+				cb_channel_username = r.data[ 0 ].login;
+				cb_channel_display_name = r.data[ 0 ].display_name;
+				cb_channel_description = r.data[ 0 ].description;
+				cb_channel_profile_image = r.data[ 0 ].profile_image_url;
+			});
 		}
 		catch( error ) {
 			window.alert( "ERROR: " + error.message );
@@ -885,7 +900,6 @@ Blockly.Blocks["twitch_user_id"] = {
 };
 
 Blockly.JavaScript["twitch_user_id"] = function(block) {
-  var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
   var code = `(cb_extra.userId)`;
   // TODO: Change ORDER_NONE to the correct strength.
@@ -896,7 +910,7 @@ Blockly.Blocks["twitch_user_teams"] = {
 	init: function() {
 		this.jsonInit({
 		"type": "twitch_user_teams",
-		"message0": "get teams of userid %1",
+		"message0": "get list of teams for user ID %1",
 		"args0": [
 			{
 				"type": "input_value",
@@ -906,7 +920,7 @@ Blockly.Blocks["twitch_user_teams"] = {
 			}
 		],
 		"output": "Array",
-		"inputsInline": true,
+		// "inputsInline": true,
 		// "previousStatement": null,
 		// "nextStatement": null,
 		"colour": 260,
@@ -930,6 +944,132 @@ Blockly.JavaScript["twitch_user_teams"] = function(block) {
 		}
 	})
 	.then(resp => resp.json()) ).teams.map(x => x.name))`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_user_lookup_id"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "twitch_user_lookup_id",
+		"message0": "get user ID for username %1",
+		"args0": [
+			{
+				"type": "input_value",
+				"name": "USER-NAME",
+				"check": "String",
+				"align": "RIGHT"
+			}
+		],
+		"output": "String",
+		// "inputsInline": true,
+		// "previousStatement": null,
+		// "nextStatement": null,
+		"colour": 260,
+		"tooltip": "",
+		"helpUrl": ""
+		});
+		this.setColour(230);
+		this.setTooltip("");
+		this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["twitch_user_lookup_id"] = function(block) {
+  var value_id = Blockly.JavaScript.valueToCode(block, "USER-NAME", Blockly.JavaScript.ORDER_ATOMIC);
+
+  var code = `( ( await fetch( \`https://api.twitch.tv/helix/users?login=\$\{${value_id}\}\`, {
+		method: "GET",
+		headers: {
+			'Authorization': 'Bearer ${ComfyTwitch.Token}',
+			'Client-ID': "${clientId}"
+		}
+	})
+	.then(resp => resp.json()) ).data[ 0 ].id )`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_user_lookup_channel"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "twitch_user_lookup_channel",
+		"message0": "get list with stream info for user ID %1",
+		"args0": [
+			{
+				"type": "input_value",
+				"name": "USER-ID",
+				"check": "String",
+				"align": "RIGHT"
+			}
+		],
+		"output": "Array",
+		// "inputsInline": true,
+		// "previousStatement": null,
+		// "nextStatement": null,
+		"colour": 260,
+		"tooltip": "",
+		"helpUrl": ""
+		});
+		this.setColour(230);
+		this.setTooltip("");
+		this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["twitch_user_lookup_channel"] = function(block) {
+  var value_id = Blockly.JavaScript.valueToCode(block, "USER-ID", Blockly.JavaScript.ORDER_ATOMIC);
+
+  var code = `Object.values( ( await fetch( \`https://api.twitch.tv/helix/channels?broadcaster_id=\$\{${value_id}\}\`, {
+		method: "GET",
+		headers: {
+			'Authorization': 'Bearer ${ComfyTwitch.Token}',
+			'Client-ID': "${clientId}"
+		}
+	})
+	.then( resp => resp.json() ) ).data[ 0 ] )`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_user_follows_the_channel"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "twitch_user_follows_the_channel",
+		"message0": "check if user ID %1 follows the channel",
+		"args0": [
+			{
+				"type": "input_value",
+				"name": "USER-ID",
+				"check": "String",
+				"align": "RIGHT"
+			}
+		],
+		"output": "Boolean",
+		"inputsInline": true,
+		// "previousStatement": null,
+		// "nextStatement": null,
+		"colour": 260,
+		"tooltip": "",
+		"helpUrl": ""
+		});
+		this.setColour(230);
+		this.setTooltip("");
+		this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["twitch_user_follows_the_channel"] = function(block) {
+  var value_id = Blockly.JavaScript.valueToCode(block, "USER-ID", Blockly.JavaScript.ORDER_ATOMIC);
+
+  var code = `!!( await fetch( \`https://api.twitch.tv/helix/users/follows?to_id=\$\{cb_channel_id\}&from_id=\$\{${value_id}\}\`, {
+		method: "GET",
+		headers: {
+			'Authorization': 'Bearer ${ComfyTwitch.Token}',
+			'Client-ID': "${clientId}"
+		}
+	})
+	.then( resp => resp.json() ) ).total`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -1180,6 +1320,121 @@ Blockly.JavaScript["twitch_sub_streak"] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
   var code = `( cb_streakMonths )`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_channel_id"] = {
+    init: function() {
+  	this.jsonInit({
+  	  "type": "",
+  	  "message0": "current channel ID",
+  	  "args0": [],
+  	  "output": "String",
+  	  "colour": 260,
+  	  "tooltip": "",
+  	  "helpUrl": ""
+  	});
+  	this.setColour(230);
+  	this.setTooltip("");
+  	this.setHelpUrl("https://www.instafluff.tv");
+    }
+};
+
+Blockly.JavaScript["twitch_channel_id"] = function(block) {
+  var code = `(cb_channel_id)`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_channel_username"] = {
+    init: function() {
+  	this.jsonInit({
+  	  "type": "",
+  	  "message0": "current channel username",
+  	  "args0": [],
+  	  "output": "String",
+  	  "colour": 260,
+  	  "tooltip": "",
+  	  "helpUrl": ""
+  	});
+  	this.setColour(230);
+  	this.setTooltip("");
+  	this.setHelpUrl("https://www.instafluff.tv");
+    }
+};
+
+Blockly.JavaScript["twitch_channel_username"] = function(block) {
+  var code = `(cb_channel_username)`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_channel_displayname"] = {
+    init: function() {
+  	this.jsonInit({
+  	  "type": "",
+  	  "message0": "current channel display name",
+  	  "args0": [],
+  	  "output": "String",
+  	  "colour": 260,
+  	  "tooltip": "",
+  	  "helpUrl": ""
+  	});
+  	this.setColour(230);
+  	this.setTooltip("");
+  	this.setHelpUrl("https://www.instafluff.tv");
+    }
+};
+
+Blockly.JavaScript["twitch_channel_displayname"] = function(block) {
+  var code = `(cb_channel_display_name)`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_channel_description"] = {
+    init: function() {
+  	this.jsonInit({
+  	  "type": "",
+  	  "message0": "current channel description",
+  	  "args0": [],
+  	  "output": "String",
+  	  "colour": 260,
+  	  "tooltip": "",
+  	  "helpUrl": ""
+  	});
+  	this.setColour(230);
+  	this.setTooltip("");
+  	this.setHelpUrl("https://www.instafluff.tv");
+    }
+};
+
+Blockly.JavaScript["twitch_channel_description"] = function(block) {
+  var code = `(cb_channel_description)`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["twitch_channel_profile_image"] = {
+    init: function() {
+  	this.jsonInit({
+  	  "type": "",
+  	  "message0": "current channel profile image URL",
+  	  "args0": [],
+  	  "output": "String",
+  	  "colour": 260,
+  	  "tooltip": "",
+  	  "helpUrl": ""
+  	});
+  	this.setColour(230);
+  	this.setTooltip("");
+  	this.setHelpUrl("https://www.instafluff.tv");
+    }
+};
+
+Blockly.JavaScript["twitch_channel_profile_image"] = function(block) {
+  var code = `(cb_channel_profile_image)`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
@@ -1775,7 +2030,7 @@ Blockly.Blocks["utility_save_data"] = {
 	init: function() {
 		this.jsonInit({
 		"type": "utility_save_data",
-		"message0": "save to browser storage as %1 the text %2",
+		"message0": "save to browser storage as %1 text %2",
 		"args0": [
 		  {
 			  "type": "input_value",
