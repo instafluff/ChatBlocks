@@ -2059,7 +2059,7 @@ Blockly.Blocks["utility_save_data"] = {
 Blockly.JavaScript["utility_save_data"] = function(block) {
 	var key_value = Blockly.JavaScript.valueToCode(block, "KEY", Blockly.JavaScript.ORDER_ATOMIC);
 	var value_value = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC);
-	var code = `window.localStorage.setItem( "cb_" + ${key_value}, ${value_value} )`;
+	var code = `window.localStorage.setItem( "cb_" + ${key_value}, ${value_value} );`;
 	return code;
 };
 
