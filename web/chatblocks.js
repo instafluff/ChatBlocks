@@ -84,6 +84,9 @@ let theme = Blockly.Theme.defineTheme( "ChatBlocks", {
 		},
 		"time_category": {
 			"colour": "#1AF9FF"
+		},
+		"sound_category": {
+			"colour": "#008080"
 		}
 	},
 	"componentStyles": {
@@ -1674,6 +1677,64 @@ Blockly.JavaScript[ "time_nowto" ] = function(block) {
 
 	var code = `moment( new Date()).to( [${value_year}, ${value_month}, ${value_day}], true )`;
 	return [code, Blockly.JavaScript.ORDER_NONE];
+}
+
+Blockly.Blocks[ "sound_play" ] = {
+	init: function() {
+		this.jsonInit({
+			"type": "sound_play",
+			"message0": "play song from url %1",
+			"args0": [
+				{
+					"type": "input_value",
+					"name": "URL",
+					"check": "String",
+					"align": "RIGHT"
+				},
+			],
+			"previousStatement": null,
+			"nextStatement": null,
+			"colour": 180,
+			"tooltip": "",
+			"helpUrl": "http://www.instafluff.tv"
+		})
+	}
+}
+
+Blockly.JavaScript[ "sound_play" ] = function(block) {
+	var value_url = Blockly.JavaScript.valueToCode(block, "URL", Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+	var code = `new Audio( ${value_url} ).play();`;
+	return code;
+}
+
+Blockly.Blocks[ "sound_tts" ] = {
+	init: function() {
+		this.jsonInit({
+			"type": "sound_tts",
+			"message0": "text to speech %1",
+			"args0": [
+				{
+					"type": "input_value",
+					"name": "TEXT",
+					"check": "String",
+					"align": "RIGHT"
+				},
+			],
+			"previousStatement": null,
+			"nextStatement": null,
+			"colour": 180,
+			"tooltip": "",
+			"helpUrl": "http://www.instafluff.tv"
+		})
+	}
+}
+
+Blockly.JavaScript[ "sound_tts" ] = function(block) {
+	var value_text = Blockly.JavaScript.valueToCode(block, "TEXT", Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+	var code = `window.speechSynthesis.speak( new SpeechSynthesisUtterance( ${value_text} ));`;
+	return code;
 }
 
 Blockly.Blocks["text_replace"] = {
