@@ -9,4 +9,4 @@ All versions are supported for our security updates
 
 ## Reporting a Vulnerability
 
-If you find a vulnerability. Immideatly report it! Create a issue and call it 'VULNERABILITY REPORT'.
+If you find a vulnerability immediately report it! Create a issue and call it 'VULNERABILITY REPORT'.
