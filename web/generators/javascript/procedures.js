@@ -55,7 +55,7 @@ Blockly.JavaScript['procedures_defreturn'] = function(block) {
         Blockly.VARIABLE_CATEGORY_NAME);
   }
   var code = 'async function ' + funcName + '(' + args.join(', ') + ') {\n' +
-      xfix1 + loopTrap + branch + xfix2 + returnValue + '}';
+      xfix1 + loopTrap + branch + xfix2 + returnValue + '\n}';
   code = Blockly.JavaScript.scrub_(block, code);
   // Add % so as not to collide with helper functions in definitions list.
   Blockly.JavaScript.definitions_['%' + funcName] = code;
@@ -77,7 +77,7 @@ Blockly.JavaScript['procedures_callreturn'] = function(block) {
     args[i] = Blockly.JavaScript.valueToCode(block, 'ARG' + i,
         Blockly.JavaScript.ORDER_COMMA) || 'null';
   }
-  var code = funcName + '(' + args.join(', ') + ')';
+  var code = 'await ' + funcName + '(' + args.join(', ') + ')';
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 
