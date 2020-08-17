@@ -179,21 +179,24 @@
 		<xml id="toolbox" style="display: none">
 			<category name="TWITCH" colour="6441a5">
 				<block type="twitch_oncommand"></block>
-		    <block type="twitch_onchat"></block>
-        <block type="twitch_onwhisper"></block>
-        <block type="twitch_onhost"></block>
-        <block type="twitch_onraid"></block>
-        <block type="twitch_oncheer"></block>
-        <block type="twitch_onsub"></block>
-        <block type="twitch_onresub"></block>
-        <block type="twitch_onsubgift"></block>
-        <block type="twitch_onbatchsubgift"></block>
-        <block type="twitch_ongiftsubcontinue"></block>
+    		    <block type="twitch_onchat"></block>
+                <block type="twitch_onwhisper"></block>
+                <block type="twitch_onhost"></block>
+                <block type="twitch_onraid"></block>
+                <block type="twitch_onreward"></block>
+                <block type="twitch_oncheer"></block>
+                <block type="twitch_onsub"></block>
+                <block type="twitch_onresub"></block>
+                <block type="twitch_onsubgift"></block>
+                <block type="twitch_onbatchsubgift"></block>
+                <block type="twitch_ongiftsubcontinue"></block>
+                <block type="twitch_onconnected"></block>
 				<block type="twitch_user"></block>
-        <block type="twitch_user_id"></block>
-        <block type="twitch_user_teams"></block>
+                <block type="twitch_user_id"></block>
 				<block type="twitch_message"></block>
+                <block type="twitch_reward_name"></block>
 				<block type="twitch_reward_id"></block>
+                <block type="twitch_reward_cost"></block>
 				<block type="twitch_viewer_count"></block>
 				<block type="twitch_bits_count"></block>
 				<block type="twitch_is_sub_prime"></block>
@@ -201,6 +204,11 @@
 				<block type="twitch_sub_months"></block>
 				<block type="twitch_sub_streak"></block>
 				<block type="twitch_gifter"></block>
+                <block type="twitch_channel_id"></block>
+                <block type="twitch_channel_username"></block>
+                <block type="twitch_channel_displayname"></block>
+                <block type="twitch_channel_description"></block>
+                <block type="twitch_channel_profile_image"></block>
 				<block type="twitch_is_broadcaster"></block>
 				<block type="twitch_is_mod"></block>
 				<block type="twitch_is_vip"></block>
@@ -208,7 +216,12 @@
 				<block type="twitch_is_founder"></block>
 				<block type="twitch_is_highlighted"></block>
 				<block type="twitch_is_reward"></block>
+                <block type="twitch_user_lookup_id"></block>
+                <block type="twitch_user_teams"></block>
+                <block type="twitch_user_lookup_channel"></block>
+                <block type="twitch_user_follows_the_channel"></block>
 				<block type="twitch_say"></block>
+				<block type="twitch_reply"></block>
 				<block type="twitch_whisper"></block>
 			</category>
 		    <category name="LOGIC" categorystyle="logic_category">
@@ -432,17 +445,7 @@
 		        </value>
 		      </block>
 		    </category>
-				<category name="JSON" categorystyle="list_category">
-					<block type="json_create_with">
-		        <mutation items="0"></mutation>
-		      </block>
-					<block type="json_create_with"></block>
-					<block type="json_parse"></block>
-					<block type="json_stringify"></block>
-					<block type="json_getkey"></block>
-					<block type="json_setkey"></block>
-				</category>
-				<category name="LISTS" categorystyle="list_category">
+			<category name="LISTS" categorystyle="list_category">
 		      <block type="lists_create_with">
 		        <mutation items="0"></mutation>
 		      </block>
@@ -531,10 +534,28 @@
 		        </value>
 		      </block>
 		    </category>
+			<category name="JSON" categorystyle="list_category">
+                <block type="json_create_with">
+                    <mutation items="0"></mutation>
+                </block>
+				<block type="json_create_with"></block>
+				<block type="json_parse"></block>
+				<block type="json_stringify"></block>
+				<block type="json_getkey"></block>
+				<block type="json_setkey"></block>
+				<block type="json_getallkeys"></block>
+			</category>
 		    <sep></sep>
 		    <category name="VARIABLES" categorystyle="variable_category" custom="VARIABLE"></category>
 		    <category name="FUNCTIONS" categorystyle="procedure_category" custom="PROCEDURE"></category>
         <category name="EXTRA" categorystyle="variable_dynamic_category">
+          <block type="utility_get_http"></block>
+          <block type="utility_post_http"></block>
+          <block type="utility_console_log"></block>
+          <block type="utility_save_data"></block>
+          <block type="utility_load_data"></block>
+		</category>
+		<category name="TIME" categorystyle="time_category">
           <block type="utility_wait">
             <value name="VALUE">
               <shadow type="math_number">
@@ -542,17 +563,26 @@
               </shadow>
             </value>
           </block>
-	        <block type="utility_ontimer">
+	      <block type="utility_ontimer">
             <value name="SECONDS">
 		          <shadow type="math_number">
 		            <field name="NUM">10</field>
 		          </shadow>
 		        </value>
           </block>
-          <block type="utility_get_http"></block>
-          <block type="utility_post_http"></block>
-          <block type="utility_console_log"></block>
-        </category>
+          <block type="time_current"></block>
+          <block type="time_nowto"></block>
+		</category>
+		<category name="SOUND" categorystyle="sound_category">
+			<block type="sound_play"></block>
+			<block type="sound_tts">
+				<value name="TEXT">
+					<shadow type="text">
+						<field name="TEXT">Instafluff is the maker of Chatblocks!</field>
+					</shadow>
+				</value>
+			</block>
+		</category>
 		</xml>
 		<br/>
         <a href="https://developers.google.com/blockly" target="_blank"><img class="float-right" src="https://developers.google.com/blockly/images/logos/logo_built_on_knockout.png" height="28px" /></a>
@@ -568,21 +598,28 @@
     <script>
         // const clientId = "xrxinjwucvs83rf1b6lxq758yslj3c";
         const baseUrl = window.location.origin + window.location.pathname;
+        const cb_scopes = [ "user:read:email", "chat:read", "chat:edit", "channel:moderate", "whispers:read", "whispers:edit", "channel:read:redemptions" ];
 
         ComfyTwitch.Check()
         .then( async result => {
             if( result ) {
+                if( ( result.scopes.length !== cb_scopes.length ) || ( result.scopes.some( val => !cb_scopes.includes( val ) ) ) ) {
+                    // Logout and refresh to get new scopes
+                    ComfyTwitch.Logout();
+                    window.location.reload();
+                    return;
+                }
                 // Logged In
                 let user = await ComfyTwitch.GetUser( clientId, result.user_id );
                 document.getElementById( "channel-name" ).value = "“ " + ( window.localStorage.getItem( "channel" ) || result.login ) + " ”";
                 document.getElementById( "username" ).innerText = user.display_name;
                 document.getElementById( "profile-image" ).src = user.profile_image_url;
                 document.querySelector( "#login-group" ).setAttribute( "hidden", true );
-								document.querySelector( "#profile-group" ).removeAttribute( "hidden" );
-								document.getElementById( "run-code" ).removeAttribute( "disabled" );
-								document.getElementById( "save-code" ).removeAttribute( "disabled" );
-								document.getElementById( "load-code" ).removeAttribute( "disabled" );
-								document.getElementById( "clear-code" ).removeAttribute( "disabled" );
+				document.querySelector( "#profile-group" ).removeAttribute( "hidden" );
+				document.getElementById( "run-code" ).removeAttribute( "disabled" );
+				document.getElementById( "save-code" ).removeAttribute( "disabled" );
+				document.getElementById( "load-code" ).removeAttribute( "disabled" );
+				document.getElementById( "clear-code" ).removeAttribute( "disabled" );
                 document.querySelector( "#logout" ).addEventListener( "click", function() {
                     ComfyTwitch.Logout();
                     window.location.reload();
@@ -590,17 +627,18 @@
             }
             else {
                 // Logged Out
+                // ComfyTwitch.Logout();
                 document.querySelector( "#profile-group" ).setAttribute( "hidden", true );
                 document.querySelector( "#login-group" ).removeAttribute( "hidden" );
-								document.getElementById( "workspace" ).classList.add( "blocks-blocker" );
-								document.getElementById( "run-code" ).classList.add( "btn-secondary" );
-								document.getElementById( "run-code" ).setAttribute( "disabled", true );
-								document.getElementById( "save-code" ).setAttribute( "disabled", true );
-								document.getElementById( "load-code" ).setAttribute( "disabled", true );
-								document.getElementById( "clear-code" ).setAttribute( "disabled", true );
-								document.getElementById( "channel-name" ).value = "";
-								document.querySelector( "#login" ).addEventListener( "click", function() {
-                    ComfyTwitch.Login( clientId, baseUrl, [ "user:read:email", "chat:read", "chat:edit", "channel:moderate", "whispers:read", "whispers:edit" ] );
+				document.getElementById( "workspace" ).classList.add( "blocks-blocker" );
+				document.getElementById( "run-code" ).classList.add( "btn-secondary" );
+				document.getElementById( "run-code" ).setAttribute( "disabled", true );
+				document.getElementById( "save-code" ).setAttribute( "disabled", true );
+				document.getElementById( "load-code" ).setAttribute( "disabled", true );
+				document.getElementById( "clear-code" ).setAttribute( "disabled", true );
+				document.getElementById( "channel-name" ).value = "";
+				document.querySelector( "#login" ).addEventListener( "click", function() {
+                    ComfyTwitch.Login( clientId, baseUrl, cb_scopes );
                 });
             }
         });
