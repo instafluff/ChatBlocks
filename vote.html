@@ -1,0 +1,279 @@
+<html>
+    <head>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Open+Sans&display=swap" rel="stylesheet">
+
+        <title>ChatBlocks Challenge Voting!</title>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135113520-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'UA-135113520-1');
+        </script>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+        <script src="https://cdn.jsdelivr.net/npm/comfytwitch@latest/web/comfytwitch.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/comfy.js/dist/comfy.min.js"></script>
+        <style>
+        html, body {
+            font-family: "Fredoka One", "sans-serif";
+            color: #ffffff;
+            background-color: #333;
+        }
+        a, a:hover {
+            color: #ffa600;
+        }
+    	.translucent-purple-bg {
+    		background-color: rgba( 100, 65, 165, 0.5 );
+    		border-color: rgba( 100, 65, 165, 0.5 );
+    		color: #ccc;
+    	}
+        .btn-purple-outline {
+            background-color: #fff;
+            border-color: #fff;
+            color: #6441a5;
+        }
+        .btn-purple {
+            background-color: #6441a5;
+            border-color: #6441a5;
+            color: #fff;
+        }
+        .btn-primary {
+            background-color: #4C97FF;
+            border-color: #4C97FF;
+        }
+        .btn-warning {
+            background-color: #ffa600;
+            border-color: #ffa600;
+        }
+        .card {
+            background-color: #6441a5;
+            color: #fff;
+        }
+        .card-img-top {
+            width: 100%;
+            height: 25vw;
+            object-fit: cover;
+        }
+        .pre {
+            white-space: pre-wrap;
+        }
+        </style>
+    </head>
+    <body class="container">
+        <div id="login-group" class="py-2 float-right" hidden><button id="login" class="btn btn-purple center">Log In with <i class="fa fa-twitch"></i> Twitch</button></div><div id="profile-group" class="py-2 float-right" hidden><span><span id="username"></span> <img id="profile-image" class="rounded" src="" alt="Profile Image" height="38" width="38"></span> <button id="logout" class="btn btn-purple">Log Out</button></div>
+        <h1>ChatBlocks by <a href="https://www.instafluff.tv" target="_blank">Instafluff</a></h1>
+        <p>Vote for your favorite ChatBlocks challenge entry! <span class="text-info">(Until Tues Aug 25, 11:59pm Pacific Time)</span></p>
+        <div id="entries" class="row">
+        </div>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        <script>
+            const params = new URLSearchParams( location.search );
+            let submissions = [
+                {
+                    "creator": "shadesofpixie",
+                    "description": `A superhero name generator! When you type the command !superhero you get back your superhero name.`,
+                    "notes": `It's smol but hopefully fun ^_^`,
+                    "screenshots": [ "1_superhero_01.png", "1_superhero_02.png" ],
+                    "file": "1_superhero.cbs"
+                },
+                {
+                    "creator": "airsickmammal",
+                    "description": `My Stepsons (11y) first piece of coding - a Chatblocks bot that pulls a random cat fact on !fluffyfact and a random "useless" fact on !generalfluff :) So proud :)`,
+                    "notes": `Thank you for all the work on chatblocks, from the smile on his face when he saw the bot working, i know this has had a positive on Jeff who i hope will continue to work on this and get more into the comfy coding world :)`,
+                    "screenshots": [ "1_superhero_01.png", "1_superhero_02.png" ],
+                    "file": "1_superhero.cbs"
+                },
+                {
+                    "creator": "airsickmammal",
+                    "description": `What is it?
+A Subscriber ""care package"" upon subscription, renewal, gift, but separates out prime subs from normal subs with the message that goes out. This bot is geared towards the instafluff channel but text can be easily modified without need to update the logic.
+
+Why?
+When someone subscribes for the first time, renews, is gifted or continues a gift sub, i thought it would be nice if they got a message from the channel to welcome them, and explain that e.g. you get the emotes, you can help defeat the fluffboss, you can !plink and !drop etc.. As well as for celebrating anniversaries, each range (1m-11m, 12m, 13m-23m, 24m etc..) giving a different private message and for big anniversaries.. or members over 24 months getting specific chat shout-outs as well as the on-stream WAAA-fest :)`,
+                    "notes": `I will continue to work on normalising the code, the last section is long because you can have a prime subscription and also be on a subscription streak.`,
+                    "screenshots": [ "1_superhero_01.png", "1_superhero_02.png" ],
+                    "file": "1_superhero.cbs"
+                },
+                {
+                    "creator": "Ellenary",
+                    "description": `This Endangered Species Spotlight ChatBlock allows the use of the !species command to pull up information about an endangered or critically endangered species on the IUCN Red List. https:/www.iucnredlist.org/).`,
+                    "notes": `I am so happy this project worked out! Using ChatBlocks was so much fun and this allowed me to make a Twitch bot that will promote conservation.`,
+                    "screenshots": [ "1_superhero_01.png", "1_superhero_02.png" ],
+                    "file": "1_superhero.cbs"
+                },
+                {
+                    "creator": "walpolea",
+                    "description": `I created a block to pull inspirational quotes`,
+                    "notes": `Very excellent giveaway! Would submit again! A+++ :)`,
+                    "screenshots": [ "1_superhero_01.png", "1_superhero_02.png" ],
+                    "file": "1_superhero.cbs"
+                },
+                {
+                    "creator": "informathemusic",
+                    "description": `Represents people's activity by giving them out points when they chat somewhere`,
+                    "notes": `Note on the screnshots - I sis not screenshot everything, but te only thing missing is a function that can tell if a string is all numbers`,
+                    "screenshots": [ "1_superhero_01.png", "1_superhero_02.png" ],
+                    "file": "1_superhero.cbs"
+                },
+                {
+                    "creator": "holloway87",
+                    "description": `"It's a local session tracker for high and low drop game scores, since it won't save the scores permanently.  Might even be useful for giveaways over a specific time period.
+
+What you can do:
+!droprecord [low|high] check the lowest, highest or both drop scores.
+!resetdroprecord [low|high] reset the lowest, highest or both drop scores.
+!lowestdrop [enable|disable] check the lowest drop status, enable or disable it.  It is enabled by default."`,
+                    "notes": ``,
+                    "screenshots": [ "1_superhero_01.png", "1_superhero_02.png" ],
+                    "file": "1_superhero.cbs"
+                },
+                {
+                    "creator": "Gilokk0",
+                    "description": `This is a simple chatbot that does simple commands. And does gifts, instant answers, jokes, rolls a twelve sided dice, checks teams and if a user is following the channel.`,
+                    "notes": `I did want !followage to tell you how long you've been following, but I didn't have the tools to do so.`,
+                    "screenshots": [ "1_superhero_01.png", "1_superhero_02.png" ],
+                    "file": "1_superhero.cbs"
+                },
+                {
+                    "creator": "sparky_pugwash",
+                    "description": `you type !smile and it compliments you to make you smile`,
+                    "notes": `smile !!`,
+                    "screenshots": [ "1_superhero_01.png", "1_superhero_02.png" ],
+                    "file": "1_superhero.cbs"
+                },
+                {
+                    "creator": "Atanerah",
+                    "description": `Get weather data from any city in the world using the Open Weather Maps API using the !weather chat command`,
+                    "notes": ``,
+                    "screenshots": [ "1_superhero_01.png", "1_superhero_02.png" ],
+                    "file": "1_superhero.cbs"
+                },
+                {
+                    "creator": "Kurokirisu",
+                    "description": `A dice roll command based on a DnD roll for initiative.`,
+                    "notes": `:3`,
+                    "screenshots": [ "1_superhero_01.png", "1_superhero_02.png" ],
+                    "file": "1_superhero.cbs"
+                },
+                {
+                    "creator": "Kurokirisu",
+                    "description": `A password guessing game which can save guessed passwords.`,
+                    "notes": `uwu`,
+                    "screenshots": [ "1_superhero_01.png", "1_superhero_02.png" ],
+                    "file": "1_superhero.cbs"
+                },
+                {
+                    "creator": "Kurokirisu",
+                    "description": `A fishing tournament game, based loosely on Animal Crossing.`,
+                    "notes": `Does not work perfectly yet because of Twitch' anti spam rules. Also the timers sometimes just break, ¯\\_(ツ)_/`,
+                    "screenshots": [ "1_superhero_01.png", "1_superhero_02.png" ],
+                    "file": "1_superhero.cbs"
+                },
+            ];
+
+            (async () => {
+                let votes = await fetch( "http://api.instafluff.tv:9999/cbvotes" ).then( r => r.json() );
+                let entries = [];
+                submissions.forEach( ( entry, i ) => {
+                    console.log( entry, i );
+                    let carouselIndicators = "";
+                    let carouselItems = "";
+                    entry.screenshots.forEach( ( s, n ) => {
+                        carouselIndicators += `<li data-target="#carousel_${i}" data-slide-to="${n}" ${n === 0 ? 'class="active"' : ''}></li>`;
+                        carouselItems += `<div class="carousel-item ${n === 0 ? "active" : ""}"><img src="vote/${s}" class="d-block w-100 card-img-top" alt="screenshot"></div>`
+                    });
+                    entries.push(`
+                        <div class="col-4 pb-4">
+                        <div class="card">
+                          <div id="carousel_${i}" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                              ${carouselIndicators}
+                            </ol>
+                            <div class="carousel-inner">
+                              ${carouselItems}
+                            </div>
+                            <a class="carousel-control-prev" href="#carousel_${i}" role="button" data-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carousel_${i}" role="button" data-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title">Built By: <span class="text-warning">${entry.creator}</span></h5>
+                            <a href="web/vote/${entry.file}" target="_blank" class="btn btn-info">Download</a>
+                            <button id="vote_${i}" class="btn btn-danger" onclick="sendVote(${i})">Votes (${( votes[ i ] || 0 ) + 1})</button>
+                            <br/><br/>
+                            <p class="card-text pre"><small>${entry.description}</small></p>
+                            <br/><br/>
+                            <small><i>${entry.notes}</i></small>
+                          </div>
+                        </div>
+                        </div>`);
+                });
+                // Shuffle entries
+                for( let i = entries.length - 1; i > 0; i-- ) {
+                    const j = Math.floor( Math.random() * ( i + 1 ) );
+                    [ entries[ i ], entries[ j ] ] = [ entries[ j ], entries[ i ] ];
+                }
+                entries.forEach( e => {
+                    $( "#entries" ).append( e );
+                });
+            })();
+
+            async function sendVote( id ) {
+                await fetch( `http://api.instafluff.tv:9999/cbvote?twitch=${ComfyTwitch.Token}&vote=${id}` );
+                location.reload();
+            }
+
+            const clientId = "xrxinjwucvs83rf1b6lxq758yslj3c";
+            const baseUrl = window.location.origin + window.location.pathname;
+
+            ComfyTwitch.Check()
+            .then( async result => {
+                console.log( result );
+                if( result ) {
+                    // Logged In
+                    let user = await ComfyTwitch.GetUser( clientId, result.user_id );
+                    document.getElementById( "username" ).innerText = user.display_name;
+                    document.getElementById( "profile-image" ).src = user.profile_image_url;
+                    document.querySelector( "#login-group" ).setAttribute( "hidden", true );
+    				document.querySelector( "#profile-group" ).removeAttribute( "hidden" );
+                    document.querySelector( "#logout" ).addEventListener( "click", function() {
+                        ComfyTwitch.Logout();
+                        window.location.reload();
+                    });
+
+                    let myVote = await fetch( `http://api.instafluff.tv:9999/cbmyvote?twitch=${ComfyTwitch.Token}` ).then( r => r.json() );
+                    console.log( myVote );
+                    if( myVote && myVote.user ) {
+                        $( `#vote_${myVote.vote}` ).text( $( `#vote_${myVote.vote}` ).text().replace( "Votes", "My Vote" ) );
+                        $( `#vote_${myVote.vote}` ).removeClass( "btn-danger" );
+                        $( `#vote_${myVote.vote}` ).addClass( "btn-secondary" );
+                    }
+                }
+                else {
+                    // Logged Out
+                    document.querySelector( "#profile-group" ).setAttribute( "hidden", true );
+                    document.querySelector( "#login-group" ).removeAttribute( "hidden" );
+                    document.querySelector( "#login" ).addEventListener( "click", function() {
+                        ComfyTwitch.Login( clientId, baseUrl, [ "user:read:email" ] );
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>
