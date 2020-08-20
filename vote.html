@@ -191,7 +191,7 @@ What you can do:
                     let carouselItems = "";
                     entry.screenshots.forEach( ( s, n ) => {
                         carouselIndicators += `<li data-target="#carousel_${i}" data-slide-to="${n}" ${n === 0 ? 'class="active"' : ''}></li>`;
-                        carouselItems += `<div class="carousel-item ${n === 0 ? "active" : ""}"><img src="vote/${s}" class="d-block w-100 card-img-top" alt="screenshot"></div>`
+                        carouselItems += `<div class="carousel-item ${n === 0 ? "active" : ""}"><img src="web/vote/${s}" class="d-block w-100 card-img-top" alt="screenshot"></div>`
                     });
                     entries.push(`
                         <div class="col-4 pb-4">
