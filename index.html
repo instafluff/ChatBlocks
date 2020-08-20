@@ -173,7 +173,11 @@
 	</div>
 	<input type="file" id="blocks-file-input" accept=".cbs" hidden>
 	<div class="blocks-container">
-        <div id="login-group" hidden><button id="login" class="btn btn-purple center">Log In with <i class="fa fa-twitch"></i> Twitch</button></div>
+        <div id="login-group" class="text-center" hidden>
+            <button id="login" class="btn btn-purple center">Log In with <i class="fa fa-twitch"></i> Twitch</button>
+            <br/><br/>
+            <small class="text-info">Don't worry, your login session and blocks are saved ONLY on your computer inside this web browser's local storage.</small>
+        </div>
 		<div id="workspace"></div>
 		<div id="blocklyDiv" style="height: 480px; width: 100%;"></div>
 		<xml id="toolbox" style="display: none">
@@ -572,6 +576,16 @@
           </block>
           <block type="time_current"></block>
           <block type="time_nowto"></block>
+		</category>
+		<category name="SOUND" categorystyle="sound_category">
+			<block type="sound_play"></block>
+			<block type="sound_tts">
+				<value name="TEXT">
+					<shadow type="text">
+						<field name="TEXT">Instafluff is the maker of Chatblocks!</field>
+					</shadow>
+				</value>
+			</block>
 		</category>
 		</xml>
 		<br/>
