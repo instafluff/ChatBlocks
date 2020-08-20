@@ -183,7 +183,7 @@ What you can do:
             ];
 
             (async () => {
-                let votes = await fetch( "http://api.instafluff.tv:9999/cbvotes" ).then( r => r.json() );
+                let votes = await fetch( "https://api.instafluff.tv:9999/cbvotes" ).then( r => r.json() );
                 let entries = [];
                 submissions.forEach( ( entry, i ) => {
                     console.log( entry, i );
@@ -235,7 +235,7 @@ What you can do:
             })();
 
             async function sendVote( id ) {
-                await fetch( `http://api.instafluff.tv:9999/cbvote?twitch=${ComfyTwitch.Token}&vote=${id}` );
+                await fetch( `https://api.instafluff.tv:9999/cbvote?twitch=${ComfyTwitch.Token}&vote=${id}` );
                 location.reload();
             }
 
@@ -257,7 +257,7 @@ What you can do:
                         window.location.reload();
                     });
 
-                    let myVote = await fetch( `http://api.instafluff.tv:9999/cbmyvote?twitch=${ComfyTwitch.Token}` ).then( r => r.json() );
+                    let myVote = await fetch( `https://api.instafluff.tv:9999/cbmyvote?twitch=${ComfyTwitch.Token}` ).then( r => r.json() );
                     console.log( myVote );
                     if( myVote && myVote.user ) {
                         $( `#vote_${myVote.vote}` ).text( $( `#vote_${myVote.vote}` ).text().replace( "Votes", "My Vote" ) );
