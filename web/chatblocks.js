@@ -127,8 +127,6 @@ var workspace = Blockly.inject( "blocklyDiv", {
 	oneBasedIndex: false,
 } );
 
-const workspaceSearch = new WorkspaceSearch(workspace).init();
-
 let theCode = "";
 
 function codeUpdateHandler( event ) {
