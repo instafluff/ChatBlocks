@@ -253,6 +253,15 @@ function codeUpdateHandler( event ) {
 			window.alert( "ERROR: " + error.message );
 		}
 
+		function playSound( url, vol ) { 
+			return new Promise( ( resolve, reject ) => { 
+				let a = new Audio( url ); 
+				a.volume = vol; 
+				a.onended = function () { resolve(); }
+				a.play(); 
+			}); 
+		}
+
 		function wait( time ) {
 			return new Promise( ( resolve ) => {
 				setTimeout( resolve, time );
@@ -1683,7 +1692,7 @@ Blockly.Blocks[ "sound_play" ] = {
 	init: function() {
 		this.jsonInit({
 			"type": "sound_play",
-			"message0": "play song from url %1",
+			"message0": "play song from url %1 volume %2 \%",
 			"args0": [
 				{
 					"type": "input_value",
@@ -1691,6 +1700,11 @@ Blockly.Blocks[ "sound_play" ] = {
 					"check": "String",
 					"align": "RIGHT"
 				},
+				{
+					"type": "field_slider",
+					"name": "VOLUME",
+					"value": 80
+				}
 			],
 			"previousStatement": null,
 			"nextStatement": null,
@@ -1703,8 +1717,9 @@ Blockly.Blocks[ "sound_play" ] = {
 
 Blockly.JavaScript[ "sound_play" ] = function(block) {
 	var value_url = Blockly.JavaScript.valueToCode(block, "URL", Blockly.JavaScript.ORDER_ATOMIC) || '';
+	var value_volume = Blockly.JavaScript.valueToCode(block, "VOLUME", Blockly.JavaScript.ORDER_ATOMIC);
 
-	var code = `new Audio( ${value_url} ).play();`;
+	var code = `await playSound( ${value_url}, ${ value_volume / 100} )`;
 	return code;
 }
 
