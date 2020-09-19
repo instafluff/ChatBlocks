@@ -23,6 +23,10 @@
     "Scratch"
   ],
   "author": "Instafluff",
+  "contributors": [
+    "Instafluff",
+    "Daan Breur <daanbreur@gmail.com> (https://daanbreur.systems/)"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/instafluff/ChatBlocks/issues"
