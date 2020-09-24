@@ -400,7 +400,7 @@ Blockly.Blocks["twitch_say"] = {
 
 Blockly.JavaScript["twitch_say"] = function(block) {
 	var value_value = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC);
-	var code = `ComfyJS.Say( ${value_value} );`;
+	var code = `ComfyJS.Say( ${value_value} );\n`;
 	return code;
 };
 
@@ -470,7 +470,7 @@ Blockly.Blocks["twitch_whisper"] = {
 Blockly.JavaScript["twitch_whisper"] = function(block) {
 	var value_name = Blockly.JavaScript.valueToCode(block, "NAME", Blockly.JavaScript.ORDER_ATOMIC);
 	var value_value = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC);
-	var code = `ComfyJS.Whisper( ${value_value}, ${value_name} );`;
+	var code = `ComfyJS.Whisper( ${value_value}, ${value_name} );\n`;
 	return code;
 };
 
@@ -1719,7 +1719,7 @@ Blockly.JavaScript[ "sound_play" ] = function(block) {
 	var value_url = Blockly.JavaScript.valueToCode(block, "URL", Blockly.JavaScript.ORDER_ATOMIC) || '';
 	var value_volume = Blockly.JavaScript.valueToCode(block, "VOLUME", Blockly.JavaScript.ORDER_ATOMIC);
 
-	var code = `await playSound( ${value_url}, ${ value_volume / 100} );`;
+	var code = `await playSound( ${value_url}, ${ value_volume / 100} );\n`;
 	return code;
 }
 
@@ -1748,7 +1748,7 @@ Blockly.Blocks[ "sound_tts" ] = {
 Blockly.JavaScript[ "sound_tts" ] = function(block) {
 	var value_text = Blockly.JavaScript.valueToCode(block, "TEXT", Blockly.JavaScript.ORDER_ATOMIC) || '';
 
-	var code = `window.speechSynthesis.speak( new SpeechSynthesisUtterance( ${value_text} ));`;
+	var code = `window.speechSynthesis.speak( new SpeechSynthesisUtterance( ${value_text} ));\n`;
 	return code;
 }
 
@@ -1944,7 +1944,7 @@ Blockly.Blocks["utility_wait"] = {
 
 Blockly.JavaScript["utility_wait"] = function(block) {
 	var value_value = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC);
-	var code = `await wait( ${value_value} * 1000 );`;
+	var code = `await wait( ${value_value} * 1000 );\n`;
 	return code;
 };
 
@@ -2098,7 +2098,7 @@ Blockly.Blocks["utility_console_log"] = {
 
 Blockly.JavaScript["utility_console_log"] = function(block) {
 	var value_value = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC);
-	var code = `console.log( ${value_value} );`;
+	var code = `console.log( ${value_value} );\n`;
 	return code;
 };
 
@@ -2135,7 +2135,7 @@ Blockly.Blocks["utility_save_data"] = {
 Blockly.JavaScript["utility_save_data"] = function(block) {
 	var key_value = Blockly.JavaScript.valueToCode(block, "KEY", Blockly.JavaScript.ORDER_ATOMIC);
 	var value_value = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC);
-	var code = `window.localStorage.setItem( "cb_" + ${key_value}, ${value_value} );`;
+	var code = `window.localStorage.setItem( "cb_" + ${key_value}, ${value_value} );\n`;
 	return code;
 };
 
@@ -2302,7 +2302,7 @@ Blockly.JavaScript[ "json_setkey" ] = function(block) {
 	var value_key = Blockly.JavaScript.valueToCode(block, "KEY", Blockly.JavaScript.ORDER_ATOMIC);
 	var value_json = Blockly.JavaScript.valueToCode(block, "JSON", Blockly.JavaScript.ORDER_ATOMIC);
 
-	var code = `${value_json}[ ${value_key} ] = ${value_value};`;
+	var code = `${value_json}[ ${value_key} ] = ${value_value};\n`;
 	return code;
 };
 
