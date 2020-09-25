@@ -1717,9 +1717,9 @@ Blockly.Blocks[ "sound_play" ] = {
 
 Blockly.JavaScript[ "sound_play" ] = function(block) {
 	var value_url = Blockly.JavaScript.valueToCode(block, "URL", Blockly.JavaScript.ORDER_ATOMIC) || '';
-	var value_volume = Blockly.JavaScript.valueToCode(block, "VOLUME", Blockly.JavaScript.ORDER_ATOMIC);
+	var value_volume = block.getFieldValue("VOLUME");
 
-	var code = `await playSound( ${value_url}, ${ value_volume / 100} );\n`;
+	var code = `await playSound( ${value_url}, ${value_volume / 100} );\n`;
 	return code;
 }
 
