@@ -1643,7 +1643,26 @@ Blockly.Blocks[ "time_current" ] = {
 Blockly.JavaScript[ "time_current" ] = function(block) {
 	var code = `moment( new Date())`;
 	return [code, Blockly.JavaScript.ORDER_NONE];
-}
+};
+
+Blockly.Blocks[ "time_current_unix" ] = {
+	init: function() {
+		this.jsonInit({
+			"type": "time_current_unix",
+			"message0": "get current timestamp (UNIX time)",
+			"args0": [],
+			"output": null,
+			"colour": 182,
+			"tooltip": "",
+			"helpUrl": "http://www.instafluff.tv"
+		})
+	}
+};
+
+Blockly.JavaScript[ "time_current_unix" ] = function(block) {
+	var code = `Date.now()`;
+	return [code, Blockly.JavaScript.ORDER_NONE];
+};
 
 Blockly.Blocks[ "time_nowto" ] = {
 	init: function() {
@@ -2067,7 +2086,7 @@ Blockly.JavaScript["utility_post_http"] = function(block) {
 			"Content-Type": "application/json"
 		},
 		"body": ${value_value}
-	}) )`;
+	}) );\n`;
 	return code;
 };
 
