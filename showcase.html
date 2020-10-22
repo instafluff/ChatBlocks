@@ -69,7 +69,7 @@
     <body class="container">
         <div id="login-group" class="py-2 float-right" hidden><button id="login" class="btn btn-purple center">Log In with <i class="fa fa-twitch"></i> Twitch</button></div><div id="profile-group" class="py-2 float-right" hidden><span><span id="username"></span> <img id="profile-image" class="rounded" src="" alt="Profile Image" height="38" width="38"></span> <button id="logout" class="btn btn-purple">Log Out</button></div>
         <h1>ChatBlocks by <a href="https://www.instafluff.tv" target="_blank">Instafluff</a></h1>
-        <p>Vote for your favorite ChatBlocks challenge entry! <span class="text-info">(Until Sat Oct 30, 11:59pm Pacific Time)</span></p>
+        <p>ChatBlocks Challenge Showcase!</p>
         <div id="entries" class="row">
         </div>
         <!-- Optional JavaScript -->
@@ -81,92 +81,108 @@
             const params = new URLSearchParams( location.search );
             let submissions = [
                 {
-                    "creator": "KimballDonald",
-                    "description": `A simple command that sends users on a quest! Generates a location and an action randomly.`,
-                    "notes": `Thank you Instafluff for making such a neat tool!`,
-                    "screenshots": [ "1_quest_01.png" ],
-                    "file": "1_quest.cbs"
+                    "creator": "shadesofpixie",
+                    "description": `A superhero name generator! When you type the command !superhero you get back your superhero name.`,
+                    "notes": `It's smol but hopefully fun ^_^`,
+                    "screenshots": [ "1_superhero_01.png", "1_superhero_02.png" ],
+                    "file": "1_superhero.cbs"
+                },
+                {
+                    "creator": "airsickmammal",
+                    "description": `My Stepsons (11y) first piece of coding - a Chatblocks bot that pulls a random cat fact on !fluffyfact and a random "useless" fact on !generalfluff :) So proud :)`,
+                    "notes": `Thank you for all the work on chatblocks, from the smile on his face when he saw the bot working, i know this has had a positive on Jeff who i hope will continue to work on this and get more into the comfy coding world :)`,
+                    "screenshots": [ "2_fluffyfacts_01.png" ],
+                    "file": "2_fluffyfacts.cbs"
+                },
+                {
+                    "creator": "airsickmammal",
+                    "description": `What is it?
+A Subscriber ""care package"" upon subscription, renewal, gift, but separates out prime subs from normal subs with the message that goes out. This bot is geared towards the instafluff channel but text can be easily modified without need to update the logic.
+
+Why?
+When someone subscribes for the first time, renews, is gifted or continues a gift sub, i thought it would be nice if they got a message from the channel to welcome them, and explain that e.g. you get the emotes, you can help defeat the fluffboss, you can !plink and !drop etc.. As well as for celebrating anniversaries, each range (1m-11m, 12m, 13m-23m, 24m etc..) giving a different private message and for big anniversaries.. or members over 24 months getting specific chat shout-outs as well as the on-stream WAAA-fest :)`,
+                    "notes": `I will continue to work on normalising the code, the last section is long because you can have a prime subscription and also be on a subscription streak.`,
+                    "screenshots": [ "3_subhandler_01.png" ],
+                    "file": "3_subhandler.cbs"
+                },
+                {
+                    "creator": "Ellenary",
+                    "description": `This Endangered Species Spotlight ChatBlock allows the use of the !species command to pull up information about one of 5200+ endangered or critically endangered species from the IUCN Red List. https:/www.iucnredlist.org/.`,
+                    "notes": `I am so happy this project worked out! Using ChatBlocks was so much fun and this allowed me to make a Twitch bot that will promote conservation. I downloaded information about 20,000 species from the IUCN Red List website and aggregated a few IUCN datasets using R. The magic took place in Excel. I removed a lot of entries with special characters or missing information, removed a ton of info that'd turn it into a wall of text, and made it easier for streamers to read (E.g. changing words like Sarcopterygii to lobe-finned fish). I even received official copyright permission from the IUCN to redistribute parts of their data. That process involved explaining Twitch, Instafluff, ChatBlocks, Blockly, and my project... and crossing my fingers.`,
+                    "screenshots": [ "4_speciesspotlight_01.png" ],
+                    "file": "4_speciesspotlight.cbs"
                 },
                 {
                     "creator": "walpolea",
-                    "description": `I created a math chat game to test out your knowledge of expression evaluation. With the !mathlete command, chat is given an expression and can guess answers with !math [answer]. But hurry up, because you only have a limited amount of time to answer!`,
-                    "notes": ``,
-                    "screenshots": [ "2_mathlete_01.png", "2_mathlete_02.png" ],
-                    "file": "2_mathlete.cbs"
-                },
-                {
-                    "creator": "KimballDonald",
-                    "description": `I recreated the Wind Waker Squid Hunt minigame! I manually set the locations which contain empty squares and which contains octoroks, and then whoever redeems the command gets to use 24 cannonballs to try to hit!`,
-                    "notes": ``,
-                    "screenshots": [ "3_windwaker_01.png" ],
-                    "file": "3_windwaker.cbs"
-                },
-                {
-                    "creator": "sparky_pugwash",
-                    "description": `Cleaning tips`,
-                    "notes": `Cleaning tips bot !clean`,
-                    "screenshots": [ "4_cleanbot_01.jpg", "4_cleanbot_02.jpg" ],
-                    "file": "4_cleanbot.cbs"
-                },
-                {
-                    "creator": "Gilokk0",
-                    "description": `"This is a chatbot that uses Fun Translations API (https://funtranslations.com/api/) to translate to Klingon, Leetspeak, Minion, Morse, Pirate, Vulcan and Zoda (from English). It also translates from Morse to English.
-
-The translation API has a ratelimit. Fun Translations has this on the API page: ""Our translation API is public. To maintain our service level we ratelimit the number of API calls. For public API calls this is 60 API calls a day with distribution of 5 calls an hour. For paid plans this limit is increased according to the service level described in the plan.""
-
-This chatbot also has a shoutout command (named shout), to shoutout other streamers during stream (or to shoutout themselves, if chatmessage is empty)."`,
-                    "notes": `Hope you all enjoy it! ;D`,
-                    "screenshots": [ "5_funtranslations_01.png" ],
-                    "file": "5_funtranslations.cbs"
-                },
-                {
-                    "creator": "ellenary",
-                    "description": `A numeric counter for when you want to keep track of a number of things. This is just the base counter, but the possibilities are limitless! You can put several counters as different keys in the same bin, use if/else statements so you can choose if only mods or subscribers can use the command and you can even set multiple commands to point to the same counter! ChatBlocks is amazing!!`,
-                    "notes": `Figuring out permanent storage has opened a whole new world to me. Thank you so much to Schublo for inspiring this counter and helping test it, InformaTheMusic for helping me get this working, and to EveryDayGamerM for letting me use her stream as a guinea pig!`,
-                    "screenshots": [ "6_counter_01.png", "6_counter_02.png" ],
-                    "file": "6_counter.cbs"
-                },
-                {
-                    "creator": "wabes1",
-                    "description": `Fishing Stream !commands: count the fish in chat, with TTS alerts. Plus more !`,
-                    "notes": `"My Chat-block was made for the streamer who does live Fishing.
-!commands count the fish in chat.
-
-Anyone in chat can type:
-            wow - gg - fishon - fishoff       (All TTS Alerts)
-
-Any Mod & Sub only can type:
-             !fish+   (TTS, Add # to counter) (and if two mod, both key in, next line down)
-             !fish-    (TTS, Subtract # to counter) (So total # can go up and down)
-             !fish     (TTS, Total # at anytime) (so if someone shows up late, they can get-
-                          a update count)
-
-
-  Any Mod only can type:
-             !fishreset     (TTS, Puts counter back to zero)
-             !123drink     (TTS, A slow count down for a drink up) "`,
-                    "screenshots": [ "7_fishing_01.png" ],
-                    "file": "7_fishing.cbs"
-                },
-                {
-                    "creator": "Caffidget",
-                    "description": `text-to-speech for any events so I can hear when things happen`,
-                    "notes": `I love ChatBlocks - still new and figuring things out so this is rudimentary.`,
-                    "screenshots": [ "8_eventtts_01.png" ],
-                    "file": "8_eventtts.cbs"
+                    "description": `I created a block to pull inspirational quotes`,
+                    "notes": `Very excellent giveaway! Would submit again! A+++ :)`,
+                    "screenshots": [ "5_inspireme_01.png" ],
+                    "file": "5_inspireme.cbs"
                 },
                 {
                     "creator": "informathemusic",
-                    "description": `Tell me the odds of winning for the chatblocks!`,
+                    "description": `Represents people's activity by giving them out points when they chat somewhere`,
+                    "notes": `You better talk! >:D`,
+                    "screenshots": [ "6_trackthor_01.png", "6_trackthor_02.png", "6_trackthor_03.png" ],
+                    "file": "6_trackthor.cbs"
+                },
+                {
+                    "creator": "holloway87",
+                    "description": `"It's a local session tracker for high and low drop game scores, since it won't save the scores permanently.  Might even be useful for giveaways over a specific time period.
+
+What you can do:
+!droprecord [low|high] check the lowest, highest or both drop scores.
+!resetdroprecord [low|high] reset the lowest, highest or both drop scores.
+!lowestdrop [enable|disable] check the lowest drop status, enable or disable it.  It is enabled by default."`,
                     "notes": ``,
-                    "screenshots": [ "9_cbwinodds_01.png" ],
-                    "file": "9_cbwinodds.cbs"
+                    "screenshots": [ "7_localdroptracker_01.png" ],
+                    "file": "7_localdroptracker.cbs"
+                },
+                {
+                    "creator": "Gilokk0",
+                    "description": `This is a simple chatbot that does simple commands. And does gifts, instant answers, jokes, rolls a twelve sided dice, checks teams and if a user is following the channel.`,
+                    "notes": `I did want !followage to tell you how long you've been following, but I didn't have the tools to do so.`,
+                    "screenshots": [ "8_gilokk0_01.png" ],
+                    "file": "8_gilokk0.cbs"
+                },
+                {
+                    "creator": "sparky_pugwash",
+                    "description": `you type !smile and it compliments you to make you smile`,
+                    "notes": `smile !!`,
+                    "screenshots": [ "9_smile_01.jpg" ],
+                    "file": "9_smile.cbs"
+                },
+                {
+                    "creator": "Atanerah",
+                    "description": `Get weather data from any city in the world using the Open Weather Maps API using the !weather chat command`,
+                    "notes": ``,
+                    "screenshots": [ "10_weather_01.png", "10_weather_02.png" ],
+                    "file": "10_weather.cbs"
+                },
+                {
+                    "creator": "Kurokirisu",
+                    "description": `A dice roll command based on a DnD roll for initiative.`,
+                    "notes": `:3`,
+                    "screenshots": [ "11_rollinit_01.png" ],
+                    "file": "11_rollinit.cbs"
+                },
+                {
+                    "creator": "Kurokirisu",
+                    "description": `A password guessing game which can save guessed passwords.`,
+                    "notes": `uwu`,
+                    "screenshots": [ "12_passwordfinder_01.png" ],
+                    "file": "12_passwordfinder.cbs"
+                },
+                {
+                    "creator": "Kurokirisu",
+                    "description": `A fishing tournament game, based loosely on Animal Crossing.`,
+                    "notes": `Does not work perfectly yet because of Twitch' anti spam rules. Also the timers sometimes just break, ¯\\_(ツ)_/`,
+                    "screenshots": [ "13_fishing_01.png", "13_fishing_02.png", "13_fishing_03.png", "13_fishing_04.png", "13_fishing_05.png" ],
+                    "file": "13_fishing.cbs"
                 },
             ];
 
             (async () => {
-                let votes = await fetch( "https://api.instafluff.tv:9999/cbvotes/2" ).then( r => r.json() ).catch( err => {} );
-                votes = votes || {};
                 let entries = [];
                 submissions.forEach( ( entry, i ) => {
                     console.log( entry, i );
@@ -174,7 +190,7 @@ Any Mod & Sub only can type:
                     let carouselItems = "";
                     entry.screenshots.forEach( ( s, n ) => {
                         carouselIndicators += `<li data-target="#carousel_${i}" data-slide-to="${n}" ${n === 0 ? 'class="active"' : ''}></li>`;
-                        carouselItems += `<div class="carousel-item ${n === 0 ? "active" : ""}"><img src="web/vote2/${s}" class="d-block w-100 card-img-top" alt="screenshot"></div>`
+                        carouselItems += `<div class="carousel-item ${n === 0 ? "active" : ""}"><img src="web/vote/${s}" class="d-block w-100 card-img-top" alt="screenshot"></div>`
                     });
                     entries.push(`
                         <div class="col-4 pb-4">
@@ -197,8 +213,7 @@ Any Mod & Sub only can type:
                           </div>
                           <div class="card-body">
                             <h5 class="card-title">Built By: <span class="text-warning">${entry.creator}</span></h5>
-                            <a href="web/vote2/${entry.file}" target="_blank" class="btn btn-info" download>Download</a>
-                            <button id="vote_${i}" class="btn btn-danger" onclick="sendVote(${i})">Votes (${( votes[ i ] || 0 ) + 1})</button>
+                            <a href="web/vote/${entry.file}" target="_blank" class="btn btn-info">Download</a>
                             <br/><br/>
                             <p class="card-text pre"><small>${entry.description}</small></p>
                             <br/><br/>
@@ -217,12 +232,6 @@ Any Mod & Sub only can type:
                 });
             })();
 
-            async function sendVote( id ) {
-                let result = await fetch( `https://api.instafluff.tv:9999/cbvote/2?twitch=${ComfyTwitch.Token}&vote=${id}` );
-                // console.log( "VOTE", result );
-                location.reload();
-            }
-
             const clientId = "xrxinjwucvs83rf1b6lxq758yslj3c";
             const baseUrl = window.location.origin + window.location.pathname;
 
@@ -240,14 +249,6 @@ Any Mod & Sub only can type:
                         ComfyTwitch.Logout();
                         window.location.reload();
                     });
-
-                    let myVote = await fetch( `https://api.instafluff.tv:9999/cbmyvote/2?twitch=${ComfyTwitch.Token}` ).then( r => r.json() ).catch( err => {} );
-                    console.log( myVote );
-                    if( myVote && myVote.user ) {
-                        $( `#vote_${myVote.vote}` ).text( $( `#vote_${myVote.vote}` ).text().replace( "Votes", "My Vote" ) );
-                        $( `#vote_${myVote.vote}` ).removeClass( "btn-danger" );
-                        $( `#vote_${myVote.vote}` ).addClass( "btn-secondary" );
-                    }
                 }
                 else {
                     // Logged Out
