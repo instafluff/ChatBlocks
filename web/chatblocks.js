@@ -2153,11 +2153,11 @@ Blockly.Blocks["utility_get_http"] = {
 
 Blockly.JavaScript["utility_get_http"] = function(block) {
 	var value_url = Blockly.JavaScript.valueToCode(block, "URL", Blockly.JavaScript.ORDER_ATOMIC);
-	var code = `await fetch( ${value_url}, {
+	var code = `await (await fetch( ${value_url}, {
 		"headers": {
 			"Accept": "text/plain"
 		}
-	} ).then( r => r.text() )`;
+	} )).text()`;
 	return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
@@ -2205,6 +2205,51 @@ Blockly.JavaScript["utility_post_http"] = function(block) {
 	}) );\n`;
 	return code;
 };
+
+Blockly.Blocks["utility_post_http_get_rslt"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "utility_post_http_get_rslt",
+		"message0": "get data from data sent to web URL %1 message %2",
+		"args0": [
+		  {
+			"type": "input_value",
+			"name": "URL",
+			"check": "String",
+			"align": "RIGHT"
+		  },
+		  {
+			"type": "input_value",
+			"name": "VALUE",
+			"check": "String",
+			"align": "RIGHT"
+		  }
+		],
+    	"output": "String",
+		// "previousStatement": null,
+		// "nextStatement": null,
+		"colour": 260,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setColour(35);
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["utility_post_http_get_rslt"] = function(block) {
+	var value_url = Blockly.JavaScript.valueToCode(block, "URL", Blockly.JavaScript.ORDER_ATOMIC);
+	var code = `await (await fetch( ${value_url}, {
+		"method": "POST",
+		"headers": {
+			"Content-Type": "application/json"
+		},
+		"body": ${value_value}
+	} )).text()`;
+	return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
 
 Blockly.Blocks["utility_console_log"] = {
 	init: function() {
