@@ -1937,6 +1937,122 @@ Blockly.JavaScript[ "text_countAmount" ] = function(block) {
 	return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
+Blockly.Blocks["text_encode_uri"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "text_encode_uri",
+		"message0": "to URL %1",
+		"args0": [
+		  {
+			"type": "input_value",
+			"name": "KEY",
+			"check": "String",
+			"align": "RIGHT"
+		  }
+		],
+    	"output": "String",
+		"colour": 35,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["text_encode_uri"] = function(block) {
+	var key_value = Blockly.JavaScript.valueToCode(block, "KEY", Blockly.JavaScript.ORDER_ATOMIC);
+	var code = `encodeURI(${key_value})`;
+	return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["text_decode_uri"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "text_decode_uri",
+		"message0": "from URL %1",
+		"args0": [
+		  {
+			"type": "input_value",
+			"name": "KEY",
+			"check": "String",
+			"align": "RIGHT"
+		  }
+		],
+    	"output": "String",
+		"colour": 35,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["text_decode_uri"] = function(block) {
+	var key_value = Blockly.JavaScript.valueToCode(block, "KEY", Blockly.JavaScript.ORDER_ATOMIC);
+	var code = `decodeURI(${key_value})`;
+	return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["text_encode_uri_component"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "text_encode_uri_component",
+		"message0": "to URL component %1",
+		"args0": [
+		  {
+			"type": "input_value",
+			"name": "KEY",
+			"check": "String",
+			"align": "RIGHT"
+		  }
+		],
+    	"output": "String",
+		"colour": 35,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["text_encode_uri_component"] = function(block) {
+	var key_value = Blockly.JavaScript.valueToCode(block, "KEY", Blockly.JavaScript.ORDER_ATOMIC);
+	var code = `encodeURIComponent(${key_value})`;
+	return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks["text_decode_uri_component"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "text_decode_uri",
+		"message0": "from URL component %1",
+		"args0": [
+		  {
+			"type": "input_value",
+			"name": "KEY",
+			"check": "String",
+			"align": "RIGHT"
+		  }
+		],
+    	"output": "String",
+		"colour": 35,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["text_decode_uri_component"] = function(block) {
+	var key_value = Blockly.JavaScript.valueToCode(block, "KEY", Blockly.JavaScript.ORDER_ATOMIC);
+	var code = `decodeURIComponent(${key_value})`;
+	return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
 Blockly.Blocks["utility_wait"] = {
 	init: function() {
 		this.jsonInit({
