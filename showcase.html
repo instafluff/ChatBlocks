@@ -4,7 +4,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Open+Sans&display=swap" rel="stylesheet">
 
-        <title>ChatBlocks Challenge Voting!</title>
+        <title>ChatBlocks Challenge Showcase!</title>
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135113520-1"></script>
         <script>
@@ -81,6 +81,7 @@
             const params = new URLSearchParams( location.search );
             let submissions = [
                 {
+                    "challenge": 1,
                     "creator": "shadesofpixie",
                     "description": `A superhero name generator! When you type the command !superhero you get back your superhero name.`,
                     "notes": `It's smol but hopefully fun ^_^`,
@@ -88,6 +89,7 @@
                     "file": "1_superhero.cbs"
                 },
                 {
+                    "challenge": 1,
                     "creator": "airsickmammal",
                     "description": `My Stepsons (11y) first piece of coding - a Chatblocks bot that pulls a random cat fact on !fluffyfact and a random "useless" fact on !generalfluff :) So proud :)`,
                     "notes": `Thank you for all the work on chatblocks, from the smile on his face when he saw the bot working, i know this has had a positive on Jeff who i hope will continue to work on this and get more into the comfy coding world :)`,
@@ -95,6 +97,7 @@
                     "file": "2_fluffyfacts.cbs"
                 },
                 {
+                    "challenge": 1,
                     "creator": "airsickmammal",
                     "description": `What is it?
 A Subscriber ""care package"" upon subscription, renewal, gift, but separates out prime subs from normal subs with the message that goes out. This bot is geared towards the instafluff channel but text can be easily modified without need to update the logic.
@@ -106,6 +109,7 @@ When someone subscribes for the first time, renews, is gifted or continues a gif
                     "file": "3_subhandler.cbs"
                 },
                 {
+                    "challenge": 1,
                     "creator": "Ellenary",
                     "description": `This Endangered Species Spotlight ChatBlock allows the use of the !species command to pull up information about one of 5200+ endangered or critically endangered species from the IUCN Red List. https:/www.iucnredlist.org/.`,
                     "notes": `I am so happy this project worked out! Using ChatBlocks was so much fun and this allowed me to make a Twitch bot that will promote conservation. I downloaded information about 20,000 species from the IUCN Red List website and aggregated a few IUCN datasets using R. The magic took place in Excel. I removed a lot of entries with special characters or missing information, removed a ton of info that'd turn it into a wall of text, and made it easier for streamers to read (E.g. changing words like Sarcopterygii to lobe-finned fish). I even received official copyright permission from the IUCN to redistribute parts of their data. That process involved explaining Twitch, Instafluff, ChatBlocks, Blockly, and my project... and crossing my fingers.`,
@@ -113,6 +117,7 @@ When someone subscribes for the first time, renews, is gifted or continues a gif
                     "file": "4_speciesspotlight.cbs"
                 },
                 {
+                    "challenge": 1,
                     "creator": "walpolea",
                     "description": `I created a block to pull inspirational quotes`,
                     "notes": `Very excellent giveaway! Would submit again! A+++ :)`,
@@ -120,6 +125,7 @@ When someone subscribes for the first time, renews, is gifted or continues a gif
                     "file": "5_inspireme.cbs"
                 },
                 {
+                    "challenge": 1,
                     "creator": "informathemusic",
                     "description": `Represents people's activity by giving them out points when they chat somewhere`,
                     "notes": `You better talk! >:D`,
@@ -127,6 +133,7 @@ When someone subscribes for the first time, renews, is gifted or continues a gif
                     "file": "6_trackthor.cbs"
                 },
                 {
+                    "challenge": 1,
                     "creator": "holloway87",
                     "description": `"It's a local session tracker for high and low drop game scores, since it won't save the scores permanently.  Might even be useful for giveaways over a specific time period.
 
@@ -139,6 +146,7 @@ What you can do:
                     "file": "7_localdroptracker.cbs"
                 },
                 {
+                    "challenge": 1,
                     "creator": "Gilokk0",
                     "description": `This is a simple chatbot that does simple commands. And does gifts, instant answers, jokes, rolls a twelve sided dice, checks teams and if a user is following the channel.`,
                     "notes": `I did want !followage to tell you how long you've been following, but I didn't have the tools to do so.`,
@@ -146,6 +154,7 @@ What you can do:
                     "file": "8_gilokk0.cbs"
                 },
                 {
+                    "challenge": 1,
                     "creator": "sparky_pugwash",
                     "description": `you type !smile and it compliments you to make you smile`,
                     "notes": `smile !!`,
@@ -153,6 +162,7 @@ What you can do:
                     "file": "9_smile.cbs"
                 },
                 {
+                    "challenge": 1,
                     "creator": "Atanerah",
                     "description": `Get weather data from any city in the world using the Open Weather Maps API using the !weather chat command`,
                     "notes": ``,
@@ -160,6 +170,7 @@ What you can do:
                     "file": "10_weather.cbs"
                 },
                 {
+                    "challenge": 1,
                     "creator": "Kurokirisu",
                     "description": `A dice roll command based on a DnD roll for initiative.`,
                     "notes": `:3`,
@@ -167,6 +178,7 @@ What you can do:
                     "file": "11_rollinit.cbs"
                 },
                 {
+                    "challenge": 1,
                     "creator": "Kurokirisu",
                     "description": `A password guessing game which can save guessed passwords.`,
                     "notes": `uwu`,
@@ -174,11 +186,103 @@ What you can do:
                     "file": "12_passwordfinder.cbs"
                 },
                 {
+                    "challenge": 1,
                     "creator": "Kurokirisu",
                     "description": `A fishing tournament game, based loosely on Animal Crossing.`,
                     "notes": `Does not work perfectly yet because of Twitch' anti spam rules. Also the timers sometimes just break, ¯\\_(ツ)_/`,
                     "screenshots": [ "13_fishing_01.png", "13_fishing_02.png", "13_fishing_03.png", "13_fishing_04.png", "13_fishing_05.png" ],
                     "file": "13_fishing.cbs"
+                },
+                {
+                    "challenge": 2,
+                    "creator": "KimballDonald",
+                    "description": `A simple command that sends users on a quest! Generates a location and an action randomly.`,
+                    "notes": `Thank you Instafluff for making such a neat tool!`,
+                    "screenshots": [ "1_quest_01.png" ],
+                    "file": "1_quest.cbs"
+                },
+                {
+                    "challenge": 2,
+                    "creator": "walpolea",
+                    "description": `I created a math chat game to test out your knowledge of expression evaluation. With the !mathlete command, chat is given an expression and can guess answers with !math [answer]. But hurry up, because you only have a limited amount of time to answer!`,
+                    "notes": ``,
+                    "screenshots": [ "2_mathlete_01.png", "2_mathlete_02.png" ],
+                    "file": "2_mathlete.cbs"
+                },
+                {
+                    "challenge": 2,
+                    "creator": "KimballDonald",
+                    "description": `I recreated the Wind Waker Squid Hunt minigame! I manually set the locations which contain empty squares and which contains octoroks, and then whoever redeems the command gets to use 24 cannonballs to try to hit!`,
+                    "notes": ``,
+                    "screenshots": [ "3_windwaker_01.png" ],
+                    "file": "3_windwaker.cbs"
+                },
+                {
+                    "challenge": 2,
+                    "creator": "sparky_pugwash",
+                    "description": `Cleaning tips`,
+                    "notes": `Cleaning tips bot !clean`,
+                    "screenshots": [ "4_cleanbot_01.jpg", "4_cleanbot_02.jpg" ],
+                    "file": "4_cleanbot.cbs"
+                },
+                {
+                    "challenge": 2,
+                    "creator": "Gilokk0",
+                    "description": `"This is a chatbot that uses Fun Translations API (https://funtranslations.com/api/) to translate to Klingon, Leetspeak, Minion, Morse, Pirate, Vulcan and Zoda (from English). It also translates from Morse to English.
+
+The translation API has a ratelimit. Fun Translations has this on the API page: ""Our translation API is public. To maintain our service level we ratelimit the number of API calls. For public API calls this is 60 API calls a day with distribution of 5 calls an hour. For paid plans this limit is increased according to the service level described in the plan.""
+
+This chatbot also has a shoutout command (named shout), to shoutout other streamers during stream (or to shoutout themselves, if chatmessage is empty)."`,
+                    "notes": `Hope you all enjoy it! ;D`,
+                    "screenshots": [ "5_funtranslations_01.png" ],
+                    "file": "5_funtranslations.cbs"
+                },
+                {
+                    "challenge": 2,
+                    "creator": "ellenary",
+                    "description": `A numeric counter for when you want to keep track of a number of things. This is just the base counter, but the possibilities are limitless! You can put several counters as different keys in the same bin, use if/else statements so you can choose if only mods or subscribers can use the command and you can even set multiple commands to point to the same counter! ChatBlocks is amazing!!`,
+                    "notes": `Figuring out permanent storage has opened a whole new world to me. Thank you so much to Schublo for inspiring this counter and helping test it, InformaTheMusic for helping me get this working, and to EveryDayGamerM for letting me use her stream as a guinea pig!`,
+                    "screenshots": [ "6_counter_01.png", "6_counter_02.png" ],
+                    "file": "6_counter.cbs"
+                },
+                {
+                    "challenge": 2,
+                    "creator": "wabes1",
+                    "description": `Fishing Stream !commands: count the fish in chat, with TTS alerts. Plus more !`,
+                    "notes": `"My Chat-block was made for the streamer who does live Fishing.
+!commands count the fish in chat.
+
+Anyone in chat can type:
+            wow - gg - fishon - fishoff       (All TTS Alerts)
+
+Any Mod & Sub only can type:
+             !fish+   (TTS, Add # to counter) (and if two mod, both key in, next line down)
+             !fish-    (TTS, Subtract # to counter) (So total # can go up and down)
+             !fish     (TTS, Total # at anytime) (so if someone shows up late, they can get-
+                          a update count)
+
+
+  Any Mod only can type:
+             !fishreset     (TTS, Puts counter back to zero)
+             !123drink     (TTS, A slow count down for a drink up) "`,
+                    "screenshots": [ "7_fishing_01.png" ],
+                    "file": "7_fishing.cbs"
+                },
+                {
+                    "challenge": 2,
+                    "creator": "Caffidget",
+                    "description": `text-to-speech for any events so I can hear when things happen`,
+                    "notes": `I love ChatBlocks - still new and figuring things out so this is rudimentary.`,
+                    "screenshots": [ "8_eventtts_01.png" ],
+                    "file": "8_eventtts.cbs"
+                },
+                {
+                    "challenge": 2,
+                    "creator": "informathemusic",
+                    "description": `Tell me the odds of winning for the chatblocks!`,
+                    "notes": ``,
+                    "screenshots": [ "9_cbwinodds_01.png" ],
+                    "file": "9_cbwinodds.cbs"
                 },
             ];
 
@@ -190,7 +294,7 @@ What you can do:
                     let carouselItems = "";
                     entry.screenshots.forEach( ( s, n ) => {
                         carouselIndicators += `<li data-target="#carousel_${i}" data-slide-to="${n}" ${n === 0 ? 'class="active"' : ''}></li>`;
-                        carouselItems += `<div class="carousel-item ${n === 0 ? "active" : ""}"><img src="web/vote/${s}" class="d-block w-100 card-img-top" alt="screenshot"></div>`
+                        carouselItems += `<div class="carousel-item ${n === 0 ? "active" : ""}"><img src="web/vote${entry.challenge}/${s}" class="d-block w-100 card-img-top" alt="screenshot"></div>`
                     });
                     entries.push(`
                         <div class="col-4 pb-4">
@@ -212,6 +316,7 @@ What you can do:
                             </a>
                           </div>
                           <div class="card-body">
+                            <p class="card-text text-warning">CB Challenge #${entry.challenge}</p>
                             <h5 class="card-title">Built By: <span class="text-warning">${entry.creator}</span></h5>
                             <a href="web/vote/${entry.file}" target="_blank" class="btn btn-info">Download</a>
                             <br/><br/>
