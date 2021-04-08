@@ -637,6 +637,15 @@ function codeUpdateHandler( event ) {
 				cb_channel_description = r.data[ 0 ].description;
 				cb_channel_profile_image = r.data[ 0 ].profile_image_url;
 			});
+
+			async function cb_getChattersList() {
+				let chatters = await fetch( \`https://thingproxy.freeboard.io/fetch/https://tmi.twitch.tv/group/user/\${cb_channel_username}/chatters\`, {
+					headers: {
+
+					}
+				} ).then( r => r.json() ).then( r => Object.keys( r.chatters ).flatMap( x => r.chatters[ x ] ) );
+				return chatters;
+			}
 		}
 		catch( error ) {
 			window.alert( "ERROR: " + error.message );
@@ -651,7 +660,7 @@ function codeUpdateHandler( event ) {
 			}); 
 		}
 
-		function wait( time ) {
+		function cb_wait( time ) {
 			return new Promise( ( resolve ) => {
 				setTimeout( resolve, time );
 			});
@@ -2530,7 +2539,7 @@ Blockly.Blocks["utility_wait"] = {
 
 Blockly.JavaScript["utility_wait"] = function(block) {
 	var value_value = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC);
-	var code = `await wait( ${value_value} * 1000 );\n`;
+	var code = `await cb_wait( ${value_value} * 1000 );\n`;
 	return code;
 };
 
@@ -3128,4 +3137,32 @@ Blockly.Blocks['json_create_with_container'] = {
     this.setTooltip("");
     this.contextMenu = false;
   }
+};
+
+Blockly.Blocks["twitch_channel_chatters"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "twitch_channel_chatters",
+		"message0": "list of chatters currently in the channel",
+		"args0": [],
+		"output": "Array",
+		// "inputsInline": true,
+		// "previousStatement": null,
+		// "nextStatement": null,
+		"colour": 260,
+		"tooltip": "",
+		"helpUrl": ""
+		});
+		this.setColour(230);
+		this.setTooltip("");
+		this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["twitch_channel_chatters"] = function(block) {
+  var value_id = Blockly.JavaScript.valueToCode(block, "USER-ID", Blockly.JavaScript.ORDER_ATOMIC);
+
+  var code = `(( await cb_getChattersList() ))`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
 };
