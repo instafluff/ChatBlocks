@@ -1316,6 +1316,29 @@ Blockly.JavaScript["twitch_user_id"] = function(block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
+Blockly.Blocks["twitch_user_color"] = {
+    init: function() {
+  	this.jsonInit({
+  	  "type": "",
+  	  "message0": "user color",
+  	  "args0": [],
+  	  "output": "Colour",
+  	  "colour": 260,
+  	  "tooltip": "",
+  	  "helpUrl": ""
+  	});
+  	this.setColour(230);
+  	this.setTooltip("");
+  	this.setHelpUrl("https://www.instafluff.tv");
+    }
+};
+
+Blockly.JavaScript["twitch_user_color"] = function(block) {
+  var code = `(cb_extra.userColor)`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
 Blockly.Blocks["twitch_user_teams"] = {
 	init: function() {
 		this.jsonInit({
