@@ -134,7 +134,7 @@ function codeUpdateHandler( event ) {
 	theCode =
 `<html>
 	<head>
-		<script src="https://cdn.jsdelivr.net/npm/comfy.js@1.1.2/dist/comfy.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/mathjs@7.1.0/dist/math.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/luxon@1.26.0/build/global/luxon.min.js"></script>
@@ -651,13 +651,13 @@ function codeUpdateHandler( event ) {
 			window.alert( "ERROR: " + error.message );
 		}
 
-		function playSound( url, vol ) { 
-			return new Promise( ( resolve, reject ) => { 
-				let a = new Audio( url ); 
-				a.volume = vol; 
+		function playSound( url, vol ) {
+			return new Promise( ( resolve, reject ) => {
+				let a = new Audio( url );
+				a.volume = vol;
 				a.onended = function () { resolve(); }
-				a.play(); 
-			}); 
+				a.play();
+			});
 		}
 
 		function cb_wait( time ) {
