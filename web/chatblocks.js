@@ -869,7 +869,7 @@ Blockly.Blocks["twitch_whisper"] = {
 	init: function() {
 		this.jsonInit({
 		"type": "twitch_whisper",
-		"message0": "whisper to %1 message %2",
+		"message0": "whisper to %1 with message %2",
 		"args0": [
 		  {
 			"type": "input_value",
