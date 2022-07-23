@@ -802,6 +802,37 @@ Blockly.JavaScript["twitch_say"] = function(block) {
 	return code;
 };
 
+Blockly.Blocks["twitch_announce"] = {
+	init: function() {
+		this.jsonInit({
+		"type": "twitch_announce",
+		"message0": "announce %1",
+		"args0": [
+		  {
+			"type": "input_value",
+			"name": "VALUE",
+			"check": "String",
+			"align": "RIGHT"
+		  }
+		],
+		"previousStatement": null,
+		"nextStatement": null,
+		"colour": 260,
+		"tooltip": "",
+		"helpUrl": ""
+	  });
+	  this.setColour(290);
+	  this.setTooltip("");
+	  this.setHelpUrl("https://www.instafluff.tv");
+	}
+};
+
+Blockly.JavaScript["twitch_announce"] = function(block) {
+	var value_value = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC);
+	var code = `ComfyJS.Announce( ${value_value} );\n`;
+	return code;
+};
+
 Blockly.Blocks["twitch_reply"] = {
 	init: function() {
 		this.jsonInit({
