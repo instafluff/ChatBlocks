@@ -740,6 +740,9 @@ document.getElementById( "run-code" ).addEventListener( "click", ( ev ) => {
 		document.getElementById( "clear-code" ).setAttribute( "disabled", true );
 		document.getElementById( "channel-name" ).setAttribute( "disabled", true );
 
+		let consoleLogs = document.getElementById( "consoleLogs" );
+		consoleLogs.innerHTML = "";
+
 		document.getElementById( "run-code" ).innerHTML = `<i class="fa fa-stop"></i> Stop Blocks`;
 		let sandbox = document.getElementById( "run-sandbox" );
 		sandbox.innerHTML = "";
