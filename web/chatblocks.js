@@ -142,6 +142,34 @@ function codeUpdateHandler( event ) {
 	<body>
 		<script type="text/javascript">
 		try {
+			console.logCopy = console.log.bind(console);
+			console.debugCopy = console.debug.bind(console);
+			console.infoCopy = console.info.bind(console);
+			console.log = function(...args)
+			{
+				window.parent.document.dispatchEvent(new CustomEvent('consoleLogs', {
+					detail: {type: "log", data: [...args]}
+				}));
+	
+				this.logCopy(...args);
+			};
+			console.warn = function(...args)
+			{
+				window.parent.document.dispatchEvent(new CustomEvent('consoleLogs', {
+					detail: {type: "warn", data: [...args]}
+				}));
+	
+				this.debugCopy(...args);
+			};
+			console.info = function(...args)
+			{
+				window.parent.document.dispatchEvent(new CustomEvent('consoleLogs', {
+					detail: {type: "info", data: [...args]}
+				}));
+	
+				this.infoCopy(...args);
+			};
+
 			String.prototype.replaceAll=String.prototype.replaceAll?String.prototype.replaceAll:(arg1, arg2)=>{
 				return this.split(arg1).join(arg2)
 			}
